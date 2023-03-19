@@ -16,6 +16,9 @@ mysql:
 spring:
   application:
   name: "Unq-Premium"
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   main:
     allow-bean-definition-overriding: true
   datasource:
