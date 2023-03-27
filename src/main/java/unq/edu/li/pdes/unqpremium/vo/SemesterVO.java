@@ -9,8 +9,8 @@ import lombok.Data;
 @Data
 public class SemesterVO {
 
-	@JsonProperty("name")
-	private String name;
+	@JsonProperty("semesterType")
+	private String semesterType;
 	
 	@JsonProperty("fromDate")
 	private Date fromDate;

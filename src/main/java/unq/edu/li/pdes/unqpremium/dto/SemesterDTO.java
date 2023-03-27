@@ -12,12 +12,15 @@ public class SemesterDTO {
 	@JsonProperty("id")
 	private Long id;
 	
-	@JsonProperty("name")
-	private String name;
+	@JsonProperty("semesterType")
+	private String semesterType;
 	
 	@JsonProperty("fromDate")
 	private Date fromDate;
 	
 	@JsonProperty("toDate")
 	private Date toDate;
+	
+	@JsonProperty("description")
+	private String description;
 }

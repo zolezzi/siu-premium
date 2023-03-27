@@ -1,5 +1,7 @@
 package unq.edu.li.pdes.unqpremium.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import unq.edu.li.pdes.unqpremium.controller.response.BasicResponse;
 import unq.edu.li.pdes.unqpremium.dto.SemesterDTO;
+import unq.edu.li.pdes.unqpremium.dto.SemesterFilterDTO;
 import unq.edu.li.pdes.unqpremium.service.impl.SemesterServiceImpl;
 import unq.edu.li.pdes.unqpremium.vo.SemesterVO;
 
@@ -94,5 +97,23 @@ public class SemesterController {
     public BasicResponse deleteHeroById(@PathVariable("id") Long semesterId){
     	service.deleteSemesterById(semesterId);
         return new BasicResponse("Successfully deleted", Boolean.FALSE);
+    }
+    
+    @ApiOperation(
+            value = "Service that returns Semesters filter by year",
+            notes = "This service returns Semesters filter by year",
+            nickname = "searchSemestersByFilter",
+            response = SemesterDTO.class, 
+            responseContainer = "List")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "The request has succeeded.", response = SemesterDTO.class, responseContainer = "List"),
+            @ApiResponse(code = 404, message = "Not found"),
+            @ApiResponse(code = 500, message = "Internal server error.", response = SemesterDTO.class, responseContainer = "List") })
+    @PostMapping(
+            value = "/search-semesters-by-filter",
+            produces = { "application/json" }
+    )
+    public List<SemesterDTO> searchSemestersByFilter(@RequestBody SemesterFilterDTO filter){
+        return service.searchSemestersByFilter(filter);
     }
 }
