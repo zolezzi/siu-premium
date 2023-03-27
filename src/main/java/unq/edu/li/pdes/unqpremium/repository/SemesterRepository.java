@@ -14,6 +14,6 @@ public interface SemesterRepository extends JpaRepository<Semester, Long>{
 
 	@Query("select s from Semester s where (:year is null or (year(s.fromDate) =:year or year(s.toDate) =:year))")
 //			+ "and (:semesterType is null or s.semesterType=:semesterType))")
-	List<Semester> searchSemesterByFilter(@Param("year") Integer year);
+	List<Semester> searchSemestersByFilter(@Param("year") Integer year);
 
 }

@@ -94,7 +94,7 @@ public class SemesterController {
             value = "/delete-semester/{id}",
             produces = { "application/json" }
     )
-    public BasicResponse deleteHeroById(@PathVariable("id") Long semesterId){
+    public BasicResponse deleteSemesterById(@PathVariable("id") Long semesterId){
     	service.deleteSemesterById(semesterId);
         return new BasicResponse("Successfully deleted", Boolean.FALSE);
     }

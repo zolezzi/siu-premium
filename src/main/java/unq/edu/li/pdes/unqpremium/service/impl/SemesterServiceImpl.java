@@ -52,7 +52,7 @@ public class SemesterServiceImpl implements SemesterService{
 		if(filter == null) {
 			throw new SemesterNotFoundException("Semester not found");
 		}
-		return repository.searchSemesterByFilter(filter.getYear())
+		return repository.searchSemestersByFilter(filter.getYear())
 				.stream()
 				.map((semester -> mapper.map(semester, SemesterDTO.class)))
 				.collect(Collectors.toList());
