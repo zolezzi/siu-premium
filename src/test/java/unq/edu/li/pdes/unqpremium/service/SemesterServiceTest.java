@@ -26,11 +26,11 @@ import org.mockito.junit.MockitoJUnitRunner;
 import unq.edu.li.pdes.unqpremium.dto.SemesterDTO;
 import unq.edu.li.pdes.unqpremium.dto.SemesterFilterDTO;
 import unq.edu.li.pdes.unqpremium.exception.SemesterNotFoundException;
+import unq.edu.li.pdes.unqpremium.mapper.Mapper;
 import unq.edu.li.pdes.unqpremium.model.Semester;
 import unq.edu.li.pdes.unqpremium.model.SemesterType;
 import unq.edu.li.pdes.unqpremium.repository.SemesterRepository;
 import unq.edu.li.pdes.unqpremium.service.impl.SemesterServiceImpl;
-import unq.edu.li.pdes.unqpremium.utils.Mapper;
 import unq.edu.li.pdes.unqpremium.vo.SemesterVO;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -72,10 +72,10 @@ public class SemesterServiceTest {
 		when(repository.findById(ID_SEMESTER_DELETE)).thenReturn(Optional.of(semester));
 		when(repository.save(semester)).thenReturn(semester);
 		when(repository.save(semester)).thenReturn(semester);
-		when(repository.searchSemestersByFilter(DATE_YEAR_LIKE)).thenReturn(List.of(semester));
-		when(repository.searchSemestersByFilter(DATE_YEAR_LIKE_NOT_MATCH)).thenReturn(Collections.emptyList());
-		when(repository.searchSemestersByFilter(DATE_YEAR_LIKE)).thenReturn(List.of(semester));
-		when(repository.searchSemestersByFilter(DATE_YEAR_LIKE_NOT_MATCH)).thenReturn(Collections.emptyList());
+		when(repository.searchSemestersByFilter(DATE_YEAR_LIKE, null)).thenReturn(List.of(semester));
+		when(repository.searchSemestersByFilter(DATE_YEAR_LIKE_NOT_MATCH, null)).thenReturn(Collections.emptyList());
+		when(repository.searchSemestersByFilter(DATE_YEAR_LIKE, null)).thenReturn(List.of(semester));
+		when(repository.searchSemestersByFilter(DATE_YEAR_LIKE_NOT_MATCH, null)).thenReturn(Collections.emptyList());
 	}
 	@Test
 	public void testFindSemesterByIdThenReturnASemester(){
@@ -136,16 +136,16 @@ public class SemesterServiceTest {
 	public void testSearchSemesterByNameThenReturnSemestersLists(){
 		var semesterFilterDto = new SemesterFilterDTO(DATE_YEAR_LIKE, null);
 	    assertThat(service.searchSemestersByFilter(semesterFilterDto), is(List.of(semesterDto)));
-	    verify(repository).searchSemestersByFilter(DATE_YEAR_LIKE);
-	    verify(repository, times(1)).searchSemestersByFilter(DATE_YEAR_LIKE);
+	    verify(repository).searchSemestersByFilter(DATE_YEAR_LIKE, null);
+	    verify(repository, times(1)).searchSemestersByFilter(DATE_YEAR_LIKE, null);
 	}
 	
 	@Test
 	public void testSearchSemesterByFilterYearAndNotMatchedThenReturnEmptyLists(){
 		var semesterFilterDto = new SemesterFilterDTO(DATE_YEAR_LIKE_NOT_MATCH, null);
 	    assertThat(service.searchSemestersByFilter(semesterFilterDto), is(Collections.emptyList()));
-	    verify(repository).searchSemestersByFilter(DATE_YEAR_LIKE_NOT_MATCH);
-	    verify(repository, times(1)).searchSemestersByFilter(DATE_YEAR_LIKE_NOT_MATCH);
+	    verify(repository).searchSemestersByFilter(DATE_YEAR_LIKE_NOT_MATCH, null);
+	    verify(repository, times(1)).searchSemestersByFilter(DATE_YEAR_LIKE_NOT_MATCH, null);
 	}
 	
 	@Test
@@ -153,6 +153,6 @@ public class SemesterServiceTest {
 		ex.expect(SemesterNotFoundException.class);
 		ex.expectMessage("Semester not found");
 		service.searchSemestersByFilter(null);
-	    verify(repository, never()).searchSemestersByFilter(eq(any()));
+	    verify(repository, never()).searchSemestersByFilter(eq(any()), any());
 	}
 }

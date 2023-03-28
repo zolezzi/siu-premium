@@ -9,10 +9,11 @@ import lombok.RequiredArgsConstructor;
 import unq.edu.li.pdes.unqpremium.dto.SemesterDTO;
 import unq.edu.li.pdes.unqpremium.dto.SemesterFilterDTO;
 import unq.edu.li.pdes.unqpremium.exception.SemesterNotFoundException;
+import unq.edu.li.pdes.unqpremium.mapper.Mapper;
 import unq.edu.li.pdes.unqpremium.model.Semester;
+import unq.edu.li.pdes.unqpremium.model.SemesterType;
 import unq.edu.li.pdes.unqpremium.repository.SemesterRepository;
 import unq.edu.li.pdes.unqpremium.service.SemesterService;
-import unq.edu.li.pdes.unqpremium.utils.Mapper;
 import unq.edu.li.pdes.unqpremium.vo.SemesterVO;
 
 @Service
@@ -52,7 +53,8 @@ public class SemesterServiceImpl implements SemesterService{
 		if(filter == null) {
 			throw new SemesterNotFoundException("Semester not found");
 		}
-		return repository.searchSemestersByFilter(filter.getYear())
+		var semesterType = filter.getSemesterType() == null ? null : SemesterType.valueOf(filter.getSemesterType());
+		return repository.searchSemestersByFilter(filter.getYear(), semesterType)
 				.stream()
 				.map((semester -> mapper.map(semester, SemesterDTO.class)))
 				.collect(Collectors.toList());

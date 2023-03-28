@@ -1,4 +1,4 @@
-package unq.edu.li.pdes.unqpremium.utils;
+package unq.edu.li.pdes.unqpremium.mapper;
 
 import javax.annotation.PostConstruct;
 
@@ -57,5 +57,6 @@ public class RegisterMapper {
 				b.setSemesterType(SemesterType.valueOf(a.getSemesterType()));
 			}
 		}).byDefault().register();
+		
 	}
 }

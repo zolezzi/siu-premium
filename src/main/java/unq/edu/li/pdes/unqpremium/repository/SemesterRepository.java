@@ -8,12 +8,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import unq.edu.li.pdes.unqpremium.model.Semester;
+import unq.edu.li.pdes.unqpremium.model.SemesterType;
 
 @Repository
 public interface SemesterRepository extends JpaRepository<Semester, Long>{
 
-	@Query("select s from Semester s where (:year is null or (year(s.fromDate) =:year or year(s.toDate) =:year))")
-//			+ "and (:semesterType is null or s.semesterType=:semesterType))")
-	List<Semester> searchSemestersByFilter(@Param("year") Integer year);
+	@Query("select s from Semester s where (:year is null or (year(s.fromDate) =:year or year(s.toDate) =:year))"
+			+ "and (:semesterType is null or s.semesterType=:#{#semesterType})")
+	List<Semester> searchSemestersByFilter(@Param("year") Integer year, @Param("semesterType") SemesterType semesterType);
 
 }

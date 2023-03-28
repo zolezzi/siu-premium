@@ -1,4 +1,4 @@
-package unq.edu.li.pdes.unqpremium.utils;
+package unq.edu.li.pdes.unqpremium.mapper;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +12,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.metadata.TypeFactory;
+import unq.edu.li.pdes.unqpremium.utils.StreamUtils;
 
 @Component
 public class Mapper {
