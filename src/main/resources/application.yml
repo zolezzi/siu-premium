@@ -1,5 +1,7 @@
 server:
   port: 8080
+  servlet:
+   context-path: /
 
 mysql:
   service:
@@ -12,7 +14,7 @@ mysql:
     # The database to use, can be customized using the 'MYSQL_SERVICE_DATABASE'
     # env variable
     database: unq_premium
-    
+
 spring:
   application:
   name: "Unq-Premium"
@@ -23,8 +25,8 @@ spring:
     allow-bean-definition-overriding: true
     allow-circular-references: true
   datasource:
-    url:      jdbc:mariadb://${mysql.service.host}:${mysql.service.port}/${mysql.service.database}
-    jdbcUrl:      jdbc:mariadb://${mysql.service.host}:${mysql.service.port}/${mysql.service.database}
+    url: jdbc:mariadb://${mysql.service.host}:${mysql.service.port}/${mysql.service.database}
+    jdbcUrl: jdbc:mariadb://${mysql.service.host}:${mysql.service.port}/${mysql.service.database}
     username: unq
     password: unq123
     minimumIdle: 5

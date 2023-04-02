@@ -1,20 +1,21 @@
-package unq.edu.li.pdes.unqpremium.dto;
+package unq.edu.li.pdes.unqpremium.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import lombok.Data;
 
 @Data
-@JsonPropertyOrder({ "email", "password", "account"})
-public class UserDTO {
-	
+public class UserVO {
+
 	@JsonProperty("email")
 	private String email;
 	
 	@JsonProperty("password")
 	private String password;
 	
+	@JsonProperty("repeatPassword")
+	private String repeatPassword;
+	
 	@JsonProperty("account")
-	private AccountDTO account;
+	private AccountVO account;
 }

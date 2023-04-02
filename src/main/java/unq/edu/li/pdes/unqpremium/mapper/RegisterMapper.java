@@ -8,10 +8,17 @@ import org.springframework.stereotype.Component;
 import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.MappingContext;
+import unq.edu.li.pdes.unqpremium.dto.AccountDTO;
 import unq.edu.li.pdes.unqpremium.dto.SemesterDTO;
+import unq.edu.li.pdes.unqpremium.dto.UserDTO;
+import unq.edu.li.pdes.unqpremium.model.Account;
+import unq.edu.li.pdes.unqpremium.model.AccountRole;
 import unq.edu.li.pdes.unqpremium.model.Semester;
 import unq.edu.li.pdes.unqpremium.model.SemesterType;
+import unq.edu.li.pdes.unqpremium.model.User;
+import unq.edu.li.pdes.unqpremium.vo.AccountVO;
 import unq.edu.li.pdes.unqpremium.vo.SemesterVO;
+import unq.edu.li.pdes.unqpremium.vo.UserVO;
 
 @Component
 public class RegisterMapper {
@@ -55,6 +62,73 @@ public class RegisterMapper {
 				b.setFromDate(a.getFromDate());
 				b.setToDate(a.getToDate());
 				b.setSemesterType(SemesterType.valueOf(a.getSemesterType()));
+			}
+		}).byDefault().register();
+		
+		mapperFactory.classMap(AccountVO.class, Account.class).customize(new CustomMapper<AccountVO, Account>() {
+			@Override
+			public void mapBtoA(Account b, AccountVO a, MappingContext context) {
+				a.setFirstname(b.getFirstname());
+				a.setLastname(b.getLastname());
+				a.setDni(b.getDni());
+				a.setRole(b.getAccountRole().name());
+			}
+			@Override
+			public void mapAtoB(AccountVO a, Account b, MappingContext context) {
+				b.setFirstname(a.getFirstname());
+				b.setLastname(a.getLastname());
+				b.setDni(a.getDni());
+				b.setAccountRole(AccountRole.valueOf(a.getRole()));
+			}
+		}).byDefault().register();
+		
+		mapperFactory.classMap(AccountDTO.class, Account.class).customize(new CustomMapper<AccountDTO, Account>() {
+			@Override
+			public void mapBtoA(Account b, AccountDTO a, MappingContext context) {
+				a.setId(b.getId());
+				a.setFirstname(b.getFirstname());
+				a.setLastname(b.getLastname());
+				a.setDni(b.getDni());
+				a.setRole(b.getAccountRole().name());
+				a.setRoleDescripton(b.getAccountRole().getDescription());
+			}
+			@Override
+			public void mapAtoB(AccountDTO a, Account b, MappingContext context) {
+				b.setId(a.getId());
+				b.setFirstname(a.getFirstname());
+				b.setLastname(a.getLastname());
+				b.setDni(a.getDni());
+				b.setAccountRole(AccountRole.valueOf(a.getRole()));
+			}
+		}).byDefault().register();
+		
+		mapperFactory.classMap(UserVO.class, User.class).customize(new CustomMapper<UserVO, User>() {
+			@Override
+			public void mapBtoA(User b, UserVO a, MappingContext context) {
+				a.setEmail(b.getEmail());
+				a.setPassword(b.getPassword());
+				a.setAccount(mapper.map(a.getAccount(), AccountVO.class));
+			}
+			@Override
+			public void mapAtoB(UserVO a, User b, MappingContext context) {
+				b.setEmail(a.getEmail());
+				b.setPassword(a.getPassword());
+				b.setAccount(mapper.map(a.getAccount(), Account.class));
+			}
+		}).byDefault().register();
+		
+		mapperFactory.classMap(UserDTO.class, User.class).customize(new CustomMapper<UserDTO, User>() {
+			@Override
+			public void mapBtoA(User b, UserDTO a, MappingContext context) {
+				a.setEmail(b.getEmail());
+				a.setPassword(b.getPassword());
+				a.setAccount(mapper.map(a.getAccount(), AccountDTO.class));
+			}
+			@Override
+			public void mapAtoB(UserDTO a, User b, MappingContext context) {
+				b.setEmail(a.getEmail());
+				b.setPassword(a.getPassword());
+				b.setAccount(mapper.map(a.getAccount(), Account.class));
 			}
 		}).byDefault().register();
 		

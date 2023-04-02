@@ -2,7 +2,6 @@ package unq.edu.li.pdes.unqpremium.configuration;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -24,10 +23,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.StringUtils;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.fasterxml.classmate.TypeResolver;
 
@@ -51,26 +48,17 @@ public class SpringConfig {
 					typeResolver.resolve(List.class, LocalDateTime.class),
 					typeResolver.resolve(List.class, Date.class), Ordered.HIGHEST_PRECEDENCE))
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("unq.edu.li.pdes.unqpremium.controller"))
+				.apis(RequestHandlerSelectors.basePackage("unq.edu.li.pdes.unqpremium"))
 				.paths(PathSelectors.any())
 				.build();
 	}
 	
     @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:8080/"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE"));
-        configuration.setAllowCredentials(true);
-        configuration.addAllowedHeader("*");
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
-    
-    @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-    	 return (web) -> web.ignoring().antMatchers("/swagger-resources/**", "/swagger-ui/**", "/v2/api-docs/**");
+    	 return (web) -> web.ignoring().requestMatchers(
+    			 new AntPathRequestMatcher("/swagger-resources/**"),
+    			 new AntPathRequestMatcher("/swagger-ui/**"),
+    			 new AntPathRequestMatcher("/v2/api-docs/**"));
     }
     
     @Bean
