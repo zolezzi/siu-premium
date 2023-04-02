@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -39,6 +40,7 @@ public class SemesterController {
             @ApiResponse(code = 200, message = "The request has succeeded.", response = SemesterDTO.class),
             @ApiResponse(code = 404, message = "Not found"),
             @ApiResponse(code = 500, message = "Internal server error.", response = SemesterDTO.class) })
+    @ApiImplicitParam(name = "Authorization",required = true, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     @GetMapping(
             value = "/find-semester-by-id/{id}",
             produces = { "application/json" }
@@ -56,6 +58,7 @@ public class SemesterController {
             @ApiResponse(code = 200, message = "The request has succeeded.", response = SemesterDTO.class),
             @ApiResponse(code = 404, message = "Not found"),
             @ApiResponse(code = 500, message = "Internal server error.", response = SemesterDTO.class) })
+    @ApiImplicitParam(name = "Authorization",required = true, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     @PostMapping(
             value = "/save-semester",
             produces = { "application/json" }
@@ -73,6 +76,7 @@ public class SemesterController {
             @ApiResponse(code = 200, message = "The request has succeeded.", response = SemesterDTO.class),
             @ApiResponse(code = 404, message = "Not found"),
             @ApiResponse(code = 500, message = "Internal server error.", response = SemesterDTO.class) })
+    @ApiImplicitParam(name = "Authorization",required = true, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     @PutMapping(
             value = "/update-semester/{id}",
             produces = { "application/json" }
@@ -90,6 +94,7 @@ public class SemesterController {
             @ApiResponse(code = 200, message = "The request has succeeded.", response = BasicResponse.class),
             @ApiResponse(code = 404, message = "Not found"),
             @ApiResponse(code = 500, message = "Internal server error.", response = BasicResponse.class) })
+    @ApiImplicitParam(name = "Authorization",required = true, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     @DeleteMapping(
             value = "/delete-semester/{id}",
             produces = { "application/json" }
@@ -109,6 +114,7 @@ public class SemesterController {
             @ApiResponse(code = 200, message = "The request has succeeded.", response = SemesterDTO.class, responseContainer = "List"),
             @ApiResponse(code = 404, message = "Not found"),
             @ApiResponse(code = 500, message = "Internal server error.", response = SemesterDTO.class, responseContainer = "List") })
+    @ApiImplicitParam(name = "Authorization",required = true, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     @PostMapping(
             value = "/search-semesters-by-filter",
             produces = { "application/json" }
