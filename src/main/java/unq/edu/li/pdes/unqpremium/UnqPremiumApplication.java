@@ -9,5 +9,4 @@ public class UnqPremiumApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(UnqPremiumApplication.class, args);
 	}
-
 }
