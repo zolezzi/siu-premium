@@ -34,6 +34,7 @@ import unq.edu.li.pdes.unqpremium.service.impl.AccountServiceImpl;
 import unq.edu.li.pdes.unqpremium.service.impl.UserServiceImpl;
 import unq.edu.li.pdes.unqpremium.utils.TokenUtils;
 import unq.edu.li.pdes.unqpremium.vo.AccountVO;
+import unq.edu.li.pdes.unqpremium.vo.UserLoginVO;
 import unq.edu.li.pdes.unqpremium.vo.UserVO;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -124,7 +125,7 @@ public class UserServiceTest {
 	
 	@Test
 	public void testLoginUserValidThenReturnJWTResponseWithUsernameAndToken(){
-		var user = new UserDTO();
+		var user = new UserLoginVO();
 		user.setEmail(EMAIL);
 		user.setPassword(PASSWORD);
 		var jwtResponseDTO = service.login(user);
@@ -140,7 +141,7 @@ public class UserServiceTest {
 	public void testLoginUserNotFoundThenReturnThenReturnException(){
 		ex.expect(UsernameNotFoundException.class);
 		ex.expectMessage("No found user:USER2");
-		var user = new UserDTO();
+		var user = new UserLoginVO();
 		user.setEmail(USER_NOT_FOUND);
 		user.setPassword(PASSWORD);
 		service.login(user);

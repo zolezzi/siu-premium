@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import unq.edu.li.pdes.unqpremium.dto.JwtResponseDTO;
 import unq.edu.li.pdes.unqpremium.dto.UserDTO;
 import unq.edu.li.pdes.unqpremium.service.impl.UserServiceImpl;
+import unq.edu.li.pdes.unqpremium.vo.UserLoginVO;
 import unq.edu.li.pdes.unqpremium.vo.UserVO;
 
 @RestController("user")
@@ -37,7 +38,7 @@ public class UserController {
             produces = { "application/json" },
             consumes = {"application/json"}
     )
-    public JwtResponseDTO login(@RequestBody UserDTO user){
+    public JwtResponseDTO login(@RequestBody UserLoginVO user){
         return service.login(user);
     }
     
