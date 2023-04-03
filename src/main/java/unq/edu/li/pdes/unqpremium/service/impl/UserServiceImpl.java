@@ -7,6 +7,8 @@ import javax.transaction.Transactional;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ import unq.edu.li.pdes.unqpremium.service.UserService;
 import unq.edu.li.pdes.unqpremium.utils.ErrorUtils;
 import unq.edu.li.pdes.unqpremium.utils.TokenUtils;
 import unq.edu.li.pdes.unqpremium.validator.UserValidator;
+import unq.edu.li.pdes.unqpremium.vo.UserLoginVO;
 import unq.edu.li.pdes.unqpremium.vo.UserVO;
 
 @Service
@@ -31,10 +34,11 @@ public class UserServiceImpl implements UserService{
 	private final AccountServiceImpl accountService;
     private final TokenUtils tokenUtils;
     private final Mapper mapper;
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private Vector<String> errors = new Vector<>();
 
     @Override
-    public JwtResponseDTO login(UserDTO user) {
+    public JwtResponseDTO login(UserLoginVO user) {
 		authenticate(user.getEmail(), user.getPassword());
 		var userDetails = (User) repository.findOneByEmail(user.getEmail())
 				.orElseThrow(() -> new UsernameNotFoundException(String.format("No found user:%s", user.getEmail())));
@@ -53,6 +57,7 @@ public class UserServiceImpl implements UserService{
 		}
         var accountNew = accountService.createAccountByUser(userVO.getAccount());
         newUser.setAccount(accountNew);
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         return mapper.map(repository.save(newUser), UserDTO.class);
 	}
 	

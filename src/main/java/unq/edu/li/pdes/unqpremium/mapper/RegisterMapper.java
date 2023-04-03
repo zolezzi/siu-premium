@@ -9,15 +9,18 @@ import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.MappingContext;
 import unq.edu.li.pdes.unqpremium.dto.AccountDTO;
+import unq.edu.li.pdes.unqpremium.dto.DegreeDTO;
 import unq.edu.li.pdes.unqpremium.dto.SemesterDTO;
 import unq.edu.li.pdes.unqpremium.dto.UserDTO;
 import unq.edu.li.pdes.unqpremium.model.Account;
 import unq.edu.li.pdes.unqpremium.model.AccountRole;
+import unq.edu.li.pdes.unqpremium.model.Degree;
 import unq.edu.li.pdes.unqpremium.model.Semester;
 import unq.edu.li.pdes.unqpremium.model.SemesterType;
 import unq.edu.li.pdes.unqpremium.model.User;
 import unq.edu.li.pdes.unqpremium.vo.AccountVO;
 import unq.edu.li.pdes.unqpremium.vo.SemesterVO;
+import unq.edu.li.pdes.unqpremium.vo.UserLoginVO;
 import unq.edu.li.pdes.unqpremium.vo.UserVO;
 
 @Component
@@ -120,15 +123,43 @@ public class RegisterMapper {
 		mapperFactory.classMap(UserDTO.class, User.class).customize(new CustomMapper<UserDTO, User>() {
 			@Override
 			public void mapBtoA(User b, UserDTO a, MappingContext context) {
+				a.setId(b.getId());
 				a.setEmail(b.getEmail());
 				a.setPassword(b.getPassword());
 				a.setAccount(mapper.map(a.getAccount(), AccountDTO.class));
 			}
 			@Override
 			public void mapAtoB(UserDTO a, User b, MappingContext context) {
+				b.setId(a.getId());
 				b.setEmail(a.getEmail());
 				b.setPassword(a.getPassword());
 				b.setAccount(mapper.map(a.getAccount(), Account.class));
+			}
+		}).byDefault().register();
+		
+		mapperFactory.classMap(UserLoginVO.class, User.class).customize(new CustomMapper<UserLoginVO, User>() {
+			@Override
+			public void mapBtoA(User b, UserLoginVO a, MappingContext context) {
+				a.setEmail(b.getEmail());
+				a.setPassword(b.getPassword());
+			}
+			@Override
+			public void mapAtoB(UserLoginVO a, User b, MappingContext context) {
+				b.setEmail(a.getEmail());
+				b.setPassword(a.getPassword());
+			}
+		}).byDefault().register();
+		
+		mapperFactory.classMap(DegreeDTO.class, Degree.class).customize(new CustomMapper<DegreeDTO, Degree>() {
+			@Override
+			public void mapBtoA(Degree b, DegreeDTO a, MappingContext context) {
+				a.setId(b.getId());
+				a.setName(b.getName());
+			}
+			@Override
+			public void mapAtoB(DegreeDTO a, Degree b, MappingContext context) {
+				b.setId(a.getId());
+				b.setName(a.getName());
 			}
 		}).byDefault().register();
 		
