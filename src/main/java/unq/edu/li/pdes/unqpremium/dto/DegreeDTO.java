@@ -12,4 +12,7 @@ public class DegreeDTO {
 	
 	@JsonProperty("name")
 	private String name;
+	
+	@JsonProperty("isActived")
+	private Boolean isActived;
 }

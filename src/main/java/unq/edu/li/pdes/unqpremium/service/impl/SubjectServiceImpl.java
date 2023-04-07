@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import unq.edu.li.pdes.unqpremium.dto.SubjectDTO;
 import unq.edu.li.pdes.unqpremium.exception.SubjectNotFoundException;
+import unq.edu.li.pdes.unqpremium.exception.UnqPremiumException;
 import unq.edu.li.pdes.unqpremium.mapper.Mapper;
 import unq.edu.li.pdes.unqpremium.model.Subject;
+import unq.edu.li.pdes.unqpremium.repository.DegreeRepository;
 import unq.edu.li.pdes.unqpremium.repository.SubjectRepository;
 import unq.edu.li.pdes.unqpremium.service.SubjectService;
 import unq.edu.li.pdes.unqpremium.vo.SubjectVO;
@@ -16,6 +18,7 @@ import unq.edu.li.pdes.unqpremium.vo.SubjectVO;
 public class SubjectServiceImpl implements SubjectService{
 
 	private final SubjectRepository repository;
+	private final DegreeRepository degreeRepository;
 	private final Mapper mapper;
 	
 	@Override
@@ -25,8 +28,15 @@ public class SubjectServiceImpl implements SubjectService{
 	}
 
 	@Override
-	public void deleteById(Long subjectId) {
+	public void deleteById(Long degreeId, Long subjectId) throws RuntimeException {
 		var subjectDB = getSubjectById(subjectId);
+		var degreeBD = degreeRepository.findById(degreeId)
+				.orElseThrow(() -> new RuntimeException(String.format("No found degree:%s", degreeId)));
+		if(!degreeBD.getContainsBySubjectId(subjectId)) {
+			throw new UnqPremiumException(String.format("No found subject with id :%s, for degree with id:%s ", subjectId, degreeId));
+		}
+		degreeBD.getSubjects().remove(subjectDB);
+		degreeRepository.save(degreeBD);
 		repository.delete(subjectDB);
 	}
 
@@ -37,8 +47,13 @@ public class SubjectServiceImpl implements SubjectService{
 	}
 
 	@Override
-	public SubjectDTO update(SubjectDTO subject, Long subjectId) {
+	public SubjectDTO update(SubjectDTO subject, Long degreeId, Long subjectId) {
 		var subjectDB = getSubjectById(subjectId);
+		var degreeBD = degreeRepository.findById(degreeId)
+				.orElseThrow(() -> new RuntimeException(String.format("No found degree:%s", degreeId)));
+		if(!degreeBD.getContainsBySubjectId(subjectId)) {
+			throw new UnqPremiumException(String.format("No found subject with id :%s, for degree with id:%s ", subjectId, degreeId));
+		}
 		subjectDB = mapper.map(subject, Subject.class);
 		return mapper.map(repository.save(subjectDB), SubjectDTO.class);
 	}

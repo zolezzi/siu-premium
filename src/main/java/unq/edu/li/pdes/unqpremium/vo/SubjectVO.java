@@ -7,6 +7,9 @@ import lombok.Data;
 @Data
 public class SubjectVO {
 
+	@JsonProperty("degreeId")
+	private Long degreeId;
+	
 	@JsonProperty("name")
 	private String name;
 	

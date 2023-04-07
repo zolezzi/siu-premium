@@ -7,9 +7,9 @@ public interface SubjectService {
 
 	SubjectDTO findById(Long subjectId);
 	
-	void deleteById(Long id);
+	void deleteById(Long degreeId, Long id) throws Exception;
 	
 	SubjectDTO save(SubjectVO subject);
 	
-	SubjectDTO update(SubjectDTO subject, Long subjectId);
+	SubjectDTO update(SubjectDTO subject, Long degreeId, Long subjectId);
 }

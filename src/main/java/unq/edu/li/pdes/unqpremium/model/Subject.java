@@ -23,4 +23,7 @@ public class Subject {
 	
 	@Column
     private String name;
+	
+	@Column
+	private Boolean isActived = Boolean.TRUE;
 }
