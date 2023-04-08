@@ -20,7 +20,7 @@ Para la instalación del **backend** debemos tener instalado **Java** en nuestra
 - Debemos otorgar permisos y privilegios al usuario: [link](https://dev.mysql.com/blog-archive/how-to-grant-privileges-to-users-in-mysql-80/)
 - Una vez creado el **user, password** y **schema database** debemos configurar el yml del proyecto: [application.yml](https://github.com/zolezzi/unq-premium/blob/main/src/main/resources/application.yml)
 - Para finalizar debemos levantar el proyecto backend con el comando ```gradle clean package```
--  Dirigirse a [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) para ver documentación de la API Res
+-  Dirigirse a [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) para ver documentación de la API Rest
 
 Para la instalación del **frontend** debemos tener instalado **NodeJS** podes descargarlo [acá](https://nodejs.org/es/download) También es recomendable tener **Angular CLI** podes instalarlo desde [acá](https://angular.io/cli)
 
