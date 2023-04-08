@@ -5,14 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class DegreeDTO {
-
+public class SubjectDTO {
 	@JsonProperty("id")
 	private Long id;
 	
 	@JsonProperty("name")
 	private String name;
-	
-	@JsonProperty("isActived")
-	private Boolean isActived;
 }

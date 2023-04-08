@@ -11,15 +11,18 @@ import ma.glasnost.orika.MappingContext;
 import unq.edu.li.pdes.unqpremium.dto.AccountDTO;
 import unq.edu.li.pdes.unqpremium.dto.DegreeDTO;
 import unq.edu.li.pdes.unqpremium.dto.SemesterDTO;
+import unq.edu.li.pdes.unqpremium.dto.SubjectDTO;
 import unq.edu.li.pdes.unqpremium.dto.UserDTO;
 import unq.edu.li.pdes.unqpremium.model.Account;
 import unq.edu.li.pdes.unqpremium.model.AccountRole;
 import unq.edu.li.pdes.unqpremium.model.Degree;
 import unq.edu.li.pdes.unqpremium.model.Semester;
 import unq.edu.li.pdes.unqpremium.model.SemesterType;
+import unq.edu.li.pdes.unqpremium.model.Subject;
 import unq.edu.li.pdes.unqpremium.model.User;
 import unq.edu.li.pdes.unqpremium.vo.AccountVO;
 import unq.edu.li.pdes.unqpremium.vo.SemesterVO;
+import unq.edu.li.pdes.unqpremium.vo.SubjectVO;
 import unq.edu.li.pdes.unqpremium.vo.UserLoginVO;
 import unq.edu.li.pdes.unqpremium.vo.UserVO;
 
@@ -159,6 +162,30 @@ public class RegisterMapper {
 			@Override
 			public void mapAtoB(DegreeDTO a, Degree b, MappingContext context) {
 				b.setId(a.getId());
+				b.setName(a.getName());
+			}
+		}).byDefault().register();
+		
+		mapperFactory.classMap(SubjectDTO.class, Subject.class).customize(new CustomMapper<SubjectDTO, Subject>() {
+			@Override
+			public void mapBtoA(Subject b, SubjectDTO a, MappingContext context) {
+				a.setId(b.getId());
+				a.setName(b.getName());
+			}
+			@Override
+			public void mapAtoB(SubjectDTO a, Subject b, MappingContext context) {
+				b.setId(a.getId());
+				b.setName(a.getName());
+			}
+		}).byDefault().register();
+		
+		mapperFactory.classMap(SubjectVO.class, Subject.class).customize(new CustomMapper<SubjectVO, Subject>() {
+			@Override
+			public void mapBtoA(Subject b, SubjectVO a, MappingContext context) {
+				a.setName(b.getName());
+			}
+			@Override
+			public void mapAtoB(SubjectVO a, Subject b, MappingContext context) {
 				b.setName(a.getName());
 			}
 		}).byDefault().register();
