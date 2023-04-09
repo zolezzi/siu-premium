@@ -26,7 +26,6 @@ public class Committee {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	 
 	@ManyToMany
 	@JoinTable(
 			name = "committee_accounts_professor",

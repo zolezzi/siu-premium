@@ -14,77 +14,78 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+
 import lombok.RequiredArgsConstructor;
 import unq.edu.li.pdes.unqpremium.controller.response.BasicResponse;
-import unq.edu.li.pdes.unqpremium.dto.SubjectDTO;
-import unq.edu.li.pdes.unqpremium.service.impl.SubjectServiceImpl;
-import unq.edu.li.pdes.unqpremium.vo.SubjectVO;
+import unq.edu.li.pdes.unqpremium.dto.CommitteeDTO;
+import unq.edu.li.pdes.unqpremium.service.impl.CommitteeServiceImpl;
+import unq.edu.li.pdes.unqpremium.vo.CommitteeVO;
 
-@RestController("subject")
-@Api(value = "Subject Service")
-@RequestMapping("/subject")
+@RestController("committee")
+@Api(value = "Committee Service")
+@RequestMapping("/committee")
 @RequiredArgsConstructor
-public class SubjectController {
+public class CommitteeController {
 
-	private final SubjectServiceImpl service;
-
-    @ApiOperation(
-            value = "Service that return a Subject",
-            notes = "This service return a Subject by the ID",
+	private final CommitteeServiceImpl service;
+	
+	@ApiOperation(
+            value = "Service that return a Committee",
+            notes = "This service return a Committee by the ID",
             nickname = "findById",
-            response = SubjectDTO.class)
+            response = CommitteeDTO.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "The request has succeeded.", response = SubjectDTO.class),
+            @ApiResponse(code = 200, message = "The request has succeeded.", response = CommitteeDTO.class),
             @ApiResponse(code = 404, message = "Not found"),
-            @ApiResponse(code = 500, message = "Internal server error.", response = SubjectDTO.class) })
+            @ApiResponse(code = 500, message = "Internal server error.", response = CommitteeDTO.class) })
     @ApiImplicitParam(name = "Authorization",required = true, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     @GetMapping(
-            value = "/find-subject-by-id/{id}",
+            value = "/find-committee-by-id/{id}",
             produces = { "application/json" }
     )
-	public SubjectDTO findById(@PathVariable("id") Long id) {
+	public CommitteeDTO findById(@PathVariable("id") Long id) {
 		return service.findById(id);
 	}
-    
+	
     @ApiOperation(
-            value = "This service save a Subject",
-            notes = "Service that return SubjectDTO with saved object Subject",
+            value = "This service save a Committee",
+            notes = "Service that return CommitteeDTO with saved object Committee",
             nickname = "save",
-            response = SubjectDTO.class)
+            response = CommitteeDTO.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "The request has succeeded.", response = SubjectDTO.class),
+            @ApiResponse(code = 200, message = "The request has succeeded.", response = CommitteeDTO.class),
             @ApiResponse(code = 404, message = "Not found"),
-            @ApiResponse(code = 500, message = "Internal server error.", response = SubjectDTO.class) })
+            @ApiResponse(code = 500, message = "Internal server error.", response = CommitteeDTO.class) })
     @ApiImplicitParam(name = "Authorization",required = true, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     @PostMapping(
             value = "/save",
             produces = { "application/json" }
     )
-    public SubjectDTO save(@RequestBody SubjectVO subject){
-        return service.save(subject);
+    public CommitteeDTO save(@RequestBody CommitteeVO committee){
+        return service.save(committee);
     }
     
     @ApiOperation(
-            value = "This service update a Subject",
-            notes = "Update a Subject, if it doesn't find it throw an exception",
+            value = "This service update a Committee",
+            notes = "Update a Committee, if it doesn't find it throw an exception",
             nickname = "update",
-            response = SubjectDTO.class)
+            response = CommitteeDTO.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "The request has succeeded.", response = SubjectDTO.class),
+            @ApiResponse(code = 200, message = "The request has succeeded.", response = CommitteeDTO.class),
             @ApiResponse(code = 404, message = "Not found"),
-            @ApiResponse(code = 500, message = "Internal server error.", response = SubjectDTO.class) })
+            @ApiResponse(code = 500, message = "Internal server error.", response = CommitteeDTO.class) })
     @ApiImplicitParam(name = "Authorization",required = true, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     @PutMapping(
-            value = "/update/{degreeId}/{subjectId}",
+            value = "/update/{semesterDegreeSubjectId}/{committeeId}",
             produces = { "application/json" }
     )
-    public SubjectDTO update(@RequestBody SubjectDTO subject, @PathVariable("degreeId") Long degreeId,  @PathVariable("subjectId") Long subjectId){
-        return service.update(subject, degreeId, subjectId);
+    public CommitteeDTO update(@RequestBody CommitteeDTO committee, @PathVariable("semesterDegreeSubjectId") Long semesterDegreeSubjectId,  @PathVariable("committeeId") Long committeeId){
+        return service.update(committee, semesterDegreeSubjectId, committeeId);
     }
     
     @ApiOperation(
-            value = "This service delete a Subject",
-            notes = "Delete a Subject, if it doesn't find it throw an exception",
+            value = "This service delete a Committee",
+            notes = "Delete a Committee, if it doesn't find it throw an exception",
             nickname = "deleteById",
             response = BasicResponse.class)
     @ApiResponses(value = {
@@ -93,12 +94,11 @@ public class SubjectController {
             @ApiResponse(code = 500, message = "Internal server error.", response = BasicResponse.class) })
     @ApiImplicitParam(name = "Authorization",required = true, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
     @DeleteMapping(
-            value = "/delete/{degreeId}/{subjectId}",
+            value = "/delete/{semesterDegreeSubjectId}/{committeeId}",
             produces = { "application/json" }
     )
-    public BasicResponse deleteById(@PathVariable("degreeId") Long degreeId,  @PathVariable("subjectId") Long subjectId){
-    	service.deleteById(degreeId, subjectId);
+    public BasicResponse deleteById(@PathVariable("semesterDegreeSubjectId") Long semesterDegreeSubjectId,  @PathVariable("committeeId") Long committeeId){
+    	service.deleteById(semesterDegreeSubjectId, committeeId);
         return new BasicResponse("Successfully deleted", Boolean.FALSE);
     }
-    
 }
