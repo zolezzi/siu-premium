@@ -12,4 +12,5 @@ public interface SubjectService {
 	SubjectDTO save(SubjectVO subject);
 	
 	SubjectDTO update(SubjectDTO subject, Long degreeId, Long subjectId);
+	
 }

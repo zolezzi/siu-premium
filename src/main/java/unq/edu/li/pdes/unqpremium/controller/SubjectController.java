@@ -100,4 +100,5 @@ public class SubjectController {
     	service.deleteById(degreeId, subjectId);
         return new BasicResponse("Successfully deleted", Boolean.FALSE);
     }
+    
 }

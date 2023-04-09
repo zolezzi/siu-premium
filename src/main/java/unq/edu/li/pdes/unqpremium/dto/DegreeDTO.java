@@ -1,5 +1,7 @@
 package unq.edu.li.pdes.unqpremium.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
@@ -15,4 +17,7 @@ public class DegreeDTO {
 	
 	@JsonProperty("isActived")
 	private Boolean isActived;
+	
+	@JsonProperty("subjects")
+	private List<SubjectDTO> subjects;
 }
