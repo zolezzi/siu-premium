@@ -1,0 +1,40 @@
+
+<div class="container">
+    
+    <div class="login-box">
+      <h2>Login</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="user-box">
+          <input type="text" name="" required="" formControlName="email">
+          <label>Email</label>
+          
+        </div>
+        <div class="user-box">
+          <input type="password" name="" required="" formControlName="password">
+          <label>Password</label>
+        </div>
+        
+        <button type="submit" class="button"><span></span><span></span><span></span><span></span>Log In</button>
+      </form>
+    </div>
+  </div>
+   
+
+     <!-- <div class="container mt-5">
+      <h2>Login</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" formControlName="email" class="form-control">
+          
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" formControlName="password" class="form-control">
+          
+        </div>
+       
+        <button type="submit" class="btn btn-primary" >Iniciar sesión</button>
+      </form>
+    </div>
+     -->

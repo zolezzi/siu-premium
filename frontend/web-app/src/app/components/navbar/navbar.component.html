@@ -1,0 +1,34 @@
+<div class="container-fluid"></div>
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="toggleSidenav()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span routerLink="/"> UNQ PREMIUM </span>
+  <span class="spacer"></span>
+
+  <button mat-button *ngIf="!isLoggedIn" routerLink="/login">Login</button>
+  <button mat-button *ngIf="!isLoggedIn" routerLink="/register">
+    Register
+  </button>
+  <button mat-button *ngIf="isLoggedIn" routerLink="/home">LogOut</button>
+</mat-toolbar>
+
+<mat-sidenav-container style="background-color: rgba(155, 148, 148, 0.7)">
+  <mat-sidenav
+    #sidenav
+    mode="side"
+    [(opened)]="isSidenavOpened"
+    class="sidenav"
+    style="background-color: grey"
+  >
+    <mat-nav-list>
+      <a mat-list-item routerLink="/">Home</a>
+      <a mat-list-item routerLink="/about">Titulo</a>
+      <a mat-list-item routerLink="/contact">Titulo</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
