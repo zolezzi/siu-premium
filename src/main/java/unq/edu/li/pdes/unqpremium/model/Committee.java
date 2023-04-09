@@ -1,5 +1,6 @@
 package unq.edu.li.pdes.unqpremium.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -33,7 +34,7 @@ public class Committee {
 					name = "professor_id", referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(
 					name = "committee_id", referencedColumnName = "id"))
-	private List<Account> professors;
+	private List<Account> professors = new ArrayList<>();
 	
 	@ManyToMany
 	@JoinTable(
@@ -43,7 +44,7 @@ public class Committee {
 			inverseJoinColumns = @JoinColumn(
 					name = "committee_id", referencedColumnName = "id"))
 	
-	private List<Account> students;
+	private List<Account> students = new ArrayList<>();
 	
 	@Column
 	private String daysClass;

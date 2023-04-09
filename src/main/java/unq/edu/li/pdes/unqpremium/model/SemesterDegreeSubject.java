@@ -1,5 +1,6 @@
 package unq.edu.li.pdes.unqpremium.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -37,6 +38,6 @@ public class SemesterDegreeSubject {
 	private Subject subject;
 	
 	@OneToMany
-    @JoinColumn(name = "committee_id")
-	private List<Committee> committees;
+    @JoinColumn(name = "committee_id", referencedColumnName = "id")
+	private List<Committee> committees = new ArrayList<>();
 }

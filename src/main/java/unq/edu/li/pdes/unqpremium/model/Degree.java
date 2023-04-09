@@ -32,7 +32,7 @@ public class Degree {
 	private Boolean isActived = Boolean.TRUE;
 	
 	@OneToMany
-    @JoinColumn(name = "subject_id")
+    @JoinColumn(name = "subject_id", referencedColumnName = "id")
 	private List<Subject> subjects = new ArrayList<>();
 
 	public boolean getContainsBySubjectId(Long subjectId) {
