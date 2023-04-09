@@ -9,17 +9,24 @@ import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.MappingContext;
 import unq.edu.li.pdes.unqpremium.dto.AccountDTO;
+import unq.edu.li.pdes.unqpremium.dto.CommitteeDTO;
 import unq.edu.li.pdes.unqpremium.dto.DegreeDTO;
 import unq.edu.li.pdes.unqpremium.dto.SemesterDTO;
+import unq.edu.li.pdes.unqpremium.dto.SubjectDTO;
 import unq.edu.li.pdes.unqpremium.dto.UserDTO;
 import unq.edu.li.pdes.unqpremium.model.Account;
 import unq.edu.li.pdes.unqpremium.model.AccountRole;
+import unq.edu.li.pdes.unqpremium.model.Committee;
 import unq.edu.li.pdes.unqpremium.model.Degree;
 import unq.edu.li.pdes.unqpremium.model.Semester;
 import unq.edu.li.pdes.unqpremium.model.SemesterType;
+import unq.edu.li.pdes.unqpremium.model.Subject;
 import unq.edu.li.pdes.unqpremium.model.User;
+import unq.edu.li.pdes.unqpremium.repository.AccountRepository;
 import unq.edu.li.pdes.unqpremium.vo.AccountVO;
+import unq.edu.li.pdes.unqpremium.vo.CommitteeVO;
 import unq.edu.li.pdes.unqpremium.vo.SemesterVO;
+import unq.edu.li.pdes.unqpremium.vo.SubjectVO;
 import unq.edu.li.pdes.unqpremium.vo.UserLoginVO;
 import unq.edu.li.pdes.unqpremium.vo.UserVO;
 
@@ -31,6 +38,9 @@ public class RegisterMapper {
 	
 	@Autowired
 	private Mapper mapper;
+	
+	@Autowired
+	private AccountRepository accountRepository;
 	
 	@PostConstruct
 	public void initialize() {
@@ -160,6 +170,64 @@ public class RegisterMapper {
 			public void mapAtoB(DegreeDTO a, Degree b, MappingContext context) {
 				b.setId(a.getId());
 				b.setName(a.getName());
+			}
+		}).byDefault().register();
+		
+		mapperFactory.classMap(SubjectDTO.class, Subject.class).customize(new CustomMapper<SubjectDTO, Subject>() {
+			@Override
+			public void mapBtoA(Subject b, SubjectDTO a, MappingContext context) {
+				a.setId(b.getId());
+				a.setName(b.getName());
+			}
+			@Override
+			public void mapAtoB(SubjectDTO a, Subject b, MappingContext context) {
+				b.setId(a.getId());
+				b.setName(a.getName());
+			}
+		}).byDefault().register();
+		
+		mapperFactory.classMap(SubjectVO.class, Subject.class).customize(new CustomMapper<SubjectVO, Subject>() {
+			@Override
+			public void mapBtoA(Subject b, SubjectVO a, MappingContext context) {
+				a.setName(b.getName());
+			}
+			@Override
+			public void mapAtoB(SubjectVO a, Subject b, MappingContext context) {
+				b.setName(a.getName());
+			}
+		}).byDefault().register();
+		
+		mapperFactory.classMap(CommitteeDTO.class, Committee.class).customize(new CustomMapper<CommitteeDTO, Committee>() {
+			@Override
+			public void mapBtoA(Committee b, CommitteeDTO a, MappingContext context) {
+				a.setId(b.getId());
+				a.setDaysClass(b.getDaysClass());
+				a.setProfessors(mapper.mapList(b.getProfessors(), AccountDTO.class));
+				a.setStudents(mapper.mapList(b.getStudents(), AccountDTO.class));
+			}
+			@Override
+			public void mapAtoB(CommitteeDTO a, Committee b, MappingContext context) {
+				b.setId(a.getId());
+				b.setDaysClass(a.getDaysClass());
+				b.setProfessors(mapper.mapList(a.getProfessors(), Account.class));
+				b.setStudents(mapper.mapList(a.getStudents(), Account.class));
+			}
+		}).byDefault().register();
+		
+		mapperFactory.classMap(CommitteeVO.class, Committee.class).customize(new CustomMapper<CommitteeVO, Committee>() {
+			@Override
+			public void mapBtoA(Committee b, CommitteeVO a, MappingContext context) {
+				a.setDaysClass(b.getDaysClass());
+			}
+			@Override
+			public void mapAtoB(CommitteeVO a, Committee b, MappingContext context) {
+				b.setDaysClass(a.getDaysClass());
+				if(a.getProfessorsIds() != null && !a.getProfessorsIds().isEmpty()) {
+					b.setProfessors(accountRepository.findAllById(a.getProfessorsIds()));
+				}
+				if(a.getProfessorsIds() != null && !a.getProfessorsIds().isEmpty()) {
+					b.setStudents(accountRepository.findAllById(a.getStudentsIds()));
+				}
 			}
 		}).byDefault().register();
 		

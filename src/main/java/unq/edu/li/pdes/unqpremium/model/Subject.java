@@ -1,16 +1,11 @@
 package unq.edu.li.pdes.unqpremium.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +13,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-public class Degree {
+@Table(name = "subject")
+public class Subject {
 
 	@Id
 	@Column(name = "id", unique = true)
@@ -30,15 +26,4 @@ public class Degree {
 	
 	@Column
 	private Boolean isActived = Boolean.TRUE;
-	
-	@OneToMany
-    @JoinColumn(name = "subject_id", referencedColumnName = "id")
-	private List<Subject> subjects = new ArrayList<>();
-
-	public boolean getContainsBySubjectId(Long subjectId) {
-		return subjects.stream()
-				.map(subject -> subject.getId())
-				.collect(Collectors.toList())
-				.contains(subjectId);
-	}
 }
