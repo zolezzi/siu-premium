@@ -3,6 +3,8 @@ package unq.edu.li.pdes.unqpremium.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,6 +15,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import unq.edu.li.pdes.unqpremium.dto.DegreeDTO;
+import unq.edu.li.pdes.unqpremium.dto.DegreeFilterDTO;
 import unq.edu.li.pdes.unqpremium.service.impl.DegreeServiceImpl;
 
 @RestController("degree")
@@ -40,6 +43,25 @@ public class DegreeController {
     )
     public List<DegreeDTO> findAll(){
         return service.findAll();
+    }
+    
+    @ApiOperation(
+            value = "Service that returns all degree with subjects by degree id",
+            notes = "This service returns all degree with subjects load by degree id",
+            nickname = "findAllDegreeByFilter",
+            response = DegreeDTO.class, 
+            responseContainer = "List")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "The request has succeeded.", response = DegreeDTO.class, responseContainer = "List"),
+            @ApiResponse(code = 404, message = "Not found"),
+            @ApiResponse(code = 500, message = "Internal server error.", response = DegreeDTO.class, responseContainer = "List") })
+    @ApiImplicitParam(name = "Authorization",required = true, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    @PostMapping(
+            value = "/find-all-degree-by-filter",
+            produces = { "application/json" }
+    )
+    public List<DegreeDTO> findAllDegreeByFilter(@RequestBody DegreeFilterDTO filter){
+        return service.findAllDegreeByFilter(filter);
     }
 
 }

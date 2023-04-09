@@ -96,7 +96,7 @@ public class SubjectServiceTest {
 	}
 	
 	@Test
-	public void testFindSubjectByIdThenReturnASemester(){
+	public void testFindSubjectByIdThenReturnASubject(){
 		SubjectDTO subjectResponse = service.findById(ID);
 	    assertThat(subjectResponse, is(subjectDto));
 	    verify(repository).findById(eq(ID));
