@@ -19,7 +19,9 @@ Para la instalación del **backend** debemos tener instalado **Java** en nuestra
 - Luego debemos crear una base de datos ejemplo: [link](https://dev.mysql.com/doc/refman/8.0/en/creating-database.html)
 - Debemos otorgar permisos y privilegios al usuario: [link](https://dev.mysql.com/blog-archive/how-to-grant-privileges-to-users-in-mysql-80/)
 - Una vez creado el **user, password** y **schema database** debemos configurar el yml del proyecto: [application.yml](https://github.com/zolezzi/unq-premium/blob/main/src/main/resources/application.yml)
-- Para finalizar debemos levantar el proyecto backend con el comando ```gradle clean package```
+- Debemos instalar las dependencias  ```gradle clean install```
+- Hacemos el **build** del proyecto backend con el comando ```gradle clean build```
+- Para finalizar debemos levantar el proyecto backend con el comando ```gradle run```
 -  Dirigirse a [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) para ver documentación de la API Rest
 
 Para la instalación del **frontend** debemos tener instalado **NodeJS** podes descargarlo [acá](https://nodejs.org/es/download) También es recomendable tener **Angular CLI** podes instalarlo desde [acá](https://angular.io/cli)
