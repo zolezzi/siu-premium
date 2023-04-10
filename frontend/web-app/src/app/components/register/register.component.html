@@ -52,17 +52,30 @@
       <div class="row">
         <div class="col">
           <div class="user-box">
-            <input type="text" name="" required="" formControlName="rol" />
-            <label>Rol</label>
+            <select>
+              <option>ADMIN</option>
+              <option>STUDENT</option>
+              <option>TEACHER</option>
+            </select>
+            <label>Select Option</label>
           </div>
         </div>
         <div class="col">
           <div class="user-box"></div>
+
+         
         </div>
       </div>
+      <div class="row">
+        <div class="col-5"></div>
+        <div class="col-7">you have an account?<button type="button" class="btn btn-link" routerLink="/login">Login</button></div>
+      </div>
+      
       <button type="submit" class="button">
         <span></span><span></span><span></span><span></span>Register
       </button>
+      
     </form>
+   
   </div>
 </div>
