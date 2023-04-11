@@ -14,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -73,7 +74,7 @@ public class WebSecurityConfig {
     
     @Bean
     public PasswordEncoder passwordEncoder() {
-    	return new BCryptPasswordEncoder();
+    	return NoOpPasswordEncoder.getInstance();
     }
 
     @Bean
@@ -89,4 +90,12 @@ public class WebSecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+    
+    public static void main(String[] args) {
+    	PasswordEncoder encoder = new BCryptPasswordEncoder();
+    	String pass = encoder.encode("HolaMundo45!");
+    	System.out.println("$2a$10$coBn2oO/NdWEWpWvM5Q.RO9woE2Zb1pGzc9HJevSkiSfbFHubvWra");
+    	System.out.println("$2a$10$pM/BHhuX9uUnGwBmePU.seHTWaXTFRFrlHvJwbDVAxZKLZlFDoB5K");
+    	System.out.println(pass);
+	}
 }
