@@ -19,6 +19,7 @@ import unq.edu.li.pdes.unqpremium.mapper.Mapper;
 import unq.edu.li.pdes.unqpremium.model.User;
 import unq.edu.li.pdes.unqpremium.repository.UserRepository;
 import unq.edu.li.pdes.unqpremium.service.UserService;
+import unq.edu.li.pdes.unqpremium.utils.EncodeAndDecodeCrypt;
 import unq.edu.li.pdes.unqpremium.utils.ErrorUtils;
 import unq.edu.li.pdes.unqpremium.utils.TokenUtils;
 import unq.edu.li.pdes.unqpremium.validator.UserValidator;
@@ -34,15 +35,23 @@ public class UserServiceImpl implements UserService{
 	private final AccountServiceImpl accountService;
     private final TokenUtils tokenUtils;
     private final Mapper mapper;
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private EncodeAndDecodeCrypt passwordEncoder = new EncodeAndDecodeCrypt();
     private Vector<String> errors = new Vector<>();
 
     @Override
     public JwtResponseDTO login(UserLoginVO user) {
-		authenticate(user.getEmail(), user.getPassword());
-		var userDetails = (User) repository.findOneByEmail(user.getEmail())
+    	String passEncrypt = user.getPassword();
+    	user.setPassword(passwordEncoder.encode(passEncrypt));
+    	var userDetails = (User) repository.findOneByEmail(user.getEmail())
 				.orElseThrow(() -> new UsernameNotFoundException(String.format("No found user:%s", user.getEmail())));
-        var token = tokenUtils.createToken(userDetails.getUsername());
+    	var token = tokenUtils.createToken(userDetails.getUsername());
+    	authenticate(user.getEmail(), user.getPassword());
+//        String token = jwtTokenUtil.generateToken(userDetails);
+//		authenticate(user.getEmail(), passwordEncoder.encode(user.getPassword()));
+//		var userDetails = (User) repository.findOneByEmail(user.getEmail())
+//				.orElseThrow(() -> new UsernameNotFoundException(String.format("No found user:%s", user.getEmail())));
+//        var token = tokenUtils.createToken(userDetails.getUsername());
 		return new JwtResponseDTO(userDetails.getUsername(), token);
 	}
 	
