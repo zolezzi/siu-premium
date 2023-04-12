@@ -298,35 +298,3 @@
     }
   }
   
-  /* .user-box select {
-    width: 100%;
-    padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid #999;
-    outline: none;
-    background-color: transparent;
-    transition: border-bottom-color 0.2s ease-in-out;
-  }
-  
-  .user-box input:focus,
-  .user-box select:focus {
-    border-bottom-color: #0082ca;
-  }
-  
-  .user-box label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .user-box input:focus + label,
-  .user-box select:focus + label,
-  .user-box input:not(:placeholder-shown) + label,
-  .user-box select:not(:placeholder-shown) + label {
-    font-size: 12px;
-    top: -20px;
-   
-  } */
-  

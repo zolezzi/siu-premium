@@ -18,6 +18,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   declarations: [],
@@ -41,7 +42,8 @@ import {MatListModule} from '@angular/material/list';
     MatSortModule,
     MatMenuModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatStepperModule
   ],
   exports: [
     MatMenuModule,
@@ -62,7 +64,8 @@ import {MatListModule} from '@angular/material/list';
     HttpClientModule,
     MatSortModule,
     MatSidenavModule,
-    MatListModule   
+    MatListModule  ,
+    MatStepperModule 
   ],
 })
 export class AngularMaterialModule {}

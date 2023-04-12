@@ -1,0 +1,82 @@
+<div class="card">
+    <h2>Crear Cuatrimestre</h2>
+    <div class="buttons">
+      <!-- <button>Fecha inicio</button>
+      <button>Fecha cierre</button>
+      <button>Tipo cuatrimestre</button> -->
+    </div>
+    <div class="step">
+      
+        <mat-stepper #stepper>
+            <mat-step [stepControl]="firstFormGroup">
+              <div class="step2">
+              <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel>1</ng-template>
+                <mat-form-field color="accent" appearance="fill">
+                  <mat-label>Inherited calendar color</mat-label>
+                  <input matInput [matDatepicker]="picker1">
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+                
+                <mat-form-field color="accent" appearance="fill">
+                  <mat-label>Custom calendar color</mat-label>
+                  <input matInput [matDatepicker]="picker2">
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                </mat-form-field>
+                
+                  <mat-form-field appearance="fill">
+                    <mat-label>Tipo cuatrimestre</mat-label>
+                    <mat-select [(ngModel)]="selectedValue" name="s">
+                      <mat-option *ngFor="let s of semesters" [value]="s.value">
+                        {{s.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+               
+                
+                </form>
+              </div>
+              <div>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup">
+              <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>2</ng-template>
+                <mat-form-field appearance="fill">
+                    <mat-label>Fecha cierre</mat-label>
+                    <input matInput [matDatepicker]="picker"
+                           (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                  
+                  <div class="example-events">
+                    <div *ngFor="let e of events">{{e| date: 'dd/MM/yyyy'}}</div>
+                  </div>
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>3</ng-template>
+              <p> Tipo cuatrimestre</p>
+            
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+              </div>
+            </mat-step>
+          </mat-stepper>
+          
+    </div>
+  </div>
+ 
+  <!--    -->

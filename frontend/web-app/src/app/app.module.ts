@@ -10,6 +10,9 @@ import { AngularMaterialModule } from './shrared/angular-material.module';
 import { FormsModule } from '@angular/forms';
 import { SemesterComponent } from './components/semester/semester.component';
 import { RegisterComponent } from './components/register/register.component';
+import { SemesterControllerService, UserControllerService } from './api';
+import { NgxWebstorageModule } from 'ngx-webstorage';
+import { AddSemesterComponent } from './components/add-semester/add-semester.component';
 
 
 @NgModule({
@@ -20,16 +23,18 @@ import { RegisterComponent } from './components/register/register.component';
     NavbarComponent,
     RegisterComponent,
     SemesterComponent,
+    AddSemesterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularMaterialModule, 
-    FormsModule
+    FormsModule,
+    NgxWebstorageModule.forRoot()
     
   ],
-  providers: [],
+  providers: [UserControllerService, SemesterControllerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

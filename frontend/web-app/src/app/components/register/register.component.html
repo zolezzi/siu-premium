@@ -1,18 +1,18 @@
 <div class="container">
   <div class="register-box">
-    <h2>Register</h2>
+    <h2>Registrar</h2>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col">
           <div class="user-box">
-            <input type="text" name="" required="" formControlName="firtName" />
-            <label>Firt Name</label>
+            <input type="text" name="" required="" formControlName="firstname" />
+            <label>Nombre</label>
           </div>
         </div>
         <div class="col">
           <div class="user-box">
-            <input type="text" name="" required="" formControlName="lastNme" />
-            <label>Last Name</label>
+            <input type="text" name="" required="" formControlName="lastname" />
+            <label>Apellido</label>
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@
         <div class="col">
           <div class="user-box">
             <input type="text" name="" required="" formControlName="password" />
-            <label>Password</label>
+            <label>Contraseña</label>
           </div>
         </div>
         <div class="col">
@@ -45,19 +45,18 @@
               required=""
               formControlName="repeatPassword"
             />
-            <label>Repeat Password</label>
+            <label>Repetir contraseña</label>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col">
           <div class="user-box">
-            <select>
-              <option>ADMIN</option>
-              <option>STUDENT</option>
-              <option>TEACHER</option>
+            <select type="text" name="" required="" formControlName="role">
+              <option>Estudiante</option>
+              <option>Profesor</option>
             </select>
-            <label>Select Option</label>
+            <label>Seleccionar</label>
           </div>
         </div>
         <div class="col">
@@ -68,7 +67,7 @@
       </div>
       <div class="row">
         <div class="col-5"></div>
-        <div class="col-7">you have an account?<button type="button" class="btn btn-link" routerLink="/login">Login</button></div>
+        <div class="col-7">Ya tienes una cuenta?<button type="button" class="btn btn-link" routerLink="/login">Ingresar</button></div>
       </div>
       
       <button type="submit" class="button">
