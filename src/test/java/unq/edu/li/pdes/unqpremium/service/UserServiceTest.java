@@ -27,6 +27,7 @@ import unq.edu.li.pdes.unqpremium.dto.UserDTO;
 import unq.edu.li.pdes.unqpremium.exception.UserCreateException;
 import unq.edu.li.pdes.unqpremium.mapper.Mapper;
 import unq.edu.li.pdes.unqpremium.model.Account;
+import unq.edu.li.pdes.unqpremium.model.AccountRole;
 import unq.edu.li.pdes.unqpremium.model.User;
 import unq.edu.li.pdes.unqpremium.repository.AccountRepository;
 import unq.edu.li.pdes.unqpremium.repository.UserRepository;
@@ -50,6 +51,7 @@ public class UserServiceTest {
 	private static final String ACCOUNT_ROLE = "ADMIN";
 	private static final String ACCOUNT_ROLE_DESCRIPTION = "ADMIN";
 	private static final String EMAIL_CREATE = "admin2@gmail.com";
+	private static final AccountRole ROLE_ADMIN = AccountRole.ADMIN;
 	private static final Long ACCOUNT_ID = 1l;
 	
 	@Mock
@@ -104,6 +106,10 @@ public class UserServiceTest {
 		when(mapper.map(any(), eq(User.class))).thenReturn(user);
 		when(user.getEmail()).thenReturn(EMAIL_CREATE);
 		when(user.getPassword()).thenReturn(PASSWORD);
+		when(user.getAccount()).thenReturn(account);
+		when(account.getFirstname()).thenReturn(FIRST_NAME);
+		when(account.getLastname()).thenReturn(LAST_NAME);
+		when(account.getAccountRole()).thenReturn(ROLE_ADMIN);
 		when(repository.findOneByEmail(EMAIL_CREATE)).thenReturn(Optional.empty());
 		when(accountService.createAccountByUser(any())).thenReturn(account);
 		when(mapper.map(any(), eq(UserDTO.class))).thenReturn(userDto);
@@ -131,6 +137,9 @@ public class UserServiceTest {
 		var jwtResponseDTO = service.login(user);
 	    assertThat(jwtResponseDTO.getEmail(), is(EMAIL));
 	    assertThat(jwtResponseDTO.getToken(), is(TOKEN_VALUE));
+	    assertThat(jwtResponseDTO.getFirstname(), is(FIRST_NAME));
+	    assertThat(jwtResponseDTO.getLastname(), is(LAST_NAME));
+	    assertThat(jwtResponseDTO.getRole(), is(ACCOUNT_ROLE));
 		assertNotNull(jwtResponseDTO.toString());
 		assertNotNull(jwtResponseDTO.hashCode());
 	    verify(repository).findOneByEmail(eq(EMAIL));
