@@ -14,10 +14,8 @@ export class NavbarComponent implements OnInit {
   private readonly ACCESS_TOKEN: string = 'ACCESS_TOKEN';
   private readonly FULL_NAME:string = "FULL_NAME";
 
-  constructor(
-    private router: Router,
-    private localStorageService: LocalStorageService
-  ) {}
+  constructor( private router: Router, private localStorageService: LocalStorageService) {}
+ 
   ngOnInit(): void {
     const token = this.localStorageService.retrieve(this.ACCESS_TOKEN);
     this.isLoggedIn = !!token;

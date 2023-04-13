@@ -20,6 +20,8 @@ export class SemesterComponent implements OnInit {
   role! : string;
   isAdmin:boolean = false;
   selectedType!:string;
+  isReload:boolean = true;
+  
   private readonly ACCESS_TOKEN:string = "ACCESS_TOKEN";
   private readonly ROLE:string = "ROLE";
 
@@ -31,6 +33,11 @@ export class SemesterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    var isValid = this.localStorageService.retrieve('RELOAD');
+    if(isValid == 'reload'){
+      this.localStorageService.store('RELOAD', 'login');
+      window.location.reload();
+    }
     this.selectedYear = new FormControl('2023', [Validators.required]);
     this.filter.semesterType=this.selectedType;
     this.filter.year = this.selectedYear.value;
@@ -38,7 +45,6 @@ export class SemesterComponent implements OnInit {
     this.isAdmin = "ADMIN" == this.role;
     this.semesterForm = 
       this.formBuilder.group({
-       
         year: [null, Validators.required],
       });
     this.search(this.filter);
@@ -60,6 +66,6 @@ export class SemesterComponent implements OnInit {
     this.semesterControllerService.searchSemestersByFilter(this.localStorageService.retrieve(this.ACCESS_TOKEN), filter)
     .subscribe((data) => {
         this.listSemester = data;
-      });
+    });
   }
 }

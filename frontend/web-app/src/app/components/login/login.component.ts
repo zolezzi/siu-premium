@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
   }
 
   private goToWelcome() {
+    this.localStorageService.store('RELOAD', 'reload');
     this.router.navigate(['/semester']);
   }
 }
