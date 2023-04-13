@@ -1,16 +1,17 @@
-<div class="container-fluid"></div>
+<div class="container"></div>
 <mat-toolbar color="primary">
   <button mat-icon-button (click)="toggleSidenav()">
     <mat-icon>menu</mat-icon>
   </button>
-  <span routerLink="/"> UNQ PREMIUM </span>
+  <span routerLink="/home"> UNQ PREMIUM </span>
   <span class="spacer"></span>
 
   <button mat-button *ngIf="!isLoggedIn" routerLink="/login">Login</button>
   <button mat-button *ngIf="!isLoggedIn" routerLink="/register">
     Register
   </button>
-  <button mat-button *ngIf="isLoggedIn" routerLink="/home">LogOut</button>
+  <span>{{fullName}}</span>
+  <button mat-button *ngIf="isLoggedIn" (click)="logout()">LogOut</button>
 </mat-toolbar>
 
 <mat-sidenav-container style="background-color: rgba(155, 148, 148, 0.7)">

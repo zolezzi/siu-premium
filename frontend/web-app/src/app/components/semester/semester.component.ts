@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
 import { SemesterFilterDTO } from 'src/app/api';
 import { SemesterVO } from 'src/app/api/model/semesterVO';
 import { SemesterControllerService } from 'src/app/api/service/semesterController.service';
+
 
 @Component({
   selector: 'app-semester',
@@ -14,8 +15,13 @@ import { SemesterControllerService } from 'src/app/api/service/semesterControlle
 export class SemesterComponent implements OnInit {
   filter: SemesterFilterDTO = {};
   semesterForm!: FormGroup;
+  selectedYear:any;
   listSemester: any[] = [];
+  role! : string;
+  isAdmin:boolean = false;
+  selectedType!:string;
   private readonly ACCESS_TOKEN:string = "ACCESS_TOKEN";
+  private readonly ROLE:string = "ROLE";
 
   constructor(
     private semesterControllerService: SemesterControllerService,
@@ -23,18 +29,22 @@ export class SemesterComponent implements OnInit {
     private router: Router,
     private localStorageService: LocalStorageService
   ) {}
+
   ngOnInit(): void {
-    this.filter.year = 2023;
-    
+    this.selectedYear = new FormControl('2023', [Validators.required]);
+    this.filter.semesterType=this.selectedType;
+    this.filter.year = this.selectedYear.value;
+    this.role= this.localStorageService.retrieve(this.ROLE);
+    this.isAdmin = "ADMIN" == this.role;
     this.semesterForm = 
       this.formBuilder.group({
        
         year: [null, Validators.required],
       });
     this.search(this.filter);
-    console.log('holis')
   }
   
+ 
   onSubmit(value: any) {
     const semesterRequest: SemesterVO = {
       degreeIds: value.degreeIds,

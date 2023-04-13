@@ -13,6 +13,8 @@ import { UserControllerService } from 'src/app/api/service/userController.servic
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   submitted:boolean = false;
+  private readonly FULL_NAME:string = "FULL_NAME";
+  private readonly ROLE:string = "ROLE";
   private readonly ACCESS_TOKEN:string = "ACCESS_TOKEN";
 
   constructor(private userservice: UserControllerService,  private router: Router, 
@@ -37,6 +39,8 @@ export class LoginComponent implements OnInit {
     this.userservice.login(authRequest).subscribe({
       next:result =>  { 
         this.localStorageService.store(this.ACCESS_TOKEN, result.token);
+        this.localStorageService.store(this.FULL_NAME,String(result.firstname + ' ' + result.lastname));
+        this.localStorageService.store(this.ROLE, result.role);
         this.goToWelcome();
       },
       error:error => console.error('Error iniciando sesión. Reintente nuevamente.')

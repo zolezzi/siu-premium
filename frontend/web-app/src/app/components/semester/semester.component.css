@@ -1,20 +1,98 @@
-.container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 60px;
-  font-family: "Roboto", sans-serif;
-}
-.add{
+.add {
   display: flex;
   width: 95%;
   justify-content: flex-end;
- margin-top: 16px;
+  margin-top: 16px;
+}
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px;
+  margin-left: 20px ;
+  box-shadow: 0px 0px 10px #d3d3d3;
+}
+
+.search-container .mat-form-field {
+  margin-right: 20px;
+}
+
+.search-container .button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-button {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .search-container {
+    flex-wrap: wrap;
+  }
+
+  .search-container .mat-form-field {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .search-container .button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .search-button {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .search-button button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
  
 }
+.search{
+  display: flex;
+  width: 100%;
+}
+.mat-mdc-form-field{
+  height: 64px;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.col-sm-6 {
+  flex-basis: 50%;
+}
+
 .card {
-  width: 44rem;
+  flex-basis: 50%;
+  width: 26rem;
   height: 18rem;
   border-radius: 10px;
   overflow: hidden;
@@ -24,8 +102,9 @@
   box-shadow: 30px 25px 15px rgb(56, 52, 52);
   margin-right: 50px;
   margin-top: 80px;
- 
+  
 }
+
 .card img {
   position: absolute;
   object-fit: cover;
@@ -36,6 +115,10 @@
   opacity: 0.9;
   transition: opacity 0.2s ease-out;
 }
+
+.card-content {
+  padding: 10px;
+}
 .card h2 {
   position: absolute;
   inset: 10px auto 30px 30px;
@@ -43,6 +126,7 @@
   transition: inset 0.3s 0.3s ease-out;
   font-family: "Roboto Condensed", sans-serif;
   font-weight: normal;
+  font-size: 30px;
   text-transform: uppercase;
 }
 .card p,
@@ -76,41 +160,6 @@
   opacity: 1;
 }
 
-.material-symbols-outlined {
-  vertical-align: middle;
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 8vw 4vw;
-  }
-  .card {
-    width: 100%;
-    margin-right: 0;
-  }
-  .card:nth-of-type(odd) {
-    margin-right: 2vw;
-  }
-  .card:last-of-type {
-    margin-bottom: 0;
-  }
-  .card h2 {
-    font-size: 24px;
-    inset: 4vw auto 4vw 4vw;
-  }
-  .card p {
-    font-size: 16px;
-    inset: auto 4vw 4vw 4vw;
-  }
-  .card a {
-
-    inset: auto auto 2vw 2vw;
-  }
-  .card:hover h2 {
-    font-size: 16px;
-    inset: 8vw auto 16vw 4;
-  }
-}
 .btn {
   text-decoration: none;
   border: 1px solid rgb(146, 148, 248);
@@ -141,37 +190,3 @@
 .btn:hover:before {
   left: 100%;
 }
-
-@media (max-width: 576px) {
-  .container {
-    padding: 8vw 4vw;
-  }
-  .card {
-    width: 100%;
-    margin-right: 0;
-  }
-  .card:nth-of-type(odd) {
-    margin-right: 2vw;
-  }
-  .card:last-of-type {
-    margin-bottom: 0;
-  }
-  .card h2 {
-    font-size: 24px;
-    inset: 4vw auto 4vw 4vw;
-  }
-  .card p {
-    font-size: 16px;
-    inset: auto 4vw 4vw 4vw;
-  }
-  .card a {
-
-    inset: auto auto 2vw 2vw;
-  }
-  .card:hover h2 {
-    font-size: 16px;
-    inset: 8vw auto 16vw 4;
-  }
-}
-
-
