@@ -8,12 +8,17 @@ mat-toolbar {
   height: 40px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  
+}
+.buttons-login {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 .mat-toolbar.mat-primary {
-    background: #05000c;
-    color: #fff;
+  background: #05000c;
+  color: #fff;
 }
 mat-sidenav {
   width: 250px;
@@ -28,6 +33,7 @@ mat-nav-list {
   display: flex;
   flex-direction: column;
   margin-top: 24px;
+  width: 100px;
 }
 
 mat-list-item {

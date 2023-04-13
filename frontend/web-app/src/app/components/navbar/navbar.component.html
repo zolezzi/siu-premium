@@ -5,13 +5,15 @@
   </button>
   <span routerLink="/home"> UNQ PREMIUM </span>
   <span class="spacer"></span>
-
+<div class="buttons-login">
   <button mat-button *ngIf="!isLoggedIn" routerLink="/login">Login</button>
   <button mat-button *ngIf="!isLoggedIn" routerLink="/register">
     Register
   </button>
-  <span>{{fullName}}</span>
-  <button mat-button *ngIf="isLoggedIn" (click)="logout()">LogOut</button>
+  <span *ngIf="isLoggedIn" style="margin-right: 20px;"><i class="fa-solid fa-user"style="margin-right: 10px;"></i>{{fullName}}</span>
+  <button mat-button *ngIf="isLoggedIn" (click)="logout()">Salir</button>
+</div>
+ 
 </mat-toolbar>
 
 <mat-sidenav-container style="background-color: rgba(155, 148, 148, 0.7)">
@@ -24,8 +26,7 @@
   >
     <mat-nav-list>
       <a mat-list-item routerLink="/">Home</a>
-      <a mat-list-item routerLink="/about">Titulo</a>
-      <a mat-list-item routerLink="/contact">Titulo</a>
+      <a mat-list-item *ngIf="isLoggedIn" (click)="logout()">Salir</a>
     </mat-nav-list>
   </mat-sidenav>
 
