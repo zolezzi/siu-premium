@@ -1,16 +1,7 @@
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: "Montserrat", sans-serif;
-}
-
 .container {
   display: flex;
-  height: 100vh;
+  flex-direction: row;
+  height: 82vh;
 }
 
 .section {
@@ -38,11 +29,13 @@ body {
 .section .content {
   z-index: 2;
 }
+
 h1,
 p,
 li {
   color: rgb(226, 211, 211);
 }
+
 .section:hover {
   flex: 2;
 }
@@ -61,4 +54,22 @@ li {
 
 #image3 {
   background-image: url(https://cdn.pixabay.com/photo/2016/03/26/22/21/books-1281581_1280.jpg);
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column-reverse;
+  }
+  .section {
+    height: 50%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  h1 {
+    font-size: 24px;
+  }
+  .section .content {
+    padding: 20px;
+  }
 }

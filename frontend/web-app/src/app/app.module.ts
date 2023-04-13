@@ -10,8 +10,9 @@ import { AngularMaterialModule } from './shrared/angular-material.module';
 import { FormsModule } from '@angular/forms';
 import { SemesterComponent } from './components/semester/semester.component';
 import { RegisterComponent } from './components/register/register.component';
-import { UserControllerService } from './api';
+import { SemesterControllerService, UserControllerService } from './api';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { AddSemesterComponent } from './components/add-semester/add-semester.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
     NavbarComponent,
     RegisterComponent,
     SemesterComponent,
+    AddSemesterComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,7 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
     NgxWebstorageModule.forRoot()
     
   ],
-  providers: [UserControllerService],
+  providers: [UserControllerService, SemesterControllerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

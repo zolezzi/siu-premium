@@ -13,12 +13,17 @@ interface Roles {
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent implements OnInit{
+export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
-  submitted:boolean = false;
+  submitted: boolean = false;
+  private mapRoles = new Map<string, string>();
 
-  constructor(private userservice: UserControllerService,  private router: Router, 
-    private localStorageService: LocalStorageService, private formBuilder: FormBuilder) {}
+  constructor(
+    private userservice: UserControllerService,
+    private router: Router,
+    private localStorageService: LocalStorageService,
+    private formBuilder: FormBuilder,
+  ) {}
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
@@ -29,10 +34,11 @@ export class RegisterComponent implements OnInit{
       dni: ['', Validators.required],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
-      degreeId: [[]]
+      degreeId: [[]],
     });
+    this.mapRoles.set('Estudiante', 'STUDENT');
+    this.mapRoles.set('Profesor', 'PROFESSOR');
   }
-
 
   onSubmit() {
     this.submitted = true;
@@ -44,20 +50,20 @@ export class RegisterComponent implements OnInit{
       password: this.registerForm.controls['password'].value,
       repeatPassword: this.registerForm.controls['repeatPassword'].value,
       account: {
-        role: this.registerForm.controls['role'].value,
+        role: this.mapRoles.get(this.registerForm.controls['role'].value),
         dni: this.registerForm.controls['dni'].value,
         firstname: this.registerForm.controls['firstname'].value,
         lastname: this.registerForm.controls['lastname'].value,
-        degreeId: this.registerForm.controls['degreeId'].value
-      }
+        degreeId: this.registerForm.controls['degreeId'].value,
+      },
     };
     this.userservice.create(user).subscribe({
-      next:result =>  { 
+      next: (result) => {
         this.goToLogin();
       },
-      error:error => console.error('Error creando la cuenta. Reintente nuevamente.')
+      error: (error) =>
+        console.error('Error creando la cuenta. Reintente nuevamente.'),
     });
-
   }
   private goToLogin() {
     this.router.navigate(['/login']);
