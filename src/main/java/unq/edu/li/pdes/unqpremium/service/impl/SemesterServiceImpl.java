@@ -1,7 +1,10 @@
 package unq.edu.li.pdes.unqpremium.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
@@ -10,9 +13,15 @@ import unq.edu.li.pdes.unqpremium.dto.SemesterDTO;
 import unq.edu.li.pdes.unqpremium.dto.SemesterFilterDTO;
 import unq.edu.li.pdes.unqpremium.exception.SemesterNotFoundException;
 import unq.edu.li.pdes.unqpremium.mapper.Mapper;
+import unq.edu.li.pdes.unqpremium.model.Degree;
 import unq.edu.li.pdes.unqpremium.model.Semester;
+import unq.edu.li.pdes.unqpremium.model.SemesterDegreeSubject;
 import unq.edu.li.pdes.unqpremium.model.SemesterType;
+import unq.edu.li.pdes.unqpremium.model.Subject;
+import unq.edu.li.pdes.unqpremium.repository.DegreeRepository;
+import unq.edu.li.pdes.unqpremium.repository.SemesterDegreeSubjectRepository;
 import unq.edu.li.pdes.unqpremium.repository.SemesterRepository;
+import unq.edu.li.pdes.unqpremium.repository.SubjectRepository;
 import unq.edu.li.pdes.unqpremium.service.SemesterService;
 import unq.edu.li.pdes.unqpremium.vo.SemesterVO;
 
@@ -21,6 +30,9 @@ import unq.edu.li.pdes.unqpremium.vo.SemesterVO;
 public class SemesterServiceImpl implements SemesterService{
 
 	private final SemesterRepository repository;
+	private final DegreeRepository degreeRepository;
+	private final SubjectRepository subjectRepository;
+	private final SemesterDegreeSubjectRepository semesterDegreeSubjectRepository;
 	private final Mapper mapper;
 	
 	@Override
@@ -36,8 +48,10 @@ public class SemesterServiceImpl implements SemesterService{
 	}
 
 	@Override
+	@Transactional
 	public SemesterDTO saveSemester(SemesterVO semester) {
 		var semesterDB = repository.save(mapper.map(semester, Semester.class));
+		createSemesterWithDegreesAndSubjects(semester, semesterDB);
 		return mapper.map(semesterDB, SemesterDTO.class);
 	}
 
@@ -67,5 +81,29 @@ public class SemesterServiceImpl implements SemesterService{
 		}
 		return semesterIdOpt.get();
 	}
-	
+
+	private void createSemesterWithDegreesAndSubjects(SemesterVO semesterVO, Semester semesterDB) {
+		List<Degree> degreesBD = degreeRepository.findAllById(semesterVO.getDegreeIds());
+		List<SemesterDegreeSubject> list = degreesBD.stream()
+				.map(degree -> createRelationshipWithSemesterDegreeAndSubject(semesterDB, degree, semesterVO))
+				.collect(ArrayList::new, List::addAll, List::addAll);
+		semesterDegreeSubjectRepository.saveAll(list);
+	}
+
+	private List<SemesterDegreeSubject> createRelationshipWithSemesterDegreeAndSubject(Semester semesterDB, Degree degree,
+			SemesterVO semesterVO) {
+		List<Subject> subjects = subjectRepository.findAllById(semesterVO.getSubjects().stream().map(subject -> subject.getId()).collect(Collectors.toList()));
+		return subjects.stream()
+				.map(subject -> createSemesterDegreeAndSubject(subject, degree, semesterDB))
+				.collect(Collectors.toList());
+	}
+
+	private SemesterDegreeSubject createSemesterDegreeAndSubject(Subject subject, Degree degree, Semester semesterDB) {
+		var semesterDegreeSubject = new SemesterDegreeSubject();
+		semesterDegreeSubject.setSubject(subject);
+		semesterDegreeSubject.setDegree(degree);
+		semesterDegreeSubject.setSemester(semesterDB);
+		return semesterDegreeSubject;
+	}
+
 }

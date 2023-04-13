@@ -16,6 +16,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import unq.edu.li.pdes.unqpremium.dto.JwtResponseDTO;
 import unq.edu.li.pdes.unqpremium.dto.UserDTO;
 import unq.edu.li.pdes.unqpremium.service.impl.UserServiceImpl;
+import unq.edu.li.pdes.unqpremium.vo.UserLoginVO;
 import unq.edu.li.pdes.unqpremium.vo.UserVO;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -44,7 +45,7 @@ public class UserControllerTest {
 	
 	@Test
 	public void testLoginUserThenReturnJwtResponseDTOWithToken(){
-		var user = new UserDTO();
+		var user = new UserLoginVO();
 		user.setEmail(EMAIL);
 		user.setPassword(PASSWORD);
 		assertThat(controller.login(user), is(jwtResponseDto));

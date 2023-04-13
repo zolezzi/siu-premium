@@ -22,13 +22,20 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import unq.edu.li.pdes.unqpremium.dto.DegreeDTO;
 import unq.edu.li.pdes.unqpremium.dto.SemesterDTO;
 import unq.edu.li.pdes.unqpremium.dto.SemesterFilterDTO;
+import unq.edu.li.pdes.unqpremium.dto.SubjectDTO;
 import unq.edu.li.pdes.unqpremium.exception.SemesterNotFoundException;
 import unq.edu.li.pdes.unqpremium.mapper.Mapper;
+import unq.edu.li.pdes.unqpremium.model.Degree;
 import unq.edu.li.pdes.unqpremium.model.Semester;
 import unq.edu.li.pdes.unqpremium.model.SemesterType;
+import unq.edu.li.pdes.unqpremium.model.Subject;
+import unq.edu.li.pdes.unqpremium.repository.DegreeRepository;
+import unq.edu.li.pdes.unqpremium.repository.SemesterDegreeSubjectRepository;
 import unq.edu.li.pdes.unqpremium.repository.SemesterRepository;
+import unq.edu.li.pdes.unqpremium.repository.SubjectRepository;
 import unq.edu.li.pdes.unqpremium.service.impl.SemesterServiceImpl;
 import unq.edu.li.pdes.unqpremium.vo.SemesterVO;
 
@@ -39,18 +46,42 @@ public class SemesterServiceTest {
 	private static final Long ID_SEMESTER_NOT_FOUND = 10L;
 	private static final Long ID_SEMESTER_DELETE = 2L;
 	private static final Long ID_SEMESTER_DELETE_NOT_FOUND = 10L;
+	private static final Long DEGREE_ID = 1L;
+	private static final Long SUBJECT_ID = 1L;
 	private static final Integer DATE_YEAR_LIKE = 2021;
 	private static final Integer DATE_YEAR_LIKE_NOT_MATCH = 1920;
 	private static final SemesterType FIRST_SEMESTER_TYPE = SemesterType.FIRST;
+	private static final String SUBJECT_NAME = "Introducción a la programación";
 	
 	@Mock
 	private Semester semester;
 	
 	@Mock
+	private Subject subject;
+
+	@Mock
+	private Degree degree;
+	
+	@Mock
 	private SemesterDTO semesterDto;
 	
 	@Mock
+	private SubjectDTO subjectDto;
+
+	@Mock
+	private DegreeDTO degreeDto;
+	
+	@Mock
 	private SemesterRepository repository;
+	
+	@Mock
+	private DegreeRepository degreeRepository;
+	
+	@Mock
+	private SubjectRepository subjectRepository;
+	
+	@Mock
+	private SemesterDegreeSubjectRepository semesterDegreeSubjectRepository;
 	
 	@Mock
 	private Mapper mapper;
@@ -63,7 +94,7 @@ public class SemesterServiceTest {
 	
 	@Before
 	public void setUp(){
-		service = new SemesterServiceImpl(repository, mapper);
+		service = new SemesterServiceImpl(repository, degreeRepository, subjectRepository, semesterDegreeSubjectRepository, mapper);
 		when(semester.getSemesterType()).thenReturn(FIRST_SEMESTER_TYPE);
 		when(repository.findById(ID)).thenReturn(Optional.of(semester));
 		when(mapper.map(eq(semester), eq(SemesterDTO.class))).thenReturn(semesterDto);
@@ -71,6 +102,8 @@ public class SemesterServiceTest {
 		when(repository.findById(ID_SEMESTER_DELETE)).thenReturn(Optional.of(semester));
 		when(repository.save(semester)).thenReturn(semester);
 		when(repository.save(semester)).thenReturn(semester);
+		when(degreeRepository.findAllById(List.of(DEGREE_ID))).thenReturn(List.of(degree));
+		when(subjectRepository.findAllById(List.of(SUBJECT_ID))).thenReturn(List.of(subject));
 		when(repository.searchSemestersByFilter(DATE_YEAR_LIKE, null)).thenReturn(List.of(semester));
 		when(repository.searchSemestersByFilter(DATE_YEAR_LIKE_NOT_MATCH, null)).thenReturn(Collections.emptyList());
 		when(repository.searchSemestersByFilter(DATE_YEAR_LIKE, null)).thenReturn(List.of(semester));
@@ -109,6 +142,11 @@ public class SemesterServiceTest {
 	public void testSaveSemester(){
 		var semesterVO = new SemesterVO();
 		semesterVO.setSemesterType(FIRST_SEMESTER_TYPE.name());
+		semesterVO.setDegreeIds(List.of(DEGREE_ID));
+		var subjectDTO = new SubjectDTO();
+		subjectDTO.setId(SUBJECT_ID);
+		subjectDTO.setName(SUBJECT_NAME);
+		semesterVO.setSubjects(List.of(subjectDTO));
 	    assertThat(service.saveSemester(semesterVO), is(semesterDto));
 	    verify(repository).save(eq(semester));
 	}

@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="search-container">
+    <div class="">
+      <mat-form-field appearance="fill" style="margin-right: 30px">
+        <mat-label>Seleccionar año</mat-label>
+        <mat-select [(value)]="filter.year" selected="2023">
+          <mat-option value="2023">2023</mat-option>
+          <mat-option value="2022">2022</mat-option>
+          <mat-option value="2021">2021</mat-option>
+          <mat-option value="2020">2020</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="">
+      <mat-form-field appearance="fill" style="margin-right: 30px">
+        <mat-label>Seleccionar tipo</mat-label>
+        <mat-select [(value)]="filter.semesterType">
+          <mat-option>Todos</mat-option>
+          <mat-option value="FIRST">Primer cuatrimestre</mat-option>
+          <mat-option value="SECOND">Segundo cuatrimestre</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="search-button">
+      <a class="button">
+        <button
+          type="button"
+          style="margin-bottom: 16px; margin-right: 16px"
+          class="btn btn-primary"
+          (click)="search(filter)"
+        >
+          Buscar
+        </button>
+        <button
+          *ngIf="isAdmin"
+          type="button"
+          style="font-size: 14px; margin-bottom: 16px; margin-right: 10px"
+          class="btn btn-primary btn-lg"
+          routerLink="/addSemester"
+        >
+          <i class="fa-solid fa-plus"></i>
+        </button>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6" *ngFor="let semester of listSemester">
+    <div class="card">
+      <img
+        src="https://cdn.bhdw.net/im/white-chalk-and-blackboard-used-in-schools-for-education-teaching-wallpaper-95599_w635.webp"
+        alt=""
+      />
+      <div class="card-content">
+        <h2>{{ semester.description }}</h2>
+        <p>
+          <li>
+            Comienzo de clases: {{ semester.fromDate | date : "dd/MM/yyyy" }}
+          </li>
+          <li>Fin de cursada: {{ semester.toDate | date : "dd/MM/yyyy" }}</li>
+        </p>
+        <a class="button">
+          <button type="button" class="btn btn-primary">Ver más</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -29,6 +29,7 @@ public class AccountTest {
 	@Before
 	public void setUp() {
 		otherAccount = new Account();
+		otherAccount.setId(OTHER_ID);
 		otherAccount.setDni(DNI);
 		otherAccount.setFirstname(ACCOUNT_ROLE);
 		account = new Account();
