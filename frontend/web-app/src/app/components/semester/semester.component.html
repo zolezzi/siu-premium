@@ -46,6 +46,7 @@
 </div>
 <div class="row">
   <div class="col-sm-6" *ngFor="let semester of listSemester">
+    
     <div class="card">
       <img
         src="https://cdn.bhdw.net/im/white-chalk-and-blackboard-used-in-schools-for-education-teaching-wallpaper-95599_w635.webp"
@@ -59,9 +60,13 @@
           </li>
           <li>Fin de cursada: {{ semester.toDate | date : "dd/MM/yyyy" }}</li>
         </p>
-        <a class="button">
-          <button type="button" class="btn btn-primary">Ver más</button>
-        </a>
+        <div class="action">  
+          <button type="button" class="btn btn-primary btn-sm" style="margin-right: 10px;">Ver más</button>
+              
+          <button *ngIf="isAdmin" type="button" class="btn btn-success btn-sm" style="margin-right: 10px;"><i class="fa-solid fa-pen-to-square"></i></button>
+          <button   *ngIf="isAdmin" type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+        </div>
+       
       </div>
     </div>
   </div>
