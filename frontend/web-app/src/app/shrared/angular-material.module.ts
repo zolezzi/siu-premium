@@ -19,6 +19,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [],
@@ -43,7 +45,10 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatMenuModule,
     MatSidenavModule,
     MatListModule,
-    MatStepperModule
+    MatStepperModule,
+    MatExpansionModule,
+    MatCheckboxModule,
+    
   ],
   exports: [
     MatMenuModule,
@@ -65,7 +70,9 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatSortModule,
     MatSidenavModule,
     MatListModule  ,
-    MatStepperModule 
+    MatStepperModule ,
+    MatExpansionModule,
+    MatCheckboxModule
   ],
 })
 export class AngularMaterialModule {}

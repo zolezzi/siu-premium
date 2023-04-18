@@ -4,15 +4,43 @@
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="col">
+          
           <div class="user-box">
+         
             <input type="text" name="firstname" required="" formControlName="firstname" autocomplete="off" />
             <label>Nombre</label>
+            <mat-error
+            *ngFor="let validation of register_validation_messages.firstname"
+          >
+            <mat-error
+              class="error-message" style="position: relative;"
+              *ngIf="
+              registerForm.get('firstname')?.hasError(validation.type) &&
+                (registerForm.get('firstname')?.dirty ||
+                registerForm.get('firstname')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error>
           </div>
         </div>
         <div class="col">
           <div class="user-box">
             <input type="text" name="" required="" formControlName="lastname" autocomplete="off"/>
             <label>Apellido</label>
+            <mat-error
+            *ngFor="let validation of register_validation_messages.lastname"
+          >
+            <mat-error
+              class="error-message" style="position: relative;"
+              *ngIf="
+              registerForm.get('lastname')?.hasError(validation.type) &&
+                (registerForm.get('lastname')?.dirty ||
+                registerForm.get('lastname')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error>
           </div>
         </div>
       </div>
@@ -21,12 +49,38 @@
           <div class="user-box">
             <input type="text" name="" required="" formControlName="dni" autocomplete="off" />
             <label>DNI</label>
+            <mat-error
+            *ngFor="let validation of register_validation_messages.dni"
+          >
+            <mat-error
+              class="error-message" style="position: relative;"
+              *ngIf="
+              registerForm.get('dni')?.hasError(validation.type) &&
+                (registerForm.get('dni')?.dirty ||
+                registerForm.get('dni')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error>
           </div>
         </div>
         <div class="col">
           <div class="user-box">
             <input type="text" name="" required="" formControlName="email" autocomplete="off" />
             <label>Email</label>
+            <mat-error
+            *ngFor="let validation of register_validation_messages.email"
+          >
+            <mat-error
+              class="error-message" style="position: relative;"
+              *ngIf="
+              registerForm.get('email')?.hasError(validation.type) &&
+                (registerForm.get('email')?.dirty ||
+                registerForm.get('email')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error>
           </div>
         </div>
       </div>
@@ -35,6 +89,19 @@
           <div class="user-box">
             <input type="password" name="" required="" formControlName="password" />
             <label>Contraseña</label>
+            <mat-error
+            *ngFor="let validation of register_validation_messages.password"
+          >
+            <mat-error
+              class="error-message" style="position: relative;"
+              *ngIf="
+              registerForm.get('password')?.hasError(validation.type) &&
+                (registerForm.get('password')?.dirty ||
+                registerForm.get('password')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error>
           </div>
         </div>
         <div class="col">
@@ -46,17 +113,43 @@
               formControlName="repeatPassword"
             />
             <label>Repetir contraseña</label>
+            <mat-error
+            *ngFor="let validation of register_validation_messages.repeatPassword"
+          >
+            <mat-error
+              class="error-message" style="position: relative;"
+              *ngIf="
+              registerForm.get('repeatPassword')?.hasError(validation.type) &&
+                (registerForm.get('repeatPassword')?.dirty ||
+                registerForm.get('repeatPassword')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col">
           <div class="user-box">
-            <select type="text" name="" required="" formControlName="role">
+            <select type="text" name="" required="true" formControlName="role">
               <option>Estudiante</option>
               <option>Profesor</option>
             </select>
             <label>Seleccionar</label>
+            <mat-error
+            *ngFor="let validation of register_validation_messages.role"
+          >
+            <mat-error
+              class="error-message" style="position: relative;"
+              *ngIf="
+              registerForm.get('role')?.hasError(validation.type) &&
+                (registerForm.get('role')?.dirty ||
+                registerForm.get('role')?.touched)
+              "
+              >{{ validation.message }}</mat-error
+            >
+          </mat-error>
           </div>
         </div>
         <div class="col">
