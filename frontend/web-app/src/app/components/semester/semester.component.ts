@@ -5,7 +5,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
@@ -36,7 +35,7 @@ export class SemesterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private snackBar:MatSnackBar,
-    private localStorageService: LocalStorageService,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +55,7 @@ export class SemesterComponent implements OnInit {
     this.search(this.filter);
   }
 
-  delete(id:number) {
+  delete(id: number) {
     this.semesterControllerService
       .deleteSemesterById(
         this.localStorageService.retrieve(this.ACCESS_TOKEN),
@@ -66,7 +65,7 @@ export class SemesterComponent implements OnInit {
         this.snackBar.open('Borrado con éxito', '', {
           duration: 3000
         });
-     });
+      });
   }
 
   onSubmit(value: any) {

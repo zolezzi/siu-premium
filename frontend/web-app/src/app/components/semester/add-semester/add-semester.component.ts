@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-
-import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 interface TypeSemester {
   value: string;
@@ -15,32 +13,33 @@ interface TypeSemester {
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: {displayDefaultIndicatorType: false},
+      useValue: { displayDefaultIndicatorType: false },
     },
   ],
 })
 export class AddSemesterComponent {
+  panelOpenState = false;
   firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
+  });
+  
+  carrera = this._formBuilder.group({
+    Tecnicatura: false,
+    Ingenieria: false,
+    Licenciatura: false,
   });
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
-  isLinear = false;
-  events: string[] = [];
+  threeFormGroup = this._formBuilder.group({
+    secondCtrl: ['', Validators.required],
+  });
+
   selectedValue!: string;
- 
+
   semesters: TypeSemester[] = [
-    {value: '',viewValue: 'First'},
-    {value: '', viewValue: 'Second'},
-    
+    { value: '', viewValue: 'First' },
+    { value: '', viewValue: 'Second' },
   ];
-  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
-    this.events.push(`${type}: ${event.value}`);
-  }
-  constructor(private _formBuilder: FormBuilder) {
-    
-    
-  }
-  
+
+  constructor(private _formBuilder: FormBuilder) {}
 }

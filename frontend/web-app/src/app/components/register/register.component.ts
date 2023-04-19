@@ -22,18 +22,30 @@ export class RegisterComponent implements OnInit {
     private userservice: UserControllerService,
     private router: Router,
     private localStorageService: LocalStorageService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
   ) {}
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      repeatPassword: ['', Validators.required],
-      role: ['', Validators.required],
-      dni: ['', Validators.required],
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
+      email: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+        ]),
+      ],
+      password: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(8)]),
+      ],
+      repeatPassword: [
+        '',
+        Validators.compose([Validators.required, Validators.minLength(8)]),
+      ],
+      role: ['', Validators.compose([Validators.required, ])],
+      dni: ['', Validators.compose([Validators.required, ])],
+      firstname: ['', Validators.compose([Validators.required, ])],
+      lastname: ['', Validators.compose([Validators.required])],
       degreeId: [[]],
     });
     this.mapRoles.set('Estudiante', 'STUDENT');
@@ -65,7 +77,31 @@ export class RegisterComponent implements OnInit {
         console.error('Error creando la cuenta. Reintente nuevamente.'),
     });
   }
+
   private goToLogin() {
     this.router.navigate(['/login']);
   }
+
+  register_validation_messages = {
+    firstname: [
+      { type: 'required', message: 'Nombre es requerido.' },
+      { type: 'pattern', message: 'Nombre es requerido.' },
+    ],
+    lastname: [
+      { type: 'required', message: 'Apellido es requerido.' },
+      { type: 'pattern', message: 'Apellido es requerido.' },
+    ],
+    email: [{ type: 'required', message: 'Email es requerido.' }],
+    dni: [{ type: 'required', message: 'DNI es requerido.' }],
+    password: [
+      { type: 'required', message: 'Contraseña es requerida.' },
+      {
+        type: 'pattern',
+        message:
+          'Contraseña deberia tener una mayúscula, una minúscula y un número.',
+      },
+    ],
+    repeatPassword: [{ type: 'required', message: 'Confirmar  es requerido.' }],
+    role:[{ type: 'required', message: 'Es requerido.' }]
+  };
 }

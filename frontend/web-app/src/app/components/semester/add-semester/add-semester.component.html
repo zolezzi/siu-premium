@@ -1,0 +1,171 @@
+
+<button mat-button  routerLink="/semester" ><i class="fa-solid fa-backward"></i></button>
+<div class="card">
+  <h2>Crear Cuatrimestre</h2>
+  <div class="buttons"></div>
+  <div class="step">
+    <mat-stepper #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <div class="step1">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>1</ng-template>
+            <div class="date">
+              <mat-form-field appearance="fill">
+                <mat-label>Desde </mat-label>
+                <input matInput [matDatepicker]="picker1" />
+            
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" style="margin-left: 10px">
+                <mat-label>Hasta</mat-label>
+                <input matInput [matDatepicker]="picker2" />
+             
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="picker2"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" style="margin-left: 10px">
+                <mat-label>Tipo cuatrimestre</mat-label>
+                <mat-select [(ngModel)]="selectedValue" name="s">
+                  <mat-option *ngFor="let s of semesters" [value]="s.value">
+                    {{ s.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </form>
+        </div>
+        <div class="button">
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <div class="step2">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>2</ng-template>
+            <section class="listSemester" [formGroup]="carrera">
+              <h4>Selecione Carreras:</h4>
+              <p>
+                <mat-checkbox formControlName="Tecnicatura"
+                  >Tenicatura en Programación Informática</mat-checkbox
+                >
+              </p>
+              <p>
+                <mat-checkbox formControlName="Ingenieria"
+                  >Ingeniería en Alimentos</mat-checkbox
+                >
+              </p>
+              <p>
+                <mat-checkbox formControlName="Licenciatura"
+                  >Licenciatura en Informática</mat-checkbox
+                >
+              </p>
+            </section>
+          </form>
+        </div>
+        <div class="button">
+          <button mat-button matStepperPrevious>Volver</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="threeFormGroup">
+        <div class="step3">
+          <form [formGroup]="threeFormGroup">
+            <ng-template matStepLabel>3</ng-template>
+            <div class="panel">
+              <h4>Seleccione materias</h4>
+              <mat-accordion>
+                <mat-expansion-panel
+                  style="margin-bottom: 15px"
+                  (opened)="panelOpenState = true"
+                  (closed)="panelOpenState = false"
+                >
+                  <mat-expansion-panel-header>
+                    <mat-panel-title> Tecnicatura </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <section class="example-section" [formGroup]="carrera">
+                    <p>Seleccione materias:</p>
+                    <p>
+                      <mat-checkbox formControlName="Tecnicatura"
+                        >Programación Concurrente</mat-checkbox
+                      >
+                    </p>
+                    <p>
+                      <mat-checkbox formControlName="Ingenieria"
+                        >Introducción a la programacion</mat-checkbox
+                      >
+                    </p>
+                  </section>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion>
+                <mat-expansion-panel
+                  style="margin-bottom: 15px"
+                  (opened)="panelOpenState = true"
+                  (closed)="panelOpenState = false"
+                >
+                  <mat-expansion-panel-header>
+                    <mat-panel-title> Ingeniería en Alimentos</mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <section class="example-section" [formGroup]="carrera">
+                    <h4>Seleccione las materias:</h4>
+                    <p>
+                      <mat-checkbox formControlName="Tecnicatura"
+                        >Química 1</mat-checkbox
+                      >
+                    </p>
+                    <p>
+                      <mat-checkbox formControlName="Ingenieria"
+                        >Análisis Matemático1</mat-checkbox
+                      >
+                    </p>
+                  </section>
+                </mat-expansion-panel>
+              </mat-accordion>
+              <mat-accordion>
+                <mat-expansion-panel
+                  style="margin-bottom: 15px"
+                  (opened)="panelOpenState = true"
+                  (closed)="panelOpenState = false"
+                >
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Licenciatura en Informática</mat-panel-title
+                    >
+                  </mat-expansion-panel-header>
+                  <section class="example-section" [formGroup]="carrera">
+                    <h4>Seleccione las materias:</h4>
+                    <p>
+                      <mat-checkbox formControlName="Tecnicatura"
+                        >Biotecnología</mat-checkbox
+                      >
+                    </p>
+                    <p>
+                      <mat-checkbox formControlName="Ingenieria"
+                        >Seguridad Informática
+                      </mat-checkbox>
+                    </p>
+                  </section>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </form>
+        </div>
+
+        <div class="button">
+          <button mat-button matStepperPrevious>Volver</button>
+          
+          <button mat-button (click)="stepper.reset()">Guardar</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </div>
+</div>

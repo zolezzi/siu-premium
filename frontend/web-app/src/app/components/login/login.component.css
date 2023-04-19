@@ -60,7 +60,7 @@
 
 .login-box .user-box input:focus ~ label,
 .login-box .user-box input:valid ~ label {
-  top: -20px;
+  top: -18px;
   left: 0;
   color: #03e9f4;
   font-size: 12px;
@@ -174,4 +174,11 @@
   100% {
     bottom: 100%;
   }
+}
+.error-message {
+  color: red;
+  font-size: 12px;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
 }
