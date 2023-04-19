@@ -13,6 +13,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { SemesterControllerService, UserControllerService } from './api';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { AddSemesterComponent } from './components/semester/add-semester/add-semester.component';
+import { ListSemesterComponent } from './components/semester/list-semester/list-semester.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { AddSemesterComponent } from './components/semester/add-semester/add-sem
     RegisterComponent,
     SemesterComponent,
     AddSemesterComponent,
+    ListSemesterComponent,
   ],
   imports: [
     BrowserModule,
