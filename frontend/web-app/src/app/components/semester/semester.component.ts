@@ -24,6 +24,7 @@ export class SemesterComponent implements OnInit {
   listSemester: any[] = [];
   role!: string;
   isAdmin: boolean = false;
+  isTeacher: boolean = false;
   selectedType!: string;
   private readonly ACCESS_TOKEN: string = 'ACCESS_TOKEN';
   private readonly ROLE: string = 'ROLE';
@@ -49,6 +50,7 @@ export class SemesterComponent implements OnInit {
     this.filter.year = this.selectedYear.value;
     this.role = this.localStorageService.retrieve(this.ROLE);
     this.isAdmin = 'ADMIN' == this.role;
+    this.isTeacher = 'PROFESSOR' == this.role;
     this.semesterForm = this.formBuilder.group({
       year: [null, Validators.required],
     });
@@ -88,6 +90,7 @@ export class SemesterComponent implements OnInit {
       )
       .subscribe((data) => {
         this.listSemester = data;
+        console.log(data)
     });
   }
   

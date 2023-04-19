@@ -28,8 +28,11 @@
   >
     <mat-nav-list>
       <a mat-list-item *ngIf="isLoggedIn" routerLink="/">Home</a>
-      <a mat-list-item *ngIf="isLoggedIn && isAdmin" routerLink="/semester"
+      <a mat-list-item *ngIf="isLoggedIn && isAdmin || isTeacher" routerLink="/semester"
         >Ver cuatrimestre</a
+      >
+      <a mat-list-item *ngIf="isLoggedIn && isTeacher" routerLink="/committee"
+        >Ver Comisiones</a
       >
       <a mat-list-item *ngIf="isLoggedIn && isAdmin" routerLink="addSemester"
         >Agregar Cuatrimestre</a

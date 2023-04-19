@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   fullName: string = '';
   role!: string;
   isAdmin: boolean = false;
+  isTeacher: boolean = false;
   private readonly ACCESS_TOKEN: string = 'ACCESS_TOKEN';
   private readonly FULL_NAME:string = "FULL_NAME";
   private readonly ROLE: string = 'ROLE';
@@ -22,6 +23,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.role = this.localStorageService.retrieve(this.ROLE);
     this.isAdmin = 'ADMIN' == this.role;
+    this.isTeacher = 'PROFESSOR' == this.role;
     const token = this.localStorageService.retrieve(this.ACCESS_TOKEN);
     this.isLoggedIn = !!token;
     this.fullName = this.localStorageService.retrieve(this.FULL_NAME);

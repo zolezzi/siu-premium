@@ -14,6 +14,7 @@ import { SemesterControllerService, UserControllerService } from './api';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { AddSemesterComponent } from './components/semester/add-semester/add-semester.component';
 import { ListSemesterComponent } from './components/semester/list-semester/list-semester.component';
+import { CommitteeComponent } from './components/committee/committee.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { ListSemesterComponent } from './components/semester/list-semester/list-
     SemesterComponent,
     AddSemesterComponent,
     ListSemesterComponent,
+    CommitteeComponent,
   ],
   imports: [
     BrowserModule,
