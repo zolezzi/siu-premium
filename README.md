@@ -33,11 +33,7 @@ Para la instalación del **frontend** debemos tener instalado **NodeJS** podes d
 
 ## Licencia
 
-La Licencia Pública General de GNU versión 3 (GPL-3.0) es una licencia de software de código abierto que fue creada por la Free Software Foundation (FSF). La GPL-3.0 es una de las licencias más populares y utilizadas para proyectos de software libre debido a sus términos y condiciones. Aquí hay algunas razones por las que puedes considerar utilizar la licencia GPL-3.0
-1.  Protección de derechos de autor: La GPL-3.0 protege los derechos de autor del autor original del software y asegura que el software seguirá siendo libre y de código abierto.
-    
-2.  Copyleft: La GPL-3.0 es una licencia copyleft, lo que significa que cualquier persona que distribuya el software modificado o derivado también debe hacerlo bajo los mismos términos y condiciones de la GPL-3.0. Esto asegura que el software se mantenga libre y de código abierto incluso si se modifican o distribuyen versiones modificadas.
-    
-3.  Comunidad de código abierto: La GPL-3.0 es ampliamente utilizada en la comunidad de código abierto, lo que significa que es más fácil para otros desarrolladores y usuarios entender y contribuir a tu proyecto si utilizas la misma licencia que otras herramientas de código abierto populares.
-    
-4.  Compatibilidad con otras licencias de código abierto: La GPL-3.0 es compatible con muchas otras licencias de código abierto, lo que significa que puedes combinar código de diferentes proyectos de código abierto y aún así cumplir con los términos y condiciones de la GPL-3.0.
+La Licencia Pública General de GNU versión 3 (GPL-3.0) es una licencia de software de código abierto que fue creada por la Free Software Foundation (FSF). La GPL-3.0 es una de las licencias más populares y utilizadas para proyectos de software libre debido a sus términos y condiciones. [Aquí](https://www.gnu.org/licenses/gpl-3.0.html) hay algunas razones por las que puedes considerar utilizar la licencia GPL-3.0
+
+## UML
+![Diagrama UML del proyecto UNQ-Premium](/documentation/diagram-unq-premium.drawio.png "Diagrama UML del proyecto UNQ-Premium")
