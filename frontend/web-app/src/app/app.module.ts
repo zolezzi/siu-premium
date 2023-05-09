@@ -10,9 +10,10 @@ import { AngularMaterialModule } from './shrared/angular-material.module';
 import { FormsModule } from '@angular/forms';
 import { SemesterComponent } from './components/semester/semester.component';
 import { RegisterComponent } from './components/register/register.component';
-import { SemesterControllerService, UserControllerService } from './api';
+import { DegreeControllerService, SemesterControllerService, UserControllerService } from './api';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import { AddSemesterComponent } from './components/semester/add-semester/add-semester.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -31,10 +32,11 @@ import { AddSemesterComponent } from './components/semester/add-semester/add-sem
     BrowserAnimationsModule,
     AngularMaterialModule, 
     FormsModule,
+    MatSelectModule,
     NgxWebstorageModule.forRoot()
     
   ],
-  providers: [UserControllerService, SemesterControllerService],
+  providers: [UserControllerService, SemesterControllerService, DegreeControllerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

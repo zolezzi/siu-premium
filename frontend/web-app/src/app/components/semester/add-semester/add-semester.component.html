@@ -11,30 +11,22 @@
             <ng-template matStepLabel>1</ng-template>
             <div class="date">
               <mat-form-field appearance="fill">
-                <mat-label>Desde </mat-label>
-                <input matInput [matDatepicker]="picker1" />
-            
-                <mat-datepicker-toggle
-                  matIconSuffix
-                  [for]="picker1"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #picker1></mat-datepicker>
+                <mat-label>Desde</mat-label>
+                <input matInput [matDatepicker]="fromDate" [(ngModel)]="semester.fromDate"/>
+                <mat-datepicker-toggle matIconSuffix [for]="fromDate"></mat-datepicker-toggle>
+                <mat-datepicker #fromDate></mat-datepicker>
               </mat-form-field>
 
               <mat-form-field appearance="fill" style="margin-left: 10px">
                 <mat-label>Hasta</mat-label>
-                <input matInput [matDatepicker]="picker2" />
-             
-                <mat-datepicker-toggle
-                  matIconSuffix
-                  [for]="picker2"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #picker2></mat-datepicker>
+                <input matInput [matDatepicker]="toDate" [(ngModel)]="semester.toDate"/>
+                <mat-datepicker-toggle matIconSuffix [for]="toDate"></mat-datepicker-toggle>
+                <mat-datepicker #toDate></mat-datepicker>
               </mat-form-field>
 
               <mat-form-field appearance="fill" style="margin-left: 10px">
                 <mat-label>Tipo cuatrimestre</mat-label>
-                <mat-select [(ngModel)]="selectedValue" name="s">
+                <mat-select [(ngModel)]="semester.semesterType" name="s">
                   <mat-option *ngFor="let s of semesters" [value]="s.value">
                     {{ s.viewValue }}
                   </mat-option>
@@ -44,7 +36,7 @@
           </form>
         </div>
         <div class="button">
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext>Seguiente</button>
         </div>
       </mat-step>
       <mat-step [stepControl]="secondFormGroup">
@@ -52,110 +44,51 @@
           <form [formGroup]="secondFormGroup">
             <ng-template matStepLabel>2</ng-template>
             <section class="listSemester" [formGroup]="carrera">
-              <h4>Selecione Carreras:</h4>
-              <p>
-                <mat-checkbox formControlName="Tecnicatura"
-                  >Tenicatura en Programación Informática</mat-checkbox
-                >
-              </p>
-              <p>
-                <mat-checkbox formControlName="Ingenieria"
-                  >Ingeniería en Alimentos</mat-checkbox
-                >
-              </p>
-              <p>
-                <mat-checkbox formControlName="Licenciatura"
-                  >Licenciatura en Informática</mat-checkbox
-                >
-              </p>
+             <mat-form-field floatLabel="auto">
+              <mat-label>CARRERA</mat-label> 
+              <mat-select multiple formControlName="listResult" 
+                placeholder="CARRERA" floatPlaceholder="never">
+                <mat-option *ngFor="let degree of listDegree" [value]="degree.id">
+                  {{degree.name}} 
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
             </section>
           </form>
         </div>
         <div class="button">
           <button mat-button matStepperPrevious>Volver</button>
-          <button mat-button matStepperNext>Siguiente</button>
+          <button mat-button matStepperNext (click)="loadSubjects(carrera)">Siguiente</button>
         </div>
       </mat-step>
       <mat-step [stepControl]="threeFormGroup">
         <div class="step3">
+
           <form [formGroup]="threeFormGroup">
             <ng-template matStepLabel>3</ng-template>
             <div class="panel">
               <h4>Seleccione materias</h4>
-              <mat-accordion>
-                <mat-expansion-panel
-                  style="margin-bottom: 15px"
-                  (opened)="panelOpenState = true"
-                  (closed)="panelOpenState = false"
-                >
-                  <mat-expansion-panel-header>
-                    <mat-panel-title> Tecnicatura </mat-panel-title>
-                  </mat-expansion-panel-header>
-                  <section class="example-section" [formGroup]="carrera">
-                    <p>Seleccione materias:</p>
-                    <p>
-                      <mat-checkbox formControlName="Tecnicatura"
-                        >Programación Concurrente</mat-checkbox
-                      >
-                    </p>
-                    <p>
-                      <mat-checkbox formControlName="Ingenieria"
-                        >Introducción a la programacion</mat-checkbox
-                      >
-                    </p>
-                  </section>
-                </mat-expansion-panel>
-              </mat-accordion>
-              <mat-accordion>
-                <mat-expansion-panel
-                  style="margin-bottom: 15px"
-                  (opened)="panelOpenState = true"
-                  (closed)="panelOpenState = false"
-                >
-                  <mat-expansion-panel-header>
-                    <mat-panel-title> Ingeniería en Alimentos</mat-panel-title>
-                  </mat-expansion-panel-header>
-                  <section class="example-section" [formGroup]="carrera">
-                    <h4>Seleccione las materias:</h4>
-                    <p>
-                      <mat-checkbox formControlName="Tecnicatura"
-                        >Química 1</mat-checkbox
-                      >
-                    </p>
-                    <p>
-                      <mat-checkbox formControlName="Ingenieria"
-                        >Análisis Matemático1</mat-checkbox
-                      >
-                    </p>
-                  </section>
-                </mat-expansion-panel>
-              </mat-accordion>
-              <mat-accordion>
-                <mat-expansion-panel
-                  style="margin-bottom: 15px"
-                  (opened)="panelOpenState = true"
-                  (closed)="panelOpenState = false"
-                >
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>
-                      Licenciatura en Informática</mat-panel-title
-                    >
-                  </mat-expansion-panel-header>
-                  <section class="example-section" [formGroup]="carrera">
-                    <h4>Seleccione las materias:</h4>
-                    <p>
-                      <mat-checkbox formControlName="Tecnicatura"
-                        >Biotecnología</mat-checkbox
-                      >
-                    </p>
-                    <p>
-                      <mat-checkbox formControlName="Ingenieria"
-                        >Seguridad Informática
-                      </mat-checkbox>
-                    </p>
-                  </section>
-                </mat-expansion-panel>
-              </mat-accordion>
+              <!--<mat-accordion>-->
+                <!--<mat-expansion-panel style="margin-bottom: 15px" (opened)="panelOpenState = true" (closed)="panelOpenState = false">-->
+                  <section class="listSemester" [formGroup]="subjectsBuilder">
+                  <mat-form-field floatLabel="auto">
+                     <mat-label>MATERIAS</mat-label> 
+                     <div formArrayName="subjectsListSelect">
+                        <div *ngFor="let degree of listDegreeWithSubjects">
+                          <mat-select multiple formArrayName="subjects" 
+                            placeholder="MATERIAS" floatPlaceholder="never">
+                            <mat-option *ngFor="let subject of degree.subjects" [value]="subject.id">
+                              {{subject.name}} 
+                            </mat-option>
+                          </mat-select>
+                      </div>
+                     </div>
+                    </mat-form-field>
+                   </section>
+                <!--</mat-expansion-panel>
+
+                
+              </mat-accordion>-->
             </div>
           </form>
         </div>

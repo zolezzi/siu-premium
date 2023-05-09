@@ -49,6 +49,9 @@ public class Committee {
 	@Column
 	private String daysClass;
 	
+	@Column
+	private String classroom;
+	
 	//private List<ClassDays> clasessDays; Podriamos cambiar los dias de clases por un objecto asi podemos buscar materias por dia y/o incluso hora
 	//List of the groups
 }
