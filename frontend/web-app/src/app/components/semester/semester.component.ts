@@ -56,11 +56,13 @@ export class SemesterComponent implements OnInit {
   }
 
   delete(id: number) {
+    debugger; 
     this.semesterControllerService.deleteSemesterById(this.localStorageService.retrieve(this.ACCESS_TOKEN), id)
       .subscribe((data) => {
         this.snackBar.open('Borrado con éxito', '', {
           duration: 3000
         });
+        this.search(this.filter);
       });
   }
 
