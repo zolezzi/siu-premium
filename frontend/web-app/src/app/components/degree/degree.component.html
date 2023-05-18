@@ -1,1 +1,20 @@
-<p>degree works!</p>
+<button mat-button  routerLink="/home" ><i class="fa-solid fa-backward"></i></button>
+<div class="container">
+  <div class="title">
+    <h1>Carreras</h1>
+  </div>
+  
+    <mat-form-field>
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input>
+    </mat-form-field>
+    <button
+          *ngIf="isAdmin"
+          type="button"
+          style="font-size: 14px; margin-bottom: 16px; margin-right: 10px"
+          class="btn btn-primary btn-lg"
+          routerLink="/addSemester"
+        >
+    <i class="fa-solid fa-plus"></i>
+    </button>  
+

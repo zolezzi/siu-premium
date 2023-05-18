@@ -15,6 +15,8 @@ import { NgxWebstorageModule } from 'ngx-webstorage';
 import { AddSemesterComponent } from './components/semester/add-semester/add-semester.component';
 import { ListSemesterComponent } from './components/semester/list-semester/list-semester.component';
 import { MatSelectModule } from '@angular/material/select';
+import { DegreeComponent } from './components/degree/degree.component';
+import { SubjectComponent } from './components/subject/subject.component';
 
 
 
@@ -28,6 +30,8 @@ import { MatSelectModule } from '@angular/material/select';
     SemesterComponent,
     AddSemesterComponent,
     ListSemesterComponent,
+    DegreeComponent,
+    SubjectComponent
   ],
   imports: [
     BrowserModule,
