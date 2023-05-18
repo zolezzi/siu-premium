@@ -79,7 +79,7 @@ export class SemesterControllerService {
 
         let headers = this.defaultHeaders;
         if (authorization !== undefined && authorization !== null) {
-            headers = headers.set('Authorization', String(authorization));
+            headers = headers.set('Authorization', String('Bearer ' + authorization));
         }
 
         // to determine the Accept header
@@ -126,7 +126,7 @@ export class SemesterControllerService {
 
         let headers = this.defaultHeaders;
         if (authorization !== undefined && authorization !== null) {
-            headers = headers.set('Authorization', String(authorization));
+            headers = headers.set('Authorization', String('Bearer ' + authorization));
         }
 
         // to determine the Accept header
@@ -173,7 +173,7 @@ export class SemesterControllerService {
 
         let headers = this.defaultHeaders;
         if (authorization !== undefined && authorization !== null) {
-            headers = headers.set('Authorization', String(authorization));
+            headers = headers.set('Authorization', String('Bearer ' + authorization));
         }
 
         // to determine the Accept header
