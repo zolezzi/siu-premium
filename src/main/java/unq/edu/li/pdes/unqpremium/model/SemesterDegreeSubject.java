@@ -38,6 +38,6 @@ public class SemesterDegreeSubject {
 	private Subject subject;
 	
 	@OneToMany
-    @JoinColumn(name = "committee_id", referencedColumnName = "id")
+    @JoinColumn(name = "semester_degree_subject_id", referencedColumnName = "id")
 	private List<Committee> committees = new ArrayList<>();
 }
