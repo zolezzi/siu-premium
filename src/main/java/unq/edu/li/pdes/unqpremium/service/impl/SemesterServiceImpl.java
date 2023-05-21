@@ -42,6 +42,7 @@ public class SemesterServiceImpl implements SemesterService{
 	}
 
 	@Override
+	@Transactional
 	public void deleteSemesterById(Long semesterId) {
 		var semesterDB = getSemesterById(semesterId);
 		List<SemesterDegreeSubject> listElements = semesterDegreeSubjectRepository.findBySemesterId(semesterId);
