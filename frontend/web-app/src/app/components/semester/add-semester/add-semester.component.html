@@ -1,5 +1,5 @@
 
-<button mat-button  routerLink="/semester" ><i class="fa-solid fa-backward"></i></button>
+<button class="button animation-button blue" mat-button  routerLink="/semester" ><i class="fa-solid fa-backward"  style="color: black;"></i></button>
 <div class="card">
   <h2>Crear Cuatrimestre</h2>
   <div class="buttons"></div>
@@ -36,7 +36,7 @@
           </form>
         </div>
         <div class="button">
-          <button mat-button matStepperNext>Seguiente</button>
+          <button mat-button matStepperNext >Siguiente</button>
         </div>
       </mat-step>
       <mat-step [stepControl]="secondFormGroup">
@@ -72,7 +72,7 @@
                   <mat-form-field appearance="fill">
                     <mat-label>Materias</mat-label>
                     <mat-select [formControl]="carrer2a" multiple>
-                      <mat-optgroup *ngFor="let degree of listDegreeWithSubjects" label="{{degree.name}}"
+                      <mat-optgroup style="font-weight: bolder;" *ngFor="let degree of listDegreeWithSubjects" label="{{degree.name}}"
                                     >
                         <mat-option *ngFor="let subject of degree.subjects" [value]="subject">
                           {{subject.name}}

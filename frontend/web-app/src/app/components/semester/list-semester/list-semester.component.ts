@@ -11,7 +11,6 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class ListSemesterComponent implements AfterViewInit {
   displayedColumns: string[] = [ 'materia','tipo', 'carrera', 'fechaDesde', 'fechaHasta', 'action'];
- //displayedColumns: string[] = ['mteria', 'carrera', 'tipo', 'fecha desde', 'fecha hasta'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -30,32 +29,6 @@ export class ListSemesterComponent implements AfterViewInit {
 
 }
 
-// export interface PeriodicElement {
-//   name: string;
-//   position: number;
-//   weight: number;
-//   symbol: string;
-//   materia:string;
-// }
-
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   {materia:'Intro',position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-//   {materia:'Intro',position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  
-//   {materia:'Intro',position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-//   {materia:'Intro',position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-//   {materia:'Intro',position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-//   {materia:'Intro',position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-//   {materia:'Intro',position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-//   {materia:'Intro',position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-//   {materia:'Intro',position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-//   {materia:'Intro',position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-//   {materia:'Intro',position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-//   {materia:'Intro',position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-//   {materia:'Intro',position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-//   {materia:'Intro',position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  
-// ];
 export interface PeriodicElement {
   materia: string;
   carrera: string;

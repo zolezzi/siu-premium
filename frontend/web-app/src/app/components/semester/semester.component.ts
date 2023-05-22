@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -27,20 +27,20 @@ export class SemesterComponent implements OnInit {
   selectedType!: string;
   private readonly ACCESS_TOKEN: string = 'ACCESS_TOKEN';
   private readonly ROLE: string = 'ROLE';
- 
-  isReload:boolean = true;
+
+  isReload: boolean = true;
 
   constructor(
     private semesterControllerService: SemesterControllerService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private snackBar:MatSnackBar,
+    private snackBar: MatSnackBar,
     private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
     var isValid = this.localStorageService.retrieve('RELOAD');
-    if(isValid == 'reload'){
+    if (isValid == 'reload') {
       this.localStorageService.store('RELOAD', 'login');
       window.location.reload();
     }
@@ -56,11 +56,16 @@ export class SemesterComponent implements OnInit {
   }
 
   delete(id: number) {
-    debugger; 
-    this.semesterControllerService.deleteSemesterById(this.localStorageService.retrieve(this.ACCESS_TOKEN), id)
+    this.semesterControllerService
+      .deleteSemesterById(
+        this.localStorageService.retrieve(this.ACCESS_TOKEN),
+        id
+      )
       .subscribe((data) => {
         this.snackBar.open('Borrado con éxito', '', {
-          duration: 3000
+          duration: 10000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
         });
         this.search(this.filter);
       });
@@ -75,14 +80,16 @@ export class SemesterComponent implements OnInit {
       toDate: value.toDate,
     };
     this.search(this.filter);
-    
   }
 
   search(filter: SemesterFilterDTO) {
-    this.semesterControllerService.searchSemestersByFilter(this.localStorageService.retrieve(this.ACCESS_TOKEN), filter)
+    this.semesterControllerService
+      .searchSemestersByFilter(
+        this.localStorageService.retrieve(this.ACCESS_TOKEN),
+        filter
+      )
       .subscribe((data) => {
         this.listSemester = data;
-    });
+      });
   }
-  
 }

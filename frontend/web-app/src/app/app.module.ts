@@ -17,6 +17,7 @@ import { ListSemesterComponent } from './components/semester/list-semester/list-
 import { MatSelectModule } from '@angular/material/select';
 import { DegreeComponent } from './components/degree/degree.component';
 import { SubjectComponent } from './components/subject/subject.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -31,7 +32,8 @@ import { SubjectComponent } from './components/subject/subject.component';
     AddSemesterComponent,
     ListSemesterComponent,
     DegreeComponent,
-    SubjectComponent
+    SubjectComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
