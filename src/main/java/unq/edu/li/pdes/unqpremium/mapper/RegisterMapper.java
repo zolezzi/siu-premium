@@ -12,6 +12,7 @@ import unq.edu.li.pdes.unqpremium.dto.AccountDTO;
 import unq.edu.li.pdes.unqpremium.dto.CommitteeDTO;
 import unq.edu.li.pdes.unqpremium.dto.DegreeDTO;
 import unq.edu.li.pdes.unqpremium.dto.SemesterDTO;
+import unq.edu.li.pdes.unqpremium.dto.SemesterDegreeSubjectDTO;
 import unq.edu.li.pdes.unqpremium.dto.SubjectDTO;
 import unq.edu.li.pdes.unqpremium.dto.UserDTO;
 import unq.edu.li.pdes.unqpremium.model.Account;
@@ -19,6 +20,7 @@ import unq.edu.li.pdes.unqpremium.model.AccountRole;
 import unq.edu.li.pdes.unqpremium.model.Committee;
 import unq.edu.li.pdes.unqpremium.model.Degree;
 import unq.edu.li.pdes.unqpremium.model.Semester;
+import unq.edu.li.pdes.unqpremium.model.SemesterDegreeSubject;
 import unq.edu.li.pdes.unqpremium.model.SemesterType;
 import unq.edu.li.pdes.unqpremium.model.Subject;
 import unq.edu.li.pdes.unqpremium.model.User;
@@ -228,6 +230,21 @@ public class RegisterMapper {
 				if(a.getProfessorsIds() != null && !a.getProfessorsIds().isEmpty()) {
 					b.setStudents(accountRepository.findAllById(a.getStudentsIds()));
 				}
+			}
+		}).byDefault().register();
+		
+		mapperFactory.classMap(SemesterDegreeSubjectDTO.class, SemesterDegreeSubject.class).customize(new CustomMapper<SemesterDegreeSubjectDTO, SemesterDegreeSubject>() {
+			@Override
+			public void mapBtoA(SemesterDegreeSubject b, SemesterDegreeSubjectDTO a, MappingContext context) {
+				a.setId(b.getId());
+				a.setDegreeId(b.getDegree().getId());
+				a.setDegreeName(b.getDegree().getName());
+				a.setSubjectId(b.getSubject().getId());
+				a.setSubjectName(b.getSubject().getName());
+			}
+			@Override
+			public void mapAtoB(SemesterDegreeSubjectDTO a, SemesterDegreeSubject b, MappingContext context) {
+				b.setId(a.getId());
 			}
 		}).byDefault().register();
 		
