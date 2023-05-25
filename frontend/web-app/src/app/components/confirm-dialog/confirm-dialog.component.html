@@ -1,0 +1,15 @@
+<div mat-dialog-title>
+    <h1>Modal</h1>
+</div>
+<form [formGroup]="form" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="content">
+        <mat-form-field class="example-full-width">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="" value="">
+          </mat-form-field>
+    </div>
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+        <button mat-raised-button color="primary" type="submit">{{data ? '': 'Save'}}</button>
+    </div>
+</form>
