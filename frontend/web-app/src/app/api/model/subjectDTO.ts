@@ -12,7 +12,7 @@
 
 
 export interface SubjectDTO {
-    degreName?: string;
+    degreeName?: string;
     degreeId?: number;
     id?: number;
     name?: string;
