@@ -8,6 +8,9 @@ import { AddSemesterComponent } from './components/semester/add-semester/add-sem
 import { ListSemesterComponent } from './components/semester/list-semester/list-semester.component';
 import { DegreeComponent } from './components/degree/degree.component';
 import { SubjectComponent } from './components/subject/subject.component';
+import { TeacherComponent } from './components/teacher/teacher.component';
+import { StudentComponent } from './components/student/student.component';
+import { UpdateSemesterComponent } from './components/semester/update-semester/update-semester.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -15,10 +18,13 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'semester', component: SemesterComponent },
+  { path: 'semester-update/:id', component: UpdateSemesterComponent},
   { path: 'addSemester', component: AddSemesterComponent },
   { path: 'listSemester', component: ListSemesterComponent },
   { path: 'degrees', component: DegreeComponent },
   { path: 'subjects', component: SubjectComponent },
+  { path: 'student', component: StudentComponent },
+  { path: 'teacher', component: TeacherComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

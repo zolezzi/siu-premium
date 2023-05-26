@@ -32,6 +32,13 @@ th {
 .mat-mdc-icon-button.mat-accent {
   color: rgb(56, 56, 133);
 }
+.mat-mdc-icon-button.mat-accent {
+  color: rgb(56, 56, 133);
+}
+ .mat-mdc-icon-button {
+  color: rgb(190, 24, 18);
+}
+
 .button {
   color: white;
   background: none;

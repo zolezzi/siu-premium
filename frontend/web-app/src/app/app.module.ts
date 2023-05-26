@@ -18,8 +18,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { DegreeComponent } from './components/degree/degree.component';
 import { SubjectComponent } from './components/subject/subject.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
-
-
+import { TeacherComponent } from './components/teacher/teacher.component';
+import { StudentComponent } from './components/student/student.component';
+import { UpdateSemesterComponent } from './components/semester/update-semester/update-semester.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,10 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
     ListSemesterComponent,
     DegreeComponent,
     SubjectComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    TeacherComponent,
+    StudentComponent,
+    UpdateSemesterComponent
   ],
   imports: [
     BrowserModule,
