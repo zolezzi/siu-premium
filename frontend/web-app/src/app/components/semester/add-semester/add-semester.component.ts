@@ -35,7 +35,7 @@ export class AddSemesterComponent implements OnInit{
     listResult: new FormControl(),
   });
 
-  carrer2a = new FormControl();
+  degreeMultiSelectForm = new FormControl();
 
   subjectsBuilder = this._formBuilder.group({
     subjectsListSelect: this._formBuilder.array(

@@ -70,7 +70,7 @@ export class SemesterComponent implements OnInit {
             this.localStorageService.retrieve(this.ACCESS_TOKEN),
             id
           )
-          .subscribe((data) => {
+          .subscribe((data:any) => {
             this.snackBar.open('Borrado con éxito', '', {
               duration: 10000,
               horizontalPosition: 'center',
