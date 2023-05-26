@@ -1,14 +1,19 @@
 package unq.edu.li.pdes.unqpremium.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import unq.edu.li.pdes.unqpremium.dto.DegreeFilterDTO;
 import unq.edu.li.pdes.unqpremium.dto.SubjectDTO;
 import unq.edu.li.pdes.unqpremium.exception.DegreeNotFoundException;
 import unq.edu.li.pdes.unqpremium.exception.SubjectNotFoundException;
 import unq.edu.li.pdes.unqpremium.exception.UnqPremiumException;
 import unq.edu.li.pdes.unqpremium.mapper.Mapper;
 import unq.edu.li.pdes.unqpremium.model.Subject;
+import unq.edu.li.pdes.unqpremium.repository.DegreeReportRepository;
 import unq.edu.li.pdes.unqpremium.repository.DegreeRepository;
 import unq.edu.li.pdes.unqpremium.repository.SubjectRepository;
 import unq.edu.li.pdes.unqpremium.service.SubjectService;
@@ -20,6 +25,7 @@ public class SubjectServiceImpl implements SubjectService{
 
 	private final SubjectRepository repository;
 	private final DegreeRepository degreeRepository;
+	private final DegreeReportRepository reportRepository;
 	private final Mapper mapper;
 	
 	@Override
@@ -63,6 +69,17 @@ public class SubjectServiceImpl implements SubjectService{
 		return mapper.map(repository.save(subjectDB), SubjectDTO.class);
 	}
 
+	@Override
+	public List<SubjectDTO> searchByFilter(DegreeFilterDTO filter) {
+		if(filter == null) {
+			throw new UnqPremiumException("Semester not found");
+		}
+		return reportRepository.searchSubjectByFilter(filter)
+				.stream()
+				.map(subject -> mapper.map(subject, SubjectDTO.class))
+				.collect(Collectors.toList());
+	}
+	
 	private Subject getSubjectById(Long subjectId) {
 		var subjectIdOpt = repository.findById(subjectId);
 		if(subjectIdOpt.isEmpty()) {
