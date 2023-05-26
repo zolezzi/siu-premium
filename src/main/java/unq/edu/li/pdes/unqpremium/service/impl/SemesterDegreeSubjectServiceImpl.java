@@ -28,8 +28,7 @@ public class SemesterDegreeSubjectServiceImpl implements SemesterDegreeSubjectSe
 		if(filter == null) {
 			throw new UnqPremiumException("Semester not found");
 		}
-		var list = reportRepository.search(filter);
-		return list
+		return reportRepository.search(filter)
 				.stream()
 				.map(sds -> mapper.map(sds, SemesterDegreeSubjectDTO.class))
 				.collect(Collectors.toList());
