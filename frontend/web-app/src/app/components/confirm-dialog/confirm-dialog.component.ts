@@ -1,5 +1,4 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -8,25 +7,30 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./confirm-dialog.component.css'],
 })
 export class ConfirmDialogComponent implements OnInit {
-  form: FormGroup;
-
+  message: string;
+  title: string;
+  btn = 'aceptar';
   constructor(
-    private _fb: FormBuilder,
-
-    private _dialogRef: MatDialogRef<ConfirmDialogComponent>,
+   
+    private dialogRef: MatDialogRef<ConfirmDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.form = this._fb.group({});
+   
+    this.message = data.message;
+    this.title = data.title;
   }
 
   ngOnInit(): void {
-    this.form.patchValue(this.data);
+    // this.form.patchValue(this.data);
   }
 
-  onFormSubmit() {
-    if (this.form.valid) {
-      if (this.data) {
-      }
-    }
+  // onFormSubmit() {
+  //   if (this.form.valid) {
+  //     if (this.data) {
+  //     }
+  //   }
+  // }
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

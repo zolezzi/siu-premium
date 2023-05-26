@@ -15,14 +15,20 @@ import {
 } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 @Component({
-  selector: 'app-subject',
-  templateUrl: './subject.component.html',
-  styleUrls: ['./subject.component.css'],
+  selector: 'app-student',
+  templateUrl: './student.component.html',
+  styleUrls: ['./student.component.css'],
 })
-export class SubjectComponent implements AfterViewInit, OnInit {
+export class StudentComponent implements AfterViewInit, OnInit {
   isAdmin: boolean = false;
   role!: string;
-  displayedColumns: string[] = ['nombre', 'carrera', 'action'];
+  displayedColumns: string[] = [
+    'nombre',
+    'apellido',
+    'dni',
+    'carrera',
+    'action',
+  ];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -74,13 +80,22 @@ export interface Carrera {
 
 export interface PeriodicElement {
   nombre: string;
+  apellido: string;
+  dni: string;
   carrera: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  { nombre: 'Química', carrera: 'Biotecnologia' },
   {
-    nombre: 'Introducción a la programación ',
+    nombre: 'Juan',
+    apellido: 'Perez',
+    dni: '123456789',
+    carrera: 'Biotecnologia',
+  },
+  {
+    nombre: 'Pedro',
+    apellido: 'Zarsa',
+    dni: '123456785',
     carrera: 'Tecnicatura en Programación Informática',
   },
 ];

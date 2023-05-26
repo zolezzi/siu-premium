@@ -5,12 +5,14 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
 import { SemesterFilterDTO } from 'src/app/api';
 import { SemesterVO } from 'src/app/api/model/semesterVO';
 import { SemesterControllerService } from 'src/app/api/service/semesterController.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-semester',
@@ -35,7 +37,8 @@ export class SemesterComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private snackBar: MatSnackBar,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -56,27 +59,38 @@ export class SemesterComponent implements OnInit {
   }
 
   delete(id: number) {
-    this.semesterControllerService
-      .deleteSemesterById(
-        this.localStorageService.retrieve(this.ACCESS_TOKEN),
-        id
-      )
-      .subscribe((data) => {
-        this.snackBar.open('Borrado con éxito', '', {
-          duration: 10000,
-          horizontalPosition: 'center',
-          verticalPosition: 'bottom',
-        });
-        this.search(this.filter);
-      });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { message: 'Esta seguro que desea eliminar el cuatrimestre?' },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'aceptar') {
+        this.semesterControllerService
+          .deleteSemesterById(
+            this.localStorageService.retrieve(this.ACCESS_TOKEN),
+            id
+          )
+          .subscribe((data) => {
+            this.snackBar.open('Borrado con éxito', '', {
+              duration: 10000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            });
+            this.search(this.filter);
+          });
+      }
+    });
+  }
+  update(id: number) {
+    this.router.navigate(['/semester-update/' + id]);
   }
 
   onSubmit(value: any) {
     const semesterRequest: SemesterVO = {
-      degreeIds: value.degreeIds,
+      degreeIds: value.degreeIds, 
       fromDate: value.fromDate,
       semesterType: value.semesterType,
-      subjects: value.subjects,
+      subjects: value.subjects, 
       toDate: value.toDate,
     };
     this.search(this.filter);
