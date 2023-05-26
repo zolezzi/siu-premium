@@ -58,7 +58,7 @@ export class DegreeComponent implements AfterViewInit, OnInit {
     }
   }
 
-  delete(element:any){debugger;
+  delete(element:any){
     this.degreeService.deleteById(this.localStorageService.retrieve(this.ACCESS_TOKEN), element.id).subscribe((data) => {
       this.searchDegree();
     });

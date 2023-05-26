@@ -14,6 +14,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { DegreeControllerService, DegreeDTO, DegreeFilterDTO, SubjectControllerService, SubjectDTO } from 'src/app/api';
 @Component({
   selector: 'app-subject',
   templateUrl: './subject.component.html',
@@ -22,8 +23,13 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 export class SubjectComponent implements AfterViewInit, OnInit {
   isAdmin: boolean = false;
   role!: string;
+  filter:DegreeFilterDTO = {};
   displayedColumns: string[] = ['nombre', 'carrera', 'action'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<SubjectDTO>([]);
+  listDegree: DegreeDTO[] = [];
+  private readonly ACCESS_TOKEN: string = 'ACCESS_TOKEN';
+  private readonly FULL_NAME: string = 'FULL_NAME';
+  private readonly ROLE: string = 'ROLE';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -31,19 +37,24 @@ export class SubjectComponent implements AfterViewInit, OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  private readonly ACCESS_TOKEN: string = 'ACCESS_TOKEN';
-  private readonly FULL_NAME: string = 'FULL_NAME';
-  private readonly ROLE: string = 'ROLE';
-
   constructor(
     private localStorageService: LocalStorageService,
+    private degreeService: DegreeControllerService,
+    private subjectService: SubjectControllerService,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.role = this.localStorageService.retrieve(this.ROLE);
     this.isAdmin = 'ADMIN' == this.role;
-    const token = this.localStorageService.retrieve(this.ACCESS_TOKEN);
+    this.degreeService.findAll(this.localStorageService.retrieve(this.ACCESS_TOKEN))
+    .subscribe((data) => {
+      this.listDegree = data;
+    });
+    this.subjectService.searchByFilter(this.localStorageService.retrieve(this.ACCESS_TOKEN), this.filter)
+    .subscribe((data) => {
+      this.dataSource = new MatTableDataSource<SubjectDTO>(data);
+    });
   }
 
   openEditForm() {
@@ -62,25 +73,18 @@ export class SubjectComponent implements AfterViewInit, OnInit {
     }
   }
 
-  carreras: Carrera[] = [
-    { viewValue: 'Ingenieria informática' },
-    { viewValue: 'Biotecnología' },
-    { viewValue: 'Enfermería' },
-  ];
-}
-export interface Carrera {
-  viewValue: string;
+  delete(element:any){
+    this.subjectService.deleteById(this.localStorageService.retrieve(this.ACCESS_TOKEN), element.degreeId, element.id).subscribe((data) => {
+      this.searchSubjects();
+    });
+  }
+
+  searchSubjects(){
+    this.subjectService.searchByFilter(this.localStorageService.retrieve(this.ACCESS_TOKEN), this.filter)
+    .subscribe((data) => {
+      this.dataSource = new MatTableDataSource<SubjectDTO>(data);
+    });
+  }
 }
 
-export interface PeriodicElement {
-  nombre: string;
-  carrera: string;
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { nombre: 'Química', carrera: 'Biotecnologia' },
-  {
-    nombre: 'Introducción a la programación ',
-    carrera: 'Tecnicatura en Programación Informática',
-  },
-];
