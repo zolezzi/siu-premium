@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { LocalStorageService } from 'ngx-webstorage';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { DegreeControllerService, DegreeDTO } from 'src/app/api';
 
 @Component({
   selector: 'app-degree',
@@ -14,7 +15,7 @@ export class DegreeComponent implements AfterViewInit, OnInit {
   isAdmin: boolean = false;
   role!: string;
   displayedColumns: string[] = ['nombre', 'action'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<DegreeDTO>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -28,13 +29,17 @@ export class DegreeComponent implements AfterViewInit, OnInit {
 
   constructor(
     private localStorageService: LocalStorageService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private degreeService: DegreeControllerService
   ) {}
 
   ngOnInit(): void {
     this.role = this.localStorageService.retrieve(this.ROLE);
     this.isAdmin = 'ADMIN' == this.role;
-    const token = this.localStorageService.retrieve(this.ACCESS_TOKEN);
+    this.degreeService.findAll(this.localStorageService.retrieve(this.ACCESS_TOKEN))
+    .subscribe((data) => {
+      this.dataSource = new MatTableDataSource<DegreeDTO>(data);
+    });
   }
   
   openEditForm() {
@@ -53,21 +58,16 @@ export class DegreeComponent implements AfterViewInit, OnInit {
     }
   }
 
-  carreras: Carrera[] = [
-    { viewValue: 'Ingenieria informática' },
-    { viewValue: 'Biotecnología' },
-    { viewValue: 'Enfermería' },
-  ];
-}
-export interface Carrera {
-  viewValue: string;
-}
+  delete(element:any){debugger;
+    this.degreeService.deleteById(this.localStorageService.retrieve(this.ACCESS_TOKEN), element.id).subscribe((data) => {
+      this.searchDegree();
+    });
+  }
 
-export interface PeriodicElement {
-  nombre: string;
+  searchDegree(){
+    this.degreeService.findAll(this.localStorageService.retrieve(this.ACCESS_TOKEN))
+    .subscribe((data) => {
+      this.dataSource = new MatTableDataSource<DegreeDTO>(data);
+    });
+  }
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { nombre: 'Biotecnología' },
-  { nombre: 'Tecnicatura en Programación Informática' },
-];
