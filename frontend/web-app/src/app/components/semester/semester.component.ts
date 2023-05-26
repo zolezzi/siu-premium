@@ -58,15 +58,13 @@ export class SemesterComponent implements OnInit {
   }
 
   delete(id: number) {
-    this.semesterControllerService
-      .deleteSemesterById(
-        this.localStorageService.retrieve(this.ACCESS_TOKEN),
-        id
-      )
+    debugger; 
+    this.semesterControllerService.deleteSemesterById(this.localStorageService.retrieve(this.ACCESS_TOKEN), id)
       .subscribe((data) => {
         this.snackBar.open('Borrado con éxito', '', {
           duration: 3000
         });
+        this.search(this.filter);
       });
   }
 
@@ -83,11 +81,7 @@ export class SemesterComponent implements OnInit {
   }
 
   search(filter: SemesterFilterDTO) {
-    this.semesterControllerService
-      .searchSemestersByFilter(
-        this.localStorageService.retrieve(this.ACCESS_TOKEN),
-        filter
-      )
+    this.semesterControllerService.searchSemestersByFilter(this.localStorageService.retrieve(this.ACCESS_TOKEN), filter)
       .subscribe((data) => {
         this.listSemester = data;
         console.log(data)
