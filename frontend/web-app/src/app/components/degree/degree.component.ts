@@ -36,12 +36,13 @@ export class DegreeComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
     this.role = this.localStorageService.retrieve(this.ROLE);
     this.isAdmin = 'ADMIN' == this.role;
-    this.degreeService.findAll(this.localStorageService.retrieve(this.ACCESS_TOKEN))
-    .subscribe((data) => {
-      this.dataSource = new MatTableDataSource<DegreeDTO>(data);
-    });
+    this.degreeService
+      .findAll(this.localStorageService.retrieve(this.ACCESS_TOKEN))
+      .subscribe((data) => {
+        this.dataSource = new MatTableDataSource<DegreeDTO>(data);
+      });
   }
-  
+
   openEditForm() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
     dialogRef.afterClosed().subscribe({
@@ -58,16 +59,30 @@ export class DegreeComponent implements AfterViewInit, OnInit {
     }
   }
 
-  delete(element:any){
-    this.degreeService.deleteById(this.localStorageService.retrieve(this.ACCESS_TOKEN), element.id).subscribe((data) => {
-      this.searchDegree();
+  delete(element: any) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { message: '¿Desea eliminar la carrera?' },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'aceptar') {
+        this.degreeService
+          .deleteById(
+            this.localStorageService.retrieve(this.ACCESS_TOKEN),
+            element.id
+          )
+          .subscribe((data) => {
+            this.searchDegree();
+          });
+      }
     });
   }
 
-  searchDegree(){
-    this.degreeService.findAll(this.localStorageService.retrieve(this.ACCESS_TOKEN))
-    .subscribe((data) => {
-      this.dataSource = new MatTableDataSource<DegreeDTO>(data);
-    });
+  searchDegree() {
+    this.degreeService
+      .findAll(this.localStorageService.retrieve(this.ACCESS_TOKEN))
+      .subscribe((data) => {
+        this.dataSource = new MatTableDataSource<DegreeDTO>(data);
+      });
   }
 }
