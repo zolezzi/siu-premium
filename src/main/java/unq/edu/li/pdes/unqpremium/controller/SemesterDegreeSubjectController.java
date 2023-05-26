@@ -48,8 +48,8 @@ public class SemesterDegreeSubjectController {
     }
     
     @ApiOperation(
-            value = "This service delete a Subject",
-            notes = "Delete a Subject, if it doesn't find it throw an exception",
+            value = "This service delete the relationship with the semester, degree and subject",
+            notes = "Delete the relationship with the semester, degree and subject, if it doesn't find it throw an exception",
             nickname = "deleteById",
             response = BasicResponse.class)
     @ApiResponses(value = {
