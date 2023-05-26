@@ -24,7 +24,9 @@ import unq.edu.li.pdes.unqpremium.dto.SubjectDTO;
 import unq.edu.li.pdes.unqpremium.mapper.Mapper;
 import unq.edu.li.pdes.unqpremium.model.Degree;
 import unq.edu.li.pdes.unqpremium.model.Subject;
+import unq.edu.li.pdes.unqpremium.repository.DegreeReportRepository;
 import unq.edu.li.pdes.unqpremium.repository.DegreeRepository;
+import unq.edu.li.pdes.unqpremium.repository.SubjectRepository;
 import unq.edu.li.pdes.unqpremium.service.impl.DegreeServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -46,6 +48,12 @@ public class DegreeServiceTest {
 	private DegreeRepository repository;
 	
 	@Mock
+	private SubjectRepository subjectRepository;
+	
+	@Mock
+	private DegreeReportRepository degreeReportRepository;
+	
+	@Mock
 	private Mapper mapper;
 	
 	@InjectMocks
@@ -53,7 +61,7 @@ public class DegreeServiceTest {
 	
 	@Before
 	public void setUp(){
-		service = new DegreeServiceImpl(repository, mapper);
+		service = new DegreeServiceImpl(repository, subjectRepository, degreeReportRepository, mapper);
 		when(repository.findAll()).thenReturn(List.of(degree));
 		when(repository.findAllById(any())).thenReturn(List.of(degree));
 		when(mapper.map(eq(degree), eq(DegreeDTO.class))).thenReturn(degreeDto);
