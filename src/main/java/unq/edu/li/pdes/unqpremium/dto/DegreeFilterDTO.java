@@ -8,7 +8,10 @@ import lombok.Data;
 
 @Data
 public class DegreeFilterDTO {
-
+	
+	@JsonProperty("likeName")
+	private String likeName;
+	
 	@JsonProperty("degreeIds")
 	private List<Long> degreeIds;
 
