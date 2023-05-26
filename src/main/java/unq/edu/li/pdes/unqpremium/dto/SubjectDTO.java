@@ -14,4 +14,7 @@ public class SubjectDTO {
 	
 	@JsonProperty("degreeId")
 	private Long degreeId;
+	
+	@JsonProperty("degreName")
+	private String degreName;
 }

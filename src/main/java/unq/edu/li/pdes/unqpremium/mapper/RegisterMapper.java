@@ -180,6 +180,8 @@ public class RegisterMapper {
 			public void mapBtoA(Subject b, SubjectDTO a, MappingContext context) {
 				a.setId(b.getId());
 				a.setName(b.getName());
+				a.setDegreeId(b.getDegree().getId());
+				a.setDegreName(b.getDegree().getName());
 			}
 			@Override
 			public void mapAtoB(SubjectDTO a, Subject b, MappingContext context) {

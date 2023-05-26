@@ -54,6 +54,8 @@ public class SubjectServiceImpl implements SubjectService{
 				.orElseThrow(() -> new DegreeNotFoundException(String.format("No found degree:%s", subject.getDegreeId())));
 		degreeBD.getSubjects().add(subjectDB);
 		degreeRepository.save(degreeBD);
+		subjectDB.setDegree(degreeBD);
+		repository.save(subjectDB);
 		return mapper.map(subjectDB, SubjectDTO.class);
 	}
 
