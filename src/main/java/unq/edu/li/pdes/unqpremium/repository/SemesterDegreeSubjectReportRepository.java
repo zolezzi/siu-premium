@@ -23,8 +23,8 @@ public class SemesterDegreeSubjectReportRepository {
 		queryBuilder.append("SELECT sds FROM SemesterDegreeSubject sds "
                 + "WHERE 1=1 ");
 		TypedQuery<SemesterDegreeSubject> query = createQueryForSearch(semesterDegreeSubjectFilter, queryBuilder, SemesterDegreeSubject.class, false);
-		List<SemesterDegreeSubject> coupons = query.getResultList();
-		return coupons;
+		List<SemesterDegreeSubject> resultList = query.getResultList();
+		return resultList;
 	}
 	
 	private <T> TypedQuery<T> createQueryForSearch(SemesterDegreeSubjectFilterDTO semesterDegreeSubjectFilter, QueryBuilder<SemesterDegreeSubjectFilterDTO> queryBuilder, Class<T> classFilter, boolean count) {
