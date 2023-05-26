@@ -11,9 +11,8 @@
  */
 
 
-export interface SubjectDTO {
-    degreName?: string;
-    degreeId?: number;
-    id?: number;
-    name?: string;
+export interface SemesterDegreeSubjectFilterDTO {
+    degreeIds?: Array<number>;
+    likeName?: string;
+    subjectIds?: Array<number>;
 }

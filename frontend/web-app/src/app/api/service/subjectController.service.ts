@@ -18,6 +18,7 @@ import { HttpClient, HttpHeaders, HttpParams,
 import { Observable }                                        from 'rxjs';
 
 import { BasicResponse } from '../model/basicResponse';
+import { DegreeFilterDTO } from '../model/degreeFilterDTO';
 import { SubjectDTO } from '../model/subjectDTO';
 import { SubjectVO } from '../model/subjectVO';
 
@@ -129,7 +130,7 @@ export class SubjectControllerService {
 
         let headers = this.defaultHeaders;
         if (authorization !== undefined && authorization !== null) {
-            headers = headers.set('Authorization', String(authorization));
+            headers = headers.set('Authorization', String('Bearer ' + authorization));
         }
 
         // to determine the Accept header
@@ -176,7 +177,7 @@ export class SubjectControllerService {
 
         let headers = this.defaultHeaders;
         if (authorization !== undefined && authorization !== null) {
-            headers = headers.set('Authorization', String(authorization));
+            headers = headers.set('Authorization', String('Bearer ' + authorization));
         }
 
         // to determine the Accept header
@@ -199,6 +200,59 @@ export class SubjectControllerService {
 
         return this.httpClient.post<SubjectDTO>(`${this.basePath}/subject/save`,
             subject,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Service that returns search by filter subject by filter
+     * This service returns search by filter  subject load by filter
+     * @param authorization 
+     * @param filter filter
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public searchByFilter(authorization: string, filter: DegreeFilterDTO, observe?: 'body', reportProgress?: boolean): Observable<Array<SubjectDTO>>;
+    public searchByFilter(authorization: string, filter: DegreeFilterDTO, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SubjectDTO>>>;
+    public searchByFilter(authorization: string, filter: DegreeFilterDTO, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SubjectDTO>>>;
+    public searchByFilter(authorization: string, filter: DegreeFilterDTO, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (authorization === null || authorization === undefined) {
+            throw new Error('Required parameter authorization was null or undefined when calling searchByFilter2.');
+        }
+        if (filter === null || filter === undefined) {
+            throw new Error('Required parameter filter was null or undefined when calling searchByFilter2.');
+        }
+
+        let headers = this.defaultHeaders;
+        if (authorization !== undefined && authorization !== null) {
+            headers = headers.set('Authorization', String('Bearer ' + authorization));
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/json'
+        ];
+        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<Array<SubjectDTO>>(`${this.basePath}/subject/search-by-filter`,
+            filter,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -237,7 +291,7 @@ export class SubjectControllerService {
 
         let headers = this.defaultHeaders;
         if (authorization !== undefined && authorization !== null) {
-            headers = headers.set('Authorization', String(authorization));
+            headers = headers.set('Authorization', String('Bearer ' + authorization));
         }
 
         // to determine the Accept header

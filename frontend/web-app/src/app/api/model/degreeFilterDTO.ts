@@ -13,4 +13,5 @@
 
 export interface DegreeFilterDTO {
     degreeIds?: Array<number>;
+    likeName?: string;
 }

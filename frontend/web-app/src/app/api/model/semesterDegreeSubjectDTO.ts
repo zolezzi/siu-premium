@@ -11,9 +11,10 @@
  */
 
 
-export interface SubjectDTO {
-    degreName?: string;
+export interface SemesterDegreeSubjectDTO {
     degreeId?: number;
+    degreeName?: string;
     id?: number;
-    name?: string;
+    subjectId?: number;
+    subjectName?: string;
 }
