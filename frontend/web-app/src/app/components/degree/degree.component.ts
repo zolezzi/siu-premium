@@ -16,16 +16,11 @@ export class DegreeComponent implements AfterViewInit, OnInit {
   role!: string;
   displayedColumns: string[] = ['nombre', 'action'];
   dataSource = new MatTableDataSource<DegreeDTO>([]);
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
   private readonly ACCESS_TOKEN: string = 'ACCESS_TOKEN';
   private readonly FULL_NAME: string = 'FULL_NAME';
   private readonly ROLE: string = 'ROLE';
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -42,6 +37,10 @@ export class DegreeComponent implements AfterViewInit, OnInit {
     });
   }
   
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
   openEditForm() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
     dialogRef.afterClosed().subscribe({
