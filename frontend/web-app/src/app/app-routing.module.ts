@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'semester', component: SemesterComponent },
   { path: 'semester-update/:id', component: UpdateSemesterComponent},
   { path: 'addSemester', component: AddSemesterComponent },
-  { path: 'listSemester', component: ListSemesterComponent },
+  { path: 'semesters-subjects-degrees-list/:id', component: ListSemesterComponent },
   { path: 'degrees', component: DegreeComponent },
   { path: 'subjects', component: SubjectComponent },
   { path: 'student', component: StudentComponent },

@@ -15,4 +15,5 @@ export interface SemesterDegreeSubjectFilterDTO {
     degreeIds?: Array<number>;
     likeName?: string;
     subjectIds?: Array<number>;
+    semesterId?: number;
 }

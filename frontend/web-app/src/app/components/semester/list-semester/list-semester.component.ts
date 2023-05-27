@@ -1,11 +1,12 @@
 
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
 import { SemesterDegreeSubjectControllerService, SemesterDegreeSubjectDTO, SemesterDegreeSubjectFilterDTO } from 'src/app/api';
 
@@ -14,9 +15,10 @@ import { SemesterDegreeSubjectControllerService, SemesterDegreeSubjectDTO, Semes
   templateUrl: './list-semester.component.html',
   styleUrls: ['./list-semester.component.css']
 })
-export class ListSemesterComponent implements AfterViewInit {
+export class ListSemesterComponent implements OnInit, AfterViewInit {
   isAdmin: boolean = false;
   role!: string;
+  id!:any;
   filter:SemesterDegreeSubjectFilterDTO = {};
   displayedColumns: string[] = [ 'materia','tipo', 'carrera', 'fechaDesde', 'fechaHasta', 'action'];
   dataSource = new MatTableDataSource<SemesterDegreeSubjectDTO>([]);
@@ -31,15 +33,20 @@ export class ListSemesterComponent implements AfterViewInit {
     private router: Router,
     private snackBar: MatSnackBar,
     private localStorageService: LocalStorageService,
+    private route: ActivatedRoute,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.role = this.localStorageService.retrieve(this.ROLE);
     this.isAdmin = 'ADMIN' == this.role;
-    this.semesterDegreeSubjectService.searchByFilter(this.localStorageService.retrieve(this.ACCESS_TOKEN), this.filter)
-    .subscribe((data) => {
-      this.dataSource = new MatTableDataSource<SemesterDegreeSubjectDTO>(data);
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.id = params.get('id');
+      this.filter.semesterId = this.id;
+      this.semesterDegreeSubjectService.searchByFilter(this.localStorageService.retrieve(this.ACCESS_TOKEN), this.filter)
+      .subscribe((data) => {
+        this.dataSource = new MatTableDataSource<SemesterDegreeSubjectDTO>(data);
+      });
     });
   }
 

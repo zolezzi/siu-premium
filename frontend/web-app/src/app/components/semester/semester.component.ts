@@ -81,8 +81,13 @@ export class SemesterComponent implements OnInit {
       }
     });
   }
+  
   update(id: number) {
     this.router.navigate(['/semester-update/' + id]);
+  }
+
+  goToListSemesters(id: number){
+    this.router.navigate(['/semesters-subjects-degrees-list/' + id]);
   }
 
   onSubmit(value: any) {
