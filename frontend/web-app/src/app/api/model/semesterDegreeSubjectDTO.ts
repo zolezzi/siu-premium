@@ -17,4 +17,8 @@ export interface SemesterDegreeSubjectDTO {
     id?: number;
     subjectId?: number;
     subjectName?: string;
+    description?: string;
+    fromDate?: Date;
+    semesterType?: string;
+    toDate?: Date;
 }
