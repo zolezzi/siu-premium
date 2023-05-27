@@ -243,6 +243,10 @@ public class RegisterMapper {
 				a.setDegreeName(b.getDegree().getName());
 				a.setSubjectId(b.getSubject().getId());
 				a.setSubjectName(b.getSubject().getName());
+				a.setFromDate(b.getSemester().getFromDate());
+				a.setToDate(b.getSemester().getToDate());
+				a.setSemesterType(b.getSemester().getSemesterType().name());
+				a.setDescription(b.getSemester().getSemesterType().getDescription());;
 			}
 			@Override
 			public void mapAtoB(SemesterDegreeSubjectDTO a, SemesterDegreeSubject b, MappingContext context) {
