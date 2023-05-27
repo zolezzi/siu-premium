@@ -74,8 +74,16 @@ export class SubjectComponent implements AfterViewInit, OnInit {
   }
 
   delete(element:any){
-    this.subjectService.deleteById(this.localStorageService.retrieve(this.ACCESS_TOKEN), element.degreeId, element.id).subscribe((data) => {
-      this.searchSubjects();
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { message: '¿Desea eliminar la materia?' },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'aceptar') {
+         this.subjectService.deleteById(this.localStorageService.retrieve(this.ACCESS_TOKEN), element.degreeId, element.id).subscribe((data) => {
+       this.searchSubjects();
+     });
+      }
     });
   }
 
