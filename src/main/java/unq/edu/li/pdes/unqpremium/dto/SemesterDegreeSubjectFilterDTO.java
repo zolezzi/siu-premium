@@ -17,6 +17,9 @@ public class SemesterDegreeSubjectFilterDTO {
 	@JsonProperty("likeName")
 	private String likeName;
 
+	@JsonProperty("semesterId")
+	private Long semesterId;
+	
 	@JsonProperty("degreeIds")
 	private List<Long> degreeIds = new ArrayList<>();
 	

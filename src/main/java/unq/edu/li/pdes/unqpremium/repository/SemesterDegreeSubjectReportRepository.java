@@ -29,6 +29,7 @@ public class SemesterDegreeSubjectReportRepository {
 	
 	private <T> TypedQuery<T> createQueryForSearch(SemesterDegreeSubjectFilterDTO semesterDegreeSubjectFilter, QueryBuilder<SemesterDegreeSubjectFilterDTO> queryBuilder, Class<T> classFilter, boolean count) {
 		queryBuilder.add(filter -> StringUtils.isNotBlank(filter.getLikeName()), " AND (UPPER(sds.degree.name) LIKE (:likeName) OR UPPER(sds.subject.name) LIKE UPPER(:likeName)) ", "likeName", ()-> "%" + semesterDegreeSubjectFilter.getLikeName() + "%");
+		queryBuilder.add(filter -> filter.getSemesterId() != null, " AND sds.semester.id IN (:semesterId) ", "semesterId", ()-> semesterDegreeSubjectFilter.getSemesterId());
 		queryBuilder.add(filter -> !filter.getDegreeIds().isEmpty(), " AND sds.degree.id IN (:degreeIds) ", "degreeIds", ()-> semesterDegreeSubjectFilter.getDegreeIds());
 		queryBuilder.add(filter -> !filter.getSubjectIds().isEmpty(), " AND sds.degree.id IN (:subjectIds) ", "subjectIds", ()-> semesterDegreeSubjectFilter.getSubjectIds());
 		TypedQuery<T> query =  queryBuilder.createQuery(classFilter);
