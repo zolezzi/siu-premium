@@ -61,6 +61,7 @@ public class SemesterServiceImpl implements SemesterService{
 	public SemesterDTO updateSemester(SemesterDTO semester, Long semesterId) {
 		var semesterDB = getSemesterById(semesterId);
 		semesterDB = mapper.map(semester, Semester.class);
+		semesterDB.setId(semesterId);
 		return mapper.map(repository.save(semesterDB), SemesterDTO.class);
 	}
 
