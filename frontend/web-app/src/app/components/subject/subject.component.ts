@@ -21,7 +21,7 @@ import { CreateSubjectDialogComponent } from '../mat-dialog/create-subject.compo
   templateUrl: './subject.component.html',
   styleUrls: ['./subject.component.css'],
 })
-export class SubjectComponent implements AfterViewInit, OnInit {
+export class SubjectComponent implements OnInit {
   isAdmin: boolean = false;
   role!: string;
   filter:DegreeFilterDTO = {};
@@ -33,10 +33,6 @@ export class SubjectComponent implements AfterViewInit, OnInit {
   private readonly ROLE: string = 'ROLE';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -55,6 +51,7 @@ export class SubjectComponent implements AfterViewInit, OnInit {
     this.subjectService.searchByFilter(this.localStorageService.retrieve(this.ACCESS_TOKEN), this.filter)
     .subscribe((data) => {
       this.dataSource = new MatTableDataSource<SubjectDTO>(data);
+      this.dataSource.paginator = this.paginator;
     });
   }
 

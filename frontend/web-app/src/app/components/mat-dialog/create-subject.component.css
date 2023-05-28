@@ -1,7 +1,6 @@
 .container {
   background-color: #d9e2ee;
 }
-
 .dialog-title {
   background-color: #f0f0f0;
   padding: 10px;
@@ -9,6 +8,7 @@
 
 .content {
   padding: 20px;
+  display: flex;
 }
 
 .action {
@@ -16,9 +16,8 @@
   justify-content: flex-end;
   padding: 10px;
 }
-
-.mat-mdc-raised-button.mat-primary{
-    background-color: #0077ff;
+.mat-mdc-raised-button.mat-primary {
+  background-color: #0077ff;
   border: none;
   border-radius: 5px;
   color: #fff;
@@ -26,5 +25,5 @@
   font-size: 12px;
   margin-right: 10px;
   padding: 10px 20px;
-  transition: all 0.3s ease; 
+  transition: all 0.3s ease;
 }

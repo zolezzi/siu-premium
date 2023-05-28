@@ -7,6 +7,7 @@ import { DegreeControllerService, DegreeDTO, SubjectControllerService } from 'sr
 @Component({
   selector: 'app-create-subject-dialog',
   templateUrl: './create-subject.component.html',
+  styleUrls: ['./create-subject.component.css'],
 })
 export class CreateSubjectDialogComponent implements OnInit {
   token!: string;
