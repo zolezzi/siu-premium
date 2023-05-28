@@ -1,5 +1,7 @@
 package unq.edu.li.pdes.unqpremium.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import unq.edu.li.pdes.unqpremium.controller.response.BasicResponse;
+import unq.edu.li.pdes.unqpremium.dto.DegreeFilterDTO;
 import unq.edu.li.pdes.unqpremium.dto.SubjectDTO;
 import unq.edu.li.pdes.unqpremium.service.impl.SubjectServiceImpl;
 import unq.edu.li.pdes.unqpremium.vo.SubjectVO;
@@ -101,4 +104,22 @@ public class SubjectController {
         return new BasicResponse("Successfully deleted", Boolean.FALSE);
     }
     
+    @ApiOperation(
+            value = "Service that returns search by filter subject by filter",
+            notes = "This service returns search by filter  subject load by filter",
+            nickname = "searchByFilter",
+            response = SubjectDTO.class, 
+            responseContainer = "List")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "The request has succeeded.", response = SubjectDTO.class, responseContainer = "List"),
+            @ApiResponse(code = 404, message = "Not found"),
+            @ApiResponse(code = 500, message = "Internal server error.", response = SubjectDTO.class, responseContainer = "List") })
+    @ApiImplicitParam(name = "Authorization",required = true, paramType = "header", dataTypeClass = String.class, example = "Bearer access_token")
+    @PostMapping(
+            value = "/search-by-filter",
+            produces = { "application/json" }
+    )
+    public List<SubjectDTO> searchByFilter(@RequestBody DegreeFilterDTO filter){
+        return service.searchByFilter(filter);
+    }
 }

@@ -17,8 +17,10 @@ import { HttpClient, HttpHeaders, HttpParams,
 
 import { Observable }                                        from 'rxjs';
 
+import { BasicResponse } from '../model/basicResponse';
 import { DegreeDTO } from '../model/degreeDTO';
 import { DegreeFilterDTO } from '../model/degreeFilterDTO';
+import { DegreeVO } from '../model/degreeVO';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -27,7 +29,7 @@ import { Configuration }                                     from '../configurat
 @Injectable()
 export class DegreeControllerService {
 
-    protected basePath = 'https://localhost:8080';
+    protected basePath = 'http://localhost:8080';
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
@@ -57,6 +59,53 @@ export class DegreeControllerService {
 
 
     /**
+     * This service delete a Degree
+     * Delete a Degree, if it doesn&#39;t find it throw an exception
+     * @param authorization 
+     * @param degreeId degreeId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteById(authorization: string, degreeId: number, observe?: 'body', reportProgress?: boolean): Observable<BasicResponse>;
+    public deleteById(authorization: string, degreeId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<BasicResponse>>;
+    public deleteById(authorization: string, degreeId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<BasicResponse>>;
+    public deleteById(authorization: string, degreeId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (authorization === null || authorization === undefined) {
+            throw new Error('Required parameter authorization was null or undefined when calling deleteById.');
+        }
+        if (degreeId === null || degreeId === undefined) {
+            throw new Error('Required parameter degreeId was null or undefined when calling deleteById.');
+        }
+
+        let headers = this.defaultHeaders;
+        if (authorization !== undefined && authorization !== null) {
+            headers = headers.set('Authorization', String('Bearer ' + authorization));
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.delete<BasicResponse>(`${this.basePath}/degree/delete/${encodeURIComponent(String(degreeId))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Service that returns all degree
      * This service returns all degree load
      * @param authorization 
@@ -73,7 +122,7 @@ export class DegreeControllerService {
 
         let headers = this.defaultHeaders;
         if (authorization !== undefined && authorization !== null) {
-            headers = headers.set('Authorization', String(authorization));
+            headers = headers.set('Authorization', String('Bearer ' + authorization));
         }
 
         // to determine the Accept header
@@ -120,7 +169,7 @@ export class DegreeControllerService {
 
         let headers = this.defaultHeaders;
         if (authorization !== undefined && authorization !== null) {
-            headers = headers.set('Authorization', String(authorization));
+            headers = headers.set('Authorization', String('Bearer ' + authorization));
         }
 
         // to determine the Accept header
@@ -143,6 +192,216 @@ export class DegreeControllerService {
 
         return this.httpClient.post<Array<DegreeDTO>>(`${this.basePath}/degree/find-all-degree-by-filter`,
             filter,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Service that return a Degree
+     * This service return a Degree by the ID
+     * @param authorization 
+     * @param id id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public findById(authorization: string, id: number, observe?: 'body', reportProgress?: boolean): Observable<DegreeDTO>;
+    public findById(authorization: string, id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<DegreeDTO>>;
+    public findById(authorization: string, id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<DegreeDTO>>;
+    public findById(authorization: string, id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (authorization === null || authorization === undefined) {
+            throw new Error('Required parameter authorization was null or undefined when calling findById.');
+        }
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling findById.');
+        }
+
+        let headers = this.defaultHeaders;
+        if (authorization !== undefined && authorization !== null) {
+            headers = headers.set('Authorization', String('Bearer ' + authorization));
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.get<DegreeDTO>(`${this.basePath}/degree/find-degree-by-id/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * This service save a Degree
+     * Service that return DegreeDTO with saved object Degree
+     * @param authorization 
+     * @param degree degree
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public save(authorization: string, degree: DegreeVO, observe?: 'body', reportProgress?: boolean): Observable<DegreeDTO>;
+    public save(authorization: string, degree: DegreeVO, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<DegreeDTO>>;
+    public save(authorization: string, degree: DegreeVO, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<DegreeDTO>>;
+    public save(authorization: string, degree: DegreeVO, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (authorization === null || authorization === undefined) {
+            throw new Error('Required parameter authorization was null or undefined when calling save.');
+        }
+        if (degree === null || degree === undefined) {
+            throw new Error('Required parameter degree was null or undefined when calling save.');
+        }
+
+        let headers = this.defaultHeaders;
+        if (authorization !== undefined && authorization !== null) {
+            headers = headers.set('Authorization', String('Bearer ' + authorization));
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/json'
+        ];
+        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<DegreeDTO>(`${this.basePath}/degree/save`,
+            degree,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Service that returns search by filter degree with subjects by filter
+     * This service returns search by filter  degree with subjects load by filter
+     * @param authorization 
+     * @param filter filter
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public searchByFilter(authorization: string, filter: DegreeFilterDTO, observe?: 'body', reportProgress?: boolean): Observable<Array<DegreeDTO>>;
+    public searchByFilter(authorization: string, filter: DegreeFilterDTO, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<DegreeDTO>>>;
+    public searchByFilter(authorization: string, filter: DegreeFilterDTO, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<DegreeDTO>>>;
+    public searchByFilter(authorization: string, filter: DegreeFilterDTO, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (authorization === null || authorization === undefined) {
+            throw new Error('Required parameter authorization was null or undefined when calling searchByFilter.');
+        }
+        if (filter === null || filter === undefined) {
+            throw new Error('Required parameter filter was null or undefined when calling searchByFilter.');
+        }
+
+        let headers = this.defaultHeaders;
+        if (authorization !== undefined && authorization !== null) {
+            headers = headers.set('Authorization', String('Bearer ' + authorization));
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/json'
+        ];
+        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+
+        return this.httpClient.post<Array<DegreeDTO>>(`${this.basePath}/degree/search-by-filter`,
+            filter,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * This service update a Degree
+     * Update a Degree, if it doesn&#39;t find it throw an exception
+     * @param authorization 
+     * @param degree degree
+     * @param degreeId degreeId
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public update(authorization: string, degree: DegreeDTO, degreeId: number, observe?: 'body', reportProgress?: boolean): Observable<DegreeDTO>;
+    public update(authorization: string, degree: DegreeDTO, degreeId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<DegreeDTO>>;
+    public update(authorization: string, degree: DegreeDTO, degreeId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<DegreeDTO>>;
+    public update(authorization: string, degree: DegreeDTO, degreeId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (authorization === null || authorization === undefined) {
+            throw new Error('Required parameter authorization was null or undefined when calling update.');
+        }
+        if (degree === null || degree === undefined) {
+            throw new Error('Required parameter degree was null or undefined when calling update.');
+        }
+        if (degreeId === null || degreeId === undefined) {
+            throw new Error('Required parameter degreeId was null or undefined when calling update.');
+        }
+
+        let headers = this.defaultHeaders;
+        if (authorization !== undefined && authorization !== null) {
+            headers = headers.set('Authorization', String('Bearer ' + authorization));
+        }
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+            'application/json'
+        ];
+        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        if (httpContentTypeSelected != undefined) {
+            headers = headers.set("Content-Type", httpContentTypeSelected);
+        }
+
+        return this.httpClient.put<DegreeDTO>(`${this.basePath}/degree/update/${encodeURIComponent(String(degreeId))}`,
+            degree,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

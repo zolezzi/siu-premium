@@ -18,16 +18,15 @@ import { UserControllerService } from 'src/app/api/service/userController.servic
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   submitted: boolean = false;
+  private EMPTY: string = ' ';
   private readonly FULL_NAME: string = 'FULL_NAME';
   private readonly ROLE: string = 'ROLE';
   private readonly ACCESS_TOKEN: string = 'ACCESS_TOKEN';
 
-  constructor(
-    private userservice: UserControllerService,
-    private router: Router,
-    private localStorageService: LocalStorageService,
-    private formBuilder: FormBuilder
-  ) {}
+  constructor( private userservice: UserControllerService, private router: Router,
+    private localStorageService: LocalStorageService, private formBuilder: FormBuilder) {
+
+  }
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -59,10 +58,7 @@ export class LoginComponent implements OnInit {
     this.userservice.login(authRequest).subscribe({
       next: (result) => {
         this.localStorageService.store(this.ACCESS_TOKEN, result.token);
-        this.localStorageService.store(
-          this.FULL_NAME,
-          String(result.firstname + ' ' + result.lastname)
-        );
+        this.localStorageService.store(this.FULL_NAME, String(result.firstname + this.EMPTY + result.lastname));
         this.localStorageService.store(this.ROLE, result.role);
         this.goToWelcome();
       },
@@ -79,15 +75,12 @@ export class LoginComponent implements OnInit {
   account_validation_messages = {
     email: [
       { type: 'required', message: 'Correo electrónico es requerido.' },
-      { type: 'pattern', message: 'Ingrese un correo electrónico válido.' },
+      { type: 'pattern', message: 'Ingrese un correo electrónico válido.' }
     ],
 
     password: [
       { type: 'required', message: 'Contraseña es requerida.' },
-      {
-        type: 'minlength',
-        message: 'Contraseña deberia tener al menos 8 caracteres.',
-      },
+      { type: 'minlength', message: 'Contraseña deberia tener al menos 8 caracteres.'},
     ],
   };
 }

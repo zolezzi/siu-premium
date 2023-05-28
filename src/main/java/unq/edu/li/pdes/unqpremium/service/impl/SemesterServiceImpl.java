@@ -1,6 +1,5 @@
 package unq.edu.li.pdes.unqpremium.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,13 +10,13 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import unq.edu.li.pdes.unqpremium.dto.SemesterDTO;
 import unq.edu.li.pdes.unqpremium.dto.SemesterFilterDTO;
+import unq.edu.li.pdes.unqpremium.exception.DegreeNotFoundException;
 import unq.edu.li.pdes.unqpremium.exception.SemesterNotFoundException;
+import unq.edu.li.pdes.unqpremium.exception.SubjectNotFoundException;
 import unq.edu.li.pdes.unqpremium.mapper.Mapper;
-import unq.edu.li.pdes.unqpremium.model.Degree;
 import unq.edu.li.pdes.unqpremium.model.Semester;
 import unq.edu.li.pdes.unqpremium.model.SemesterDegreeSubject;
 import unq.edu.li.pdes.unqpremium.model.SemesterType;
-import unq.edu.li.pdes.unqpremium.model.Subject;
 import unq.edu.li.pdes.unqpremium.repository.DegreeRepository;
 import unq.edu.li.pdes.unqpremium.repository.SemesterDegreeSubjectRepository;
 import unq.edu.li.pdes.unqpremium.repository.SemesterRepository;
@@ -42,8 +41,11 @@ public class SemesterServiceImpl implements SemesterService{
 	}
 
 	@Override
+	@Transactional
 	public void deleteSemesterById(Long semesterId) {
 		var semesterDB = getSemesterById(semesterId);
+		List<SemesterDegreeSubject> listElements = semesterDegreeSubjectRepository.findBySemesterId(semesterId);
+		semesterDegreeSubjectRepository.deleteAll(listElements);
 		repository.delete(semesterDB);
 	}
 
@@ -59,6 +61,7 @@ public class SemesterServiceImpl implements SemesterService{
 	public SemesterDTO updateSemester(SemesterDTO semester, Long semesterId) {
 		var semesterDB = getSemesterById(semesterId);
 		semesterDB = mapper.map(semester, Semester.class);
+		semesterDB.setId(semesterId);
 		return mapper.map(repository.save(semesterDB), SemesterDTO.class);
 	}
 
@@ -83,22 +86,23 @@ public class SemesterServiceImpl implements SemesterService{
 	}
 
 	private void createSemesterWithDegreesAndSubjects(SemesterVO semesterVO, Semester semesterDB) {
-		List<Degree> degreesBD = degreeRepository.findAllById(semesterVO.getDegreeIds());
-		List<SemesterDegreeSubject> list = degreesBD.stream()
-				.map(degree -> createRelationshipWithSemesterDegreeAndSubject(semesterDB, degree, semesterVO))
-				.collect(ArrayList::new, List::addAll, List::addAll);
+		List<SemesterDegreeSubject> list = createRelationshipWithSemesterDegreeAndSubject(semesterDB, semesterVO);
 		semesterDegreeSubjectRepository.saveAll(list);
 	}
 
-	private List<SemesterDegreeSubject> createRelationshipWithSemesterDegreeAndSubject(Semester semesterDB, Degree degree,
+	private List<SemesterDegreeSubject> createRelationshipWithSemesterDegreeAndSubject(Semester semesterDB,
 			SemesterVO semesterVO) {
-		List<Subject> subjects = subjectRepository.findAllById(semesterVO.getSubjects().stream().map(subject -> subject.getId()).collect(Collectors.toList()));
-		return subjects.stream()
-				.map(subject -> createSemesterDegreeAndSubject(subject, degree, semesterDB))
+		return semesterVO.getSubjects()
+				.stream()
+				.map(subject -> createSemesterDegreeAndSubjectAndLoadSubjectAndDegreeById(subject.getId(), subject.getDegreeId(), semesterDB))
 				.collect(Collectors.toList());
 	}
 
-	private SemesterDegreeSubject createSemesterDegreeAndSubject(Subject subject, Degree degree, Semester semesterDB) {
+	private SemesterDegreeSubject createSemesterDegreeAndSubjectAndLoadSubjectAndDegreeById(Long subjectId, Long degreeId, Semester semesterDB) {
+		var subject = subjectRepository.findById(subjectId)
+				.orElseThrow(() -> new SubjectNotFoundException(String.format("No found subject :%s", subjectId)));
+		var degree = degreeRepository.findById(degreeId)
+				.orElseThrow(() -> new DegreeNotFoundException(String.format("No found degree:%s", degreeId)));
 		var semesterDegreeSubject = new SemesterDegreeSubject();
 		semesterDegreeSubject.setSubject(subject);
 		semesterDegreeSubject.setDegree(degree);
