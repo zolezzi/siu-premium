@@ -5,6 +5,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { DegreeControllerService, DegreeDTO } from 'src/app/api';
+import { CreateDegreeDialogComponent } from '../mat-dialog/create-degree.component';
 
 @Component({
   selector: 'app-degree',
@@ -46,6 +47,15 @@ export class DegreeComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
     dialogRef.afterClosed().subscribe({
       next: (val) => {},
+    });
+  }
+
+  openCreateForm() {
+    const dialogRef = this.dialog.open(CreateDegreeDialogComponent);
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        this.searchDegree();
+      },
     });
   }
 

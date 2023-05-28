@@ -42,16 +42,16 @@ export class UpdateSemesterComponent implements OnInit {
   ) {} 
 
   ngOnInit(): void {
-   const route= this.route.paramMap.subscribe((params: ParamMap) => {
-    this.id= params.get('id');
-    this.localStorageService.retrieve(this.ACCESS_TOKEN),
-    this.semesterControllerService.findSemesterById(this.localStorageService.retrieve(this.ACCESS_TOKEN),this.id)
-    .subscribe((data)=>{
-      this.semesterFormGroup.patchValue({
-        toDateSemester: data.toDate,
-        fromDateSemester:data.fromDate,
-        semesterTypeForm:data.semesterType
-      })
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.id = params.get('id');
+      this.localStorageService.retrieve(this.ACCESS_TOKEN),
+      this.semesterControllerService.findSemesterById(this.localStorageService.retrieve(this.ACCESS_TOKEN),this.id)
+      .subscribe((data)=>{
+        this.semesterFormGroup.patchValue({
+          toDateSemester: data.toDate,
+          fromDateSemester:data.fromDate,
+          semesterTypeForm:data.semesterType
+        })
     })
   });
   }

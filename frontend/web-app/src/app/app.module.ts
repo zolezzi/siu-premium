@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LayoutComponent } from './components/layout/layout.component';
 import { LoginComponent } from './components/login/login.component';
@@ -21,6 +22,8 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { TeacherComponent } from './components/teacher/teacher.component';
 import { StudentComponent } from './components/student/student.component';
 import { UpdateSemesterComponent } from './components/semester/update-semester/update-semester.component';
+import { CreateDegreeDialogComponent } from './components/mat-dialog/create-degree.component';
+import { CreateSubjectDialogComponent } from './components/mat-dialog/create-subject.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +38,8 @@ import { UpdateSemesterComponent } from './components/semester/update-semester/u
     DegreeComponent,
     SubjectComponent,
     ConfirmDialogComponent,
+    CreateDegreeDialogComponent,
+    CreateSubjectDialogComponent,
     TeacherComponent,
     StudentComponent,
     UpdateSemesterComponent
@@ -46,6 +51,7 @@ import { UpdateSemesterComponent } from './components/semester/update-semester/u
     AngularMaterialModule, 
     FormsModule,
     MatSelectModule,
+    ReactiveFormsModule,
     NgxWebstorageModule.forRoot()
     
   ],

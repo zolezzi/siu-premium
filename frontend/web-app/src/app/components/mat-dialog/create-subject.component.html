@@ -1,0 +1,26 @@
+<div mat-dialog-title>
+    <h1>Agregar una nueva materia</h1>
+</div>
+<form [formGroup]="formGroupCreate" (ngSubmit)="onSubmitForm()">
+    <mat-form-field>
+        <mat-label>Carrera</mat-label>
+        <mat-select name="carrera" formControlName="degreeId" >
+          <mat-option>Todos</mat-option>
+          <mat-option
+            *ngFor="let degree of listDegree"
+            [value]="degree.id">
+            {{ degree.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    <div mat-dialog-content class="content">
+        <div class="example-full-width">
+            <div>Nombre materia</div>
+            <input formControlName="name" matInput placeholder="" value="">
+          </div>
+    </div>
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" (click)="onNoClick()"> Cancel </button>
+        <button mat-raised-button color="primary" type="submit">{{data ? '': 'Guardar'}}</button>
+    </div>
+</form>

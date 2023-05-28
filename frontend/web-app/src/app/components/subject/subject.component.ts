@@ -15,6 +15,7 @@ import {
 } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { DegreeControllerService, DegreeDTO, DegreeFilterDTO, SubjectControllerService, SubjectDTO } from 'src/app/api';
+import { CreateSubjectDialogComponent } from '../mat-dialog/create-subject.component';
 @Component({
   selector: 'app-subject',
   templateUrl: './subject.component.html',
@@ -61,6 +62,15 @@ export class SubjectComponent implements AfterViewInit, OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
     dialogRef.afterClosed().subscribe({
       next: (val) => {},
+    });
+  }
+
+  openCreateForm() {
+    const dialogRef = this.dialog.open(CreateSubjectDialogComponent);
+    dialogRef.afterClosed().subscribe({
+      next: (val) => {
+        this.searchSubjects();
+      },
     });
   }
 
