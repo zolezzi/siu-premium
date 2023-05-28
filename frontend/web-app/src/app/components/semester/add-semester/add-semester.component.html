@@ -1,5 +1,5 @@
 
-<button mat-button  routerLink="/semester" ><i class="fa-solid fa-backward"></i></button>
+<button class="button animation-button blue" mat-button  routerLink="/semester" ><i class="fa-solid fa-backward"  style="color: black;"></i></button>
 <div class="card">
   <h2>Crear Cuatrimestre</h2>
   <div class="buttons"></div>
@@ -36,7 +36,7 @@
           </form>
         </div>
         <div class="button">
-          <button mat-button matStepperNext>Seguiente</button>
+          <button mat-button matStepperNext >Siguiente</button>
         </div>
       </mat-step>
       <mat-step [stepControl]="secondFormGroup">
@@ -63,57 +63,31 @@
       </mat-step>
       <mat-step [stepControl]="threeFormGroup">
         <div class="step3">
-
           <form [formGroup]="threeFormGroup">
             <ng-template matStepLabel></ng-template>
             <div class="panel">
               <h4>Seleccione materias</h4>
-              <!--<mat-accordion>-->
-                <!--<mat-expansion-panel style="margin-bottom: 15px" (opened)="panelOpenState = true" (closed)="panelOpenState = false">-->
-                  <!--<section class="listSemester" [formGroup]="subjectsBuilder">
-                  <mat-form-field floatLabel="auto">
-                     <mat-label>MATERIAS</mat-label> 
-                     <div formArrayName="subjectsListSelect">
-                        <div *ngFor="let degree of listDegreeWithSubjects">
-                          <mat-select multiple formArrayName="subjects" 
-                            placeholder="MATERIAS" floatPlaceholder="never">
-                            <mat-option *ngFor="let subject of degree.subjects" [value]="subject.id">
-                              {{subject.name}} 
-                            </mat-option>
-                          </mat-select>
-                      </div>
-                     </div>
-                    </mat-form-field>
-                   </section>-->
-                   <section class="listSemester" [formGroup]="subjectsBuilder">
-                    <!-- <mat-form-field floatLabel="auto">-->
-                      <div *ngIf="isValid">
-                        <mat-form-field appearance="fill">
-                          <mat-label>Materias</mat-label>
-                          <mat-select [formControl]="carrer2a" multiple>
-                            <mat-optgroup *ngFor="let degree of listDegreeWithSubjects" label="{{degree.name}}"
-                                          >
-                              <mat-option *ngFor="let subject of degree.subjects" [value]="subject">
-                                {{subject.name}}
-                              </mat-option>
-                            </mat-optgroup>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
-                      
-                      <!-- </mat-form-field>-->
-                    </section>
-                   
-                <!--</mat-expansion-panel>
-              </mat-accordion>-->
+              <section class="listSemester" [formGroup]="subjectsBuilder">
+                <div *ngIf="isValid">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Materias</mat-label>
+                    <mat-select [formControl]="degreeMultiSelectForm" multiple>
+                      <mat-optgroup style="font-weight: bolder;" *ngFor="let degree of listDegreeWithSubjects" label="{{degree.name}}"
+                                    >
+                        <mat-option *ngFor="let subject of degree.subjects" [value]="subject">
+                          {{subject.name}}
+                        </mat-option>
+                      </mat-optgroup>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </section>
             </div>
           </form>
         </div>
-
         <div class="button">
           <button mat-button matStepperPrevious>Volver</button>
-          
-          <button mat-button (click)="saveSemester(carrer2a)">Guardar</button>
+          <button mat-button (click)="saveSemester(degreeMultiSelectForm)">Guardar</button>
         </div>
       </mat-step>
     </mat-stepper>

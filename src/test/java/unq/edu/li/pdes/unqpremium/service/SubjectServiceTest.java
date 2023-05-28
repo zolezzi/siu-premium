@@ -29,6 +29,7 @@ import unq.edu.li.pdes.unqpremium.exception.UnqPremiumException;
 import unq.edu.li.pdes.unqpremium.mapper.Mapper;
 import unq.edu.li.pdes.unqpremium.model.Degree;
 import unq.edu.li.pdes.unqpremium.model.Subject;
+import unq.edu.li.pdes.unqpremium.repository.DegreeReportRepository;
 import unq.edu.li.pdes.unqpremium.repository.DegreeRepository;
 import unq.edu.li.pdes.unqpremium.repository.SubjectRepository;
 import unq.edu.li.pdes.unqpremium.service.impl.SubjectServiceImpl;
@@ -66,6 +67,9 @@ public class SubjectServiceTest {
 	private DegreeRepository degreeRepository;
 	
 	@Mock
+	private DegreeReportRepository degreeReportRepository;
+	
+	@Mock
 	private Mapper mapper;
 	
 	@Rule
@@ -76,7 +80,7 @@ public class SubjectServiceTest {
 	
 	@Before
 	public void setUp(){
-		service = new SubjectServiceImpl(repository, degreeRepository, mapper);
+		service = new SubjectServiceImpl(repository, degreeRepository, degreeReportRepository, mapper);
 		when(repository.findById(ID)).thenReturn(Optional.of(subject));
 		var degreeAnew = new Degree();
 		var subjectANew = new Subject();

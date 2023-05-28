@@ -1,0 +1,56 @@
+<button class="button animation-button blue" mat-button routerLink="/semester">
+  <i class="fa-solid fa-backward" style="color: black"></i>
+</button>
+<div class="card">
+  <h2>Editar Cuatrimestre</h2>
+  <div class="buttons"></div>
+  <div class="step">
+    <div class="step1">
+      <form [formGroup]="semesterFormGroup">
+        <ng-template matStepLabel></ng-template>
+        <div class="date">
+          <mat-form-field appearance="fill">
+            <mat-label>Desde</mat-label>
+            <input
+              matInput
+              [matDatepicker]="fromDate"
+              formControlName="fromDateSemester"
+            />
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="fromDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #fromDate></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" style="margin-left: 10px">
+            <mat-label>Hasta</mat-label>
+            <input
+              matInput
+              [matDatepicker]="toDate"
+              formControlName="toDateSemester"
+            />
+
+            <mat-datepicker-toggle
+              matIconSuffix
+              [for]="toDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #toDate></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" style="margin-left: 10px">
+            <mat-label>Tipo cuatrimestre</mat-label>
+            <mat-select formControlName="semesterTypeForm" name="s">
+              <mat-option *ngFor="let s of semesters" [value]="s.value">
+                {{ s.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+    <div class="buttonSave">
+      <button mat-button (click)="update()">Guardar</button>
+    </div>
+  </div>
+</div>

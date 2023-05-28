@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
 import { SemesterFilterDTO } from 'src/app/api';
 import { SemesterVO } from 'src/app/api/model/semesterVO';
 import { SemesterControllerService } from 'src/app/api/service/semesterController.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-semester',
@@ -28,20 +30,21 @@ export class SemesterComponent implements OnInit {
   selectedType!: string;
   private readonly ACCESS_TOKEN: string = 'ACCESS_TOKEN';
   private readonly ROLE: string = 'ROLE';
- 
-  isReload:boolean = true;
+
+  isReload: boolean = true;
 
   constructor(
     private semesterControllerService: SemesterControllerService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private snackBar:MatSnackBar,
-    private localStorageService: LocalStorageService
+    private snackBar: MatSnackBar,
+    private localStorageService: LocalStorageService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     var isValid = this.localStorageService.retrieve('RELOAD');
-    if(isValid == 'reload'){
+    if (isValid == 'reload') {
       this.localStorageService.store('RELOAD', 'login');
       window.location.reload();
     }
@@ -58,34 +61,56 @@ export class SemesterComponent implements OnInit {
   }
 
   delete(id: number) {
-    debugger; 
-    this.semesterControllerService.deleteSemesterById(this.localStorageService.retrieve(this.ACCESS_TOKEN), id)
-      .subscribe((data) => {
-        this.snackBar.open('Borrado con éxito', '', {
-          duration: 3000
-        });
-        this.search(this.filter);
-      });
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { message: 'Esta seguro que desea eliminar el cuatrimestre?' },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'aceptar') {
+        this.semesterControllerService
+          .deleteSemesterById(
+            this.localStorageService.retrieve(this.ACCESS_TOKEN),
+            id
+          )
+          .subscribe((data:any) => {
+            this.snackBar.open('Borrado con éxito', '', {
+              duration: 10000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+            });
+            this.search(this.filter);
+          });
+      }
+    });
+  }
+  
+  update(id: number) {
+    this.router.navigate(['/semester-update/' + id]);
+  }
+
+  goToListSemesters(id: number){
+    this.router.navigate(['/semesters-subjects-degrees-list/' + id]);
   }
 
   onSubmit(value: any) {
     const semesterRequest: SemesterVO = {
-      degreeIds: value.degreeIds,
+      degreeIds: value.degreeIds, 
       fromDate: value.fromDate,
       semesterType: value.semesterType,
-      subjects: value.subjects,
+      subjects: value.subjects, 
       toDate: value.toDate,
     };
     this.search(this.filter);
-    
   }
 
   search(filter: SemesterFilterDTO) {
-    this.semesterControllerService.searchSemestersByFilter(this.localStorageService.retrieve(this.ACCESS_TOKEN), filter)
+    this.semesterControllerService
+      .searchSemestersByFilter(
+        this.localStorageService.retrieve(this.ACCESS_TOKEN),
+        filter
+      )
       .subscribe((data) => {
         this.listSemester = data;
-        console.log(data)
     });
   }
-  
 }
