@@ -19,6 +19,7 @@ mat-toolbar {
 .mat-toolbar.mat-primary {
   background: #05000c;
   color: #fff;
+  height: 50px;
 }
 mat-sidenav {
   width: 250px;
@@ -26,14 +27,14 @@ mat-sidenav {
 
 mat-sidenav-content {
   padding: 24px;
-  height: calc(100vh - 40px);
+  height: calc(100vh - 50px);
 }
 
 mat-nav-list {
   display: flex;
   flex-direction: column;
   margin-top: 24px;
-  width: 100px;
+  /* width: 100px; */
 }
 
 mat-list-item {
@@ -47,6 +48,6 @@ mat-list-item {
 
   mat-sidenav-content {
     padding: 16px;
-    height: calc(100vh - 40px);
+    height: calc(100vh - 50px);
   }
 }
