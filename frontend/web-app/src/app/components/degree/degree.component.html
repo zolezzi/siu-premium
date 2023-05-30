@@ -1,4 +1,4 @@
-<button class="button animation-button blue" mat-button routerLink="/home">
+<button class="btn btn-primary" style="width: 50px" routerLink="/home">
   <i class="fa-solid fa-backward" style="color: black"></i>
 </button>
 
@@ -21,7 +21,7 @@
     <button
       *ngIf="isAdmin"
       type="button"
-      style="margin-bottom: 16px; margin-right: 10px"
+      style="margin-bottom: 25px; margin-right: 10px;  padding: 0.6rem 0.9rem;"
       class="btn btn-primary btn-lg"
       data-toggle="tooltip"
       data-placement="top"
@@ -42,8 +42,12 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>Action</th>
         <td mat-cell *matCellDef="let column">
-          <button mat-icon-button color="primary" (click)="delete(column)">
-            <mat-icon>delete</mat-icon>
+          <button
+            class="btn btn-danger"
+            title="Borrar carrera"
+            (click)="delete(column)"
+          >
+            <i class="fa-solid fa-trash"></i>
           </button>
         </td>
       </ng-container>

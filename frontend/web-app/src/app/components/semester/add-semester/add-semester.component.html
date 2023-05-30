@@ -1,5 +1,6 @@
-
-<button class="button animation-button blue" mat-button  routerLink="/semester" ><i class="fa-solid fa-backward"  style="color: black;"></i></button>
+<button class="btn btn-primary" style="width: 50px" routerLink="/semester">
+  <i class="fa-solid fa-backward" style="color: black"></i>
+</button>
 <div class="card">
   <h2>Crear Cuatrimestre</h2>
   <div class="buttons"></div>
@@ -12,15 +13,29 @@
             <div class="date">
               <mat-form-field appearance="fill">
                 <mat-label>Desde</mat-label>
-                <input matInput [matDatepicker]="fromDate" formControlName="fromDateSemester"/>
-                <mat-datepicker-toggle matIconSuffix [for]="fromDate"></mat-datepicker-toggle>
+                <input
+                  matInput
+                  [matDatepicker]="fromDate"
+                  formControlName="fromDateSemester"
+                />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="fromDate"
+                ></mat-datepicker-toggle>
                 <mat-datepicker #fromDate></mat-datepicker>
               </mat-form-field>
 
               <mat-form-field appearance="fill" style="margin-left: 10px">
                 <mat-label>Hasta</mat-label>
-                <input matInput [matDatepicker]="toDate" formControlName="toDateSemester"/>
-                <mat-datepicker-toggle matIconSuffix [for]="toDate"></mat-datepicker-toggle>
+                <input
+                  matInput
+                  [matDatepicker]="toDate"
+                  formControlName="toDateSemester"
+                />
+                <mat-datepicker-toggle
+                  matIconSuffix
+                  [for]="toDate"
+                ></mat-datepicker-toggle>
                 <mat-datepicker #toDate></mat-datepicker>
               </mat-form-field>
 
@@ -36,7 +51,8 @@
           </form>
         </div>
         <div class="button">
-          <button mat-button matStepperNext >Siguiente</button>
+          
+          <button class="btn btn-primary" style="color: black;font-weight: 500;" matStepperNext>Siguiente</button>
         </div>
       </mat-step>
       <mat-step [stepControl]="secondFormGroup">
@@ -44,21 +60,30 @@
           <form [formGroup]="secondFormGroup">
             <ng-template matStepLabel></ng-template>
             <section class="listSemester" [formGroup]="carrera">
-             <mat-form-field floatLabel="auto">
-              <mat-label>CARRERA</mat-label> 
-              <mat-select multiple formControlName="listResult" 
-                placeholder="CARRERA" floatPlaceholder="never">
-                <mat-option *ngFor="let degree of listDegree" [value]="degree.id">
-                  {{degree.name}} 
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+              <mat-form-field floatLabel="auto">
+                <mat-label>CARRERA</mat-label>
+                <mat-select
+                  multiple
+                  formControlName="listResult"
+                  placeholder="CARRERA"
+                  floatPlaceholder="never"
+                >
+                  <mat-option
+                    *ngFor="let degree of listDegree"
+                    [value]="degree.id"
+                  >
+                    {{ degree.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
             </section>
           </form>
         </div>
         <div class="button">
-          <button mat-button matStepperPrevious>Volver</button>
-          <button mat-button matStepperNext (click)="loadSubjects(carrera)">Siguiente</button>
+          <button class="btn btn-primary" style="color: black;font-weight: 500;" matStepperPrevious>Volver</button>
+          <button class="btn btn-primary" style="color: black;font-weight: 500;" matStepperNext (click)="loadSubjects(carrera)">
+            Siguiente
+          </button>
         </div>
       </mat-step>
       <mat-step [stepControl]="threeFormGroup">
@@ -72,10 +97,16 @@
                   <mat-form-field appearance="fill">
                     <mat-label>Materias</mat-label>
                     <mat-select [formControl]="degreeMultiSelectForm" multiple>
-                      <mat-optgroup style="font-weight: bolder;" *ngFor="let degree of listDegreeWithSubjects" label="{{degree.name}}"
-                                    >
-                        <mat-option *ngFor="let subject of degree.subjects" [value]="subject">
-                          {{subject.name}}
+                      <mat-optgroup
+                        style="font-weight: bolder"
+                        *ngFor="let degree of listDegreeWithSubjects"
+                        label="{{ degree.name }}"
+                      >
+                        <mat-option
+                          *ngFor="let subject of degree.subjects"
+                          [value]="subject"
+                        >
+                          {{ subject.name }}
                         </mat-option>
                       </mat-optgroup>
                     </mat-select>
@@ -86,8 +117,10 @@
           </form>
         </div>
         <div class="button">
-          <button mat-button matStepperPrevious>Volver</button>
-          <button mat-button (click)="saveSemester(degreeMultiSelectForm)">Guardar</button>
+          <button class="btn btn-primary" style="color: black;font-weight: 500;" matStepperPrevious>Volver</button>
+          <button class="btn btn-primary" style="color: black;font-weight: 500;" (click)="saveSemester(degreeMultiSelectForm)">
+            Guardar
+          </button>
         </div>
       </mat-step>
     </mat-stepper>

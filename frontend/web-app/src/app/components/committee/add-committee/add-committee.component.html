@@ -1,0 +1,107 @@
+<button class="btn btn-primary" style="width: 50px" routerLink="/committee">
+  <i class="fa-solid fa-backward" style="color: black"></i>
+</button>
+<div class="container">
+  <div class="card">
+    <h2>Comisión</h2>
+    <div class="buttons"></div>
+    <div class="step">
+      <div class="step1">
+        <form [formGroup]="commiteeFormGroup">
+          <ng-template matStepLabel></ng-template>
+          <div class="date">
+            <mat-form-field appearance="fill" *ngIf="isAdmin">
+              <mat-label>Docentes</mat-label>
+              <mat-select [formControl]="docente" multiple>
+                <mat-option
+                  *ngFor="let docente of docentesList"
+                  [value]="docente"
+                  >{{ docente }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Descripción</mat-label>
+              <input matInput />
+            </mat-form-field>
+          </div>
+          <div class="date">
+            <mat-form-field>
+              <mat-label>Aula</mat-label>
+              <input matInput />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Comisión</mat-label>
+              <mat-select name="comision">
+                <mat-option
+                  *ngFor="let comision of comisiones"
+                  [value]="comision.viewValue"
+                >
+                  {{ comision.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="date">
+            <mat-form-field appearance="fill" *ngIf="isTeacher">
+              <mat-label>Asignar alumnos</mat-label>
+              <mat-select [formControl]="alumno" multiple>
+                <mat-option
+                  *ngFor="let alumno of alumnosList"
+                  [value]="alumno"
+                  >{{ alumno }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+
+      <div class="button">
+        <button class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mat-elevation-z8" style="margin-top: 40px">
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="apellido">
+        <th mat-header-cell *matHeaderCellDef>Apellido</th>
+        <td mat-cell *matCellDef="let element">{{ element.apellido }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dni">
+        <th mat-header-cell *matHeaderCellDef>Dni</th>
+        <td mat-cell *matCellDef="let element">{{ element.dni }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="materia">
+        <th mat-header-cell *matHeaderCellDef>Materia</th>
+        <td mat-cell *matCellDef="let element">{{ element.materia }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="carrera">
+        <th mat-header-cell *matHeaderCellDef>Carrera</th>
+        <td mat-cell *matCellDef="let element">{{ element.carrera }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let column">
+          <button class="btn btn-danger" title="Borrar docente">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+ 
+</div>
+</div>

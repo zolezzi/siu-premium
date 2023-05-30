@@ -28,13 +28,14 @@
   >
     <mat-nav-list>
       <a mat-list-item *ngIf="isLoggedIn" routerLink="/">Home</a>
-      <a mat-list-item *ngIf="isLoggedIn && isAdmin || isTeacher" routerLink="/semester">Cuatrimestres</a>
-      <a mat-list-item *ngIf="isLoggedIn && isAdmin || isTeacher" routerLink="/committee">Comisiones</a>
-      <a mat-list-item *ngIf="isLoggedIn && isAdmin" routerLink="/subjects">Materias</a>
+      <a mat-list-item *ngIf="isLoggedIn && (isAdmin || isTeacher)" routerLink="/semester">Cuatrimestres</a>
+      <a mat-list-item *ngIf="isLoggedIn && (isAdmin || isTeacher)" routerLink="/committee">Comisiones</a>
+      <a mat-list-item *ngIf="isLoggedIn && isAdmin" routerLink="/subjects">Materias</a> 
       <a mat-list-item *ngIf="isLoggedIn && isAdmin" routerLink="/degrees">Carreras</a>
       <a mat-list-item *ngIf="isLoggedIn && isAdmin" routerLink="/teacher">Docentes</a>
       <a mat-list-item *ngIf="isLoggedIn && isAdmin" routerLink="/student">Alumnos</a>
-      <a mat-list-item *ngIf="isLoggedIn && isAdmin" routerLink="addSemester">Agregar Cuatrimestre</a>
+      <a mat-list-item *ngIf="isLoggedIn && isAdmin" routerLink="/addSemester">Agregar Cuatrimestre</a>
+      <a mat-list-item *ngIf="isLoggedIn && isTeacher" routerLink="/groups">Grupos</a>
       <a mat-list-item *ngIf="isLoggedIn" (click)="logout()">Salir</a>
     </mat-nav-list>
   </mat-sidenav>

@@ -25,6 +25,8 @@ import { StudentComponent } from './components/student/student.component';
 import { UpdateSemesterComponent } from './components/semester/update-semester/update-semester.component';
 import { CreateDegreeDialogComponent } from './components/mat-dialog/create-degree.component';
 import { CreateSubjectDialogComponent } from './components/mat-dialog/create-subject.component';
+import { AddCommitteeComponent } from './components/committee/add-committee/add-committee.component';
+import { GroupsComponent } from './components/groups/groups.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { CreateSubjectDialogComponent } from './components/mat-dialog/create-sub
     CreateSubjectDialogComponent,
     TeacherComponent,
     StudentComponent,
-    UpdateSemesterComponent
+    UpdateSemesterComponent,
+    AddCommitteeComponent,
+    GroupsComponent
   ],
   imports: [
     BrowserModule,

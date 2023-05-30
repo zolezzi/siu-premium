@@ -24,14 +24,6 @@
     0 0 1.5em rgba(0, 119, 255, 0.7);
 }
 
-.mat-mdc-icon-button.mat-primary {
-  color: rgb(190, 24, 18);
-}
-
-.mat-mdc-icon-button.mat-accent {
-  color: rgb(56, 56, 133);
-}
-
 .mat-mdc-form-field {
   font-size: 14px;
   width: 100%;

@@ -1,9 +1,8 @@
 .container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  max-width: 100%;
+  width: 100%;
 }
 
 .title {
@@ -11,16 +10,14 @@
   justify-content: center;
 }
 
-.container .card {
-  position: relative;
-  min-width: 320px;
-  height: 400px;
-  box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.2),
-    inset -5px -5px 15px rgba(255, 255, 255, 0.1),
-    5px 5px 15px rgba(0, 0, 0, 0.3), -5px -5px 15px rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  margin: 30px;
-  transition: 0.5s;
+.addButton {
+  display: flex;
+  justify-content: flex-end;
+}
+.committee-item_buttons{
+  display: flex;
+  justify-content: center;
+  margin-top: -20px;
 }
 
 .container .buttons {
@@ -28,60 +25,26 @@
   justify-content: space-around;
 }
 
-.container .card:nth-child(1) .box .content a {
-  background: #2196f3;
-}
-
-.container .card .box {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  right: 20px;
-  bottom: 20px;
-  background: #2a2b2f;
-  border-radius: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  transition: 0.5s;
-}
-
-.container .card .box:hover {
-  transform: translateY(-50px);
-}
-
-.container .card .box:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 50%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.03);
-}
-
-.container .card .box .content {
-  padding: 20px;
+.content {
+  padding: 30px;
   text-align: center;
 }
 
-.container .card .box .content h2 {
-  position: absolute;
+.content h2 {
   top: 30px;
   right: 45px;
-  color: rgba(255, 255, 255, 0.1);
+  color: rgba(143, 173, 197, 0.568);
 }
 
-.container .card .box .content h3 {
-  font-size: 1.8rem;
+.content h3 {
+  height: 105px;
+  /* font-size: 1.8rem;
   color: #fff;
   z-index: 1;
   transition: 0.5s;
-  margin-bottom: 15px;
+  margin-bottom: 15px; */
 }
-
-.container .card .box .content p {
+.content p {
   font-size: 1rem;
   font-weight: 300;
   color: rgba(255, 255, 255, 0.9);
@@ -89,7 +52,7 @@
   transition: 0.5s;
 }
 
-.container .card .box .content a {
+.content a {
   position: relative;
   display: inline-block;
   padding: 8px 20px;
@@ -102,8 +65,157 @@
   transition: 0.5s;
 }
 
-.container .card .box .content a:hover {
+.content a:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
   background: #fff;
   color: #000;
+}
+
+.format-container {
+  margin: 0 auto;
+  width:32%;
+}
+
+body {
+  background-color: #000;
+}
+
+.committee_box {
+  padding: 40px 0;
+}
+
+.committee_item {
+  margin: 0 15px 30px;
+  overflow: hidden;
+  border-radius: 28px;
+}
+
+.committee-item_link {
+  display: block;
+  padding: 20px 20px;
+  background-color: #121212;
+  overflow: hidden;
+  position: relative;
+}
+.committee-item_buttons{
+  display: flex;
+  justify-content: center;
+  margin-top: -20px;
+}
+.committee-item_link:hover,
+.committee-item_link:hover .committee-item_date  {
+  text-decoration: none;
+  color: #fff;
+}
+
+.committee-item_link:hover .committee-item_bg {
+  -webkit-transform: scale(10);
+  -ms-transform: scale(10);
+  transform: scale(10);
+}
+
+.committee-item_title  {
+ height: 330px;
+  overflow: hidden;
+  font-weight: bold;
+  font-size: 30px;
+  color: #fff;
+  z-index: 2;
+  position: relative;
+}
+
+.committee-item_date-box {
+  font-size: 18px;
+  color: #fff;
+  z-index: 2;
+  position: relative;
+}
+
+.committee-item_date {
+  font-weight: bold;
+  color: #3f60de;
+  -webkit-transition: color 0.5s ease;
+  -o-transition: color 0.5s ease;
+  transition: color 0.5s ease;
+}
+
+.committee-item_bg {
+  height: 128px;
+  width: 128px;
+  background-color: #3f60de;
+  z-index: 1;
+  position: absolute;
+  top: -75px;
+  right: -75px;
+  border-radius: 50%;
+  -webkit-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.committee_item:nth-child(2n) .committee-item_bg {
+  background-color: #3ecd5e;
+}
+.committee_item:nth-child(3n) .committee-item_bg {
+  background-color: #e44002;
+}
+.committee_item:nth-child(4n) .committee-item_bg {
+  background-color: #952aff;
+}
+.committee_item:nth-child(5n) .committee-item_bg {
+  background-color: #cd3e94;
+}
+.committee_item:nth-child(6n) .committee-item_bg {
+  background-color: #4c49ea;
+}
+
+@media only screen and (max-width: 979px) {
+  .committee_item {
+    -ms-flex-preferred-size: calc(50% - 30px);
+    flex-basis: calc(50% - 30px);
+  }
+  .committee-item_title {
+    font-size: 24px;
+  }
+
+  .committee-item_buttons{
+    display: flex;
+    justify-content: center;
+    /* margin-bottom: 10px; */
+    margin-top: -33px;}
+}
+
+ @media only screen and (max-width: 767px) {
+  .format-container {
+    width: 100%;
+  }
+  .committee-item_buttons {
+    display: flex;
+    justify-content: center;
+    /* margin-bottom: 10px; */
+    margin-top: -33px;}
+} 
+
+@media only screen and (max-width: 639px) {
+  .committee_item {
+    -ms-flex-preferred-size: 100%;
+    flex-basis: 100%;
+  }
+  .committee-item_title {
+    min-height: 6px;
+    line-height: 1;
+
+    font-size: 24px;
+  }
+  .committee-item_link {
+    padding: 22px 40px;
+  }
+  .committee-item_buttons {
+    display: flex;
+    justify-content: center;
+    /* margin-bottom: 10px; */
+    margin-top: -33px;}
+  .committee-item_date-box {
+    font-size: 16px;
+  }
 }

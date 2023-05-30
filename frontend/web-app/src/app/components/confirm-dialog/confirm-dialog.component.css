@@ -6,14 +6,4 @@
   margin-bottom: 16px;
 }
 
-button {
-  background-color: #0077ff;
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 12px;
-  margin-right: 10px;
-  padding: 10px 20px;
-  transition: all 0.3s ease;
-}
+

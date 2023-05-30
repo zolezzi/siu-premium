@@ -1,17 +1,14 @@
-.card {
+.container{}
+ .card {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  top: 40%;
-  left: 50%;
-  max-width: 75%;
-  max-height: 100%;
   padding: 16px;
-  transform: translate(-50%, -50%);
   box-sizing: border-box;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
   border-radius: 20px;
+  width: 100%;
 }
 
 .step1 {
@@ -25,38 +22,15 @@
   border: 1px solid black;
 }
 
-.panel {
-  margin: 16px;
-}
-
-.date {
+.date{
   margin: 16px;
   display: flex;
 }
 
-.buttonSave {
+.button{
   margin-top: 16px;
-  display: flex;
-  justify-content: flex-end;
-}
-mat-label {
-  color: rgb(20, 19, 20);
-}
-mat-mdc-checkbox {
-  color: pink;
-}
-mat-mdc-checkbox mat-accent {
-  background-color: red;
-  color: blue;
-}
-mat-mdc-checkbox {
-  color: rebeccapurple;
 }
 
-mat-calendar-body-selected {
-  background-color:transparent;
-  color: #fff;
-}
 h2 {
   text-align: center;
 }
@@ -65,41 +39,78 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
-}
-
-button {
-  background-color: #0077ff;
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  font-size: 16px;
-  margin-right: 10px;
-  padding: 10px 20px;
-  transition: all 0.3s ease;
-}
-
-button:hover {
-  background-color: #0058c2;
+  margin-top: 20px;
 }
 
 .step {
   margin-top: 20px;
+  width: 90%;
 }
 
-
 .mat-mdc-form-field {
-  margin-top: 16px;
+ 
   width: 100%;
 }
 
 .button {
+  display: flex;
+  justify-content: flex-end;
   color: white;
   background: none;
-  border-radius: 0;
+  border-radius: 0;  
   letter-spacing: 0.35em;
   font-size: 0.7em;
   transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
   margin: 1em;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-mdc-table {
+  background: rgb(139, 129, 129);
+}
+
+.mat-mdc-paginator {
+  margin-top: 10px;
+  background: rgb(94, 92, 92);
+}
+
+td,
+th {
+  width: 16%;
+}
+
+.mdc-data-table__table {
+  min-width: 100%;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.mat-mdc-form-field {
+  margin-right: 16px;
+}
+@media screen and (min-width: 1920px) and (min-height: 1080px) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 1366px) and (min-height: 768px) {
+  .container {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: 100%;
+  }
 }

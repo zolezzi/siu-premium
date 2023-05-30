@@ -1,7 +1,10 @@
 <div class="container">
   <div class="search-container">
     <div class="">
-      <mat-form-field appearance="fill" style="margin-right: 30px">
+      <mat-form-field
+        appearance="fill"
+        style="margin-right: 30px; margin-left: 16px"
+      >
         <mat-label>Seleccionar año</mat-label>
         <mat-select [(value)]="filter.year" selected="2023">
           <mat-option value="2023">2023</mat-option>
@@ -25,7 +28,11 @@
       <a class="button">
         <button
           type="button"
-          style="margin-bottom: 16px; margin-right: 16px"
+          style="
+            margin-bottom: 16px;
+            margin-right: 16px;
+            padding: 0.6rem 0.9rem;
+          "
           class="btn btn-primary"
           (click)="search(filter)"
         >
@@ -34,7 +41,12 @@
         <button
           *ngIf="isAdmin"
           type="button"
-          style="font-size: 14px; margin-bottom: 16px; margin-right: 10px"
+          style="
+            font-size: 15px;
+            margin-bottom: 16px;
+            margin-right: 10px;
+            padding: 0.6rem 0.9rem;
+          "
           class="btn btn-primary btn-lg"
           routerLink="/addSemester"
         >
@@ -59,11 +71,42 @@
           </li>
           <li>Fin de cursada: {{ semester.toDate | date : "dd/MM/yyyy" }}</li>
         </p>
-        <div class="action">  
-          <button *ngIf="isAdmin" type="button" class="btn btn-primary btn-sm" (click)="goToListSemesters(semester.id)" style="margin-right: 10px;">Agregar comisiones</button>   
-          <button *ngIf="isTeacher" routerLink="/committee" type="button" class="btn btn-primary btn-sm" style="margin-right: 10px;">Ver Comisiones</button>
-          <button *ngIf="isAdmin" type="button" class="btn btn-success btn-sm" (click)="update(semester.id)" style="margin-right: 10px;"><i class="fa-solid fa-pen-to-square"></i></button>
-          <button *ngIf="isAdmin" type="button" class="btn btn-danger btn-sm" (click)="delete(semester.id)"><i class="fa-solid fa-trash"></i></button>
+        <div class="action">
+          <button
+            *ngIf="isAdmin"
+            type="button"
+            class="btn btn-primary btn-sm"
+            (click)="goToListSemesters(semester.id)"
+            style="margin-right: 10px"
+          >
+            Agregar comisiones
+          </button>
+          <button
+            *ngIf="isTeacher"
+            routerLink="/committee"
+            type="button"
+            class="btn btn-primary btn-sm"
+            style="margin-right: 10px"
+          >
+            Ver Comisiones
+          </button>
+          <button
+            *ngIf="isAdmin"
+            type="button"
+            class="btn btn-success btn-sm"
+            (click)="update(semester.id)"
+            style="margin-right: 10px"
+          >
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <button
+            *ngIf="isAdmin"
+            type="button"
+            class="btn btn-danger btn-sm"
+            (click)="delete(semester.id)"
+          >
+            <i class="fa-solid fa-trash"></i>
+          </button>
         </div>
       </div>
     </div>

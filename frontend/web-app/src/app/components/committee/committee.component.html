@@ -1,13 +1,58 @@
-<div class="title"><h1>Tus comisiones</h1></div>
+<div class="title">
+  <h1>Comisiones</h1>
+</div>
+<div class="addButton">
+  <button
+    *ngIf="isAdmin"
+    type="button"
+    style="font-size: 14px; padding: 0.6rem 0.9rem"
+    class="btn btn-primary btn-lg"
+    routerLink="/addCommittee"
+  >
+    Agregar comisión
+  </button>
+</div>
 <div class="container">
-  <div class="card">
-    <div class="box">
-      <div class="content">
-        <h2>Comisión 01</h2>
-        <h3>Intoducción a la programación</h3>
-        <p>Lunes - Viernes 14-18hs. Aula:213</p>
-        <div class="buttons">
-          <a>Ver más</a>
+  <div class="format-container">
+    <div class="committee_box">
+      <div class="committee_item">
+        <div class="committee-item_link">
+          <div class="committee-item_bg"></div>
+          <div class="committee-item_title">
+            <div class="content">
+              <h2>Comisión 01</h2>
+              <h3>Intoducción a la programación</h3>
+              <p>Lunes - Viernes 14-18hs. Aula:213</p>
+              <div class="committee-item_date-box">
+                Profesores:
+                <span class="committee-item_date"> Fidel, Sawady </span>
+              </div>
+            </div>
+            <div class="committee-item_buttons">
+              <button
+                class="btn btn-success"
+                *ngIf="isAdmin"
+                title="Editar cuatrimestre"
+              >
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button
+                class="btn btn-secondary"
+                title="Ver más"
+                routerLink="/addCommittee"
+              >
+                Ver más
+              </button>
+
+              <button
+                *ngIf="isAdmin"
+                class="btn btn-danger"
+                title="Borrar Comisión"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
